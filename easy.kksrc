@@ -1,0 +1,6 @@
+[Custom Commands][net.local.konsole.desktop]
+Exec=konsole --builtin-profile
+Name=konsole
+
+[net.local.konsole.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+Y
