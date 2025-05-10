@@ -109,7 +109,7 @@ alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
-
+alias topac="micro /etc/pacman.conf"
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
