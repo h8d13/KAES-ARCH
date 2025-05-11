@@ -27,6 +27,13 @@ cd KAES-ARCH/
 ```
 Edit the targets: `user` and `kb` using editor of your choice.
 
+```
+TARGET_USER=hadean
+KB_LAYOUT=be
+VARIANT=nodeadkeys
+```
+> This makes it so that you can apply this to individual profiles + root (with handling of permissions).
+
 Make exec `chmod +x post` Then run: `./post`
 
 
