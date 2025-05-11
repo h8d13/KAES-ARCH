@@ -1,5 +1,6 @@
 # KAES-ARCH
-Post Install for Arch KDE 
+Post Install for Arch KDE.
+A single setup script from a default install.
 
 --- 
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
