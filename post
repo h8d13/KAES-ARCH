@@ -19,7 +19,7 @@ fi
 #### CONFIG
 TARGET_USER=hadean
 KB_LAYOUT=us
-# Can be left empty if using major keyboard v
+# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
 
 # Check if we need to include variant in the configuration
