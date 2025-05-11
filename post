@@ -21,18 +21,28 @@ fi
 #### CONFIG
 TARGET_USER=hadean
 KB_LAYOUT=be
-VARIANT=nodeadkeys
+# Can be left empty if using major keyboard v
+VARIANT="nodeadkeys"
 
-# you can remove variant if you need and remove "VariantList"
+# Check if we need to include variant in the configuration
+if [ -n "$VARIANT" ]; then
+    VARIANT_CONFIG="VariantList=$VARIANT"
+else
+    VARIANT_CONFIG=""
+fi
+
 ########################################## FIX GLOBAL KB
 mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 [Layout]
 LayoutList=$KB_LAYOUT
 Use=True
-VariantList=$VARIANT
 EOF
-## Only thing to specify is user and wanted packages.
+
+# Only add VariantList if VARIANT is not empty
+if [ -n "$VARIANT" ]; then
+    echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
+fi
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
@@ -40,8 +50,8 @@ pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
 pacman -S --noconfirm zsh micro ufw power-profiles-daemon  
 systemctl enable power-profiles-daemon.service
-ufw default deny incoming
 ufw enable
+ufw default deny incoming
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
