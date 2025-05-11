@@ -19,9 +19,9 @@ fi
 
 #### CONFIG
 TARGET_USER=hadean
-KB_LAYOUT=be
+KB_LAYOUT=us
 # Can be left empty if using major keyboard v
-VARIANT="nodeadkeys"
+VARIANT=""
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
