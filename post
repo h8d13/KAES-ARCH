@@ -28,7 +28,6 @@ if [ -n "$VARIANT" ]; then
 else
     VARIANT_CONFIG=""
 fi
-
 ########################################## FIX GLOBAL KB
 mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
@@ -50,6 +49,27 @@ pacman -S --noconfirm zsh micro ufw power-profiles-daemon
 systemctl enable power-profiles-daemon.service
 ufw enable
 ufw default deny incoming
+
+########################################## Kdepost 4th reboot but helps do quick setup. Can add more kwrites as desired.
+# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
+echo "Setting up KdePost..." 
+mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
+cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
+#!/bin/sh
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+# Set dark theme for menu and taskbar
+plasma-apply-desktoptheme breeze-dark
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark
+sudo reboot
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
+cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
+#!/bin/sh
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
