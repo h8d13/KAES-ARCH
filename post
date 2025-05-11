@@ -21,6 +21,8 @@ TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
+# For you to add more stuff if needed. Uncomment and add packages sueperated by " "
+#pacman -S --noconfirm fastfetch 
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
