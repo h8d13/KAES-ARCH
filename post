@@ -2,7 +2,18 @@
 ## Same for pacman and Arch derivatives 
 #Made to be run as root post basic KDE install. 
 TARGET_USER=hadean
-KB_LAYOUT=us
+KB_LAYOUT=be
+VARIANT=nodeadkeys
+
+# you can remove variant if you need and remove "VariantList"
+########################################## FIX GLOBAL KB
+mkdir -p "/home/$TARGET_USER/.config"
+cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
+[Layout]
+LayoutList=$KB_LAYOUT
+Use=True
+VariantList=$VARIANT
+EOF
 ## Only thing to specify is user and wanted packages.
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
@@ -13,7 +24,6 @@ pacman -S --noconfirm zsh micro ufw power-profiles-daemon
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
-
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -21,13 +31,6 @@ cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
-########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-EOF
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 mkdir -p "$HOME/.config"
