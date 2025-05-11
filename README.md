@@ -37,4 +37,6 @@ VARIANT=""
 
 Make exec `chmod +x post` Then run: `./post`
 
+---
 
+You can then use `topac` to edit your pacman repos. And more useful stuff...
