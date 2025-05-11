@@ -25,6 +25,7 @@ git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
 Edit the targets: `user` and `kb` using editor of your choice.
+
 Make exec `chmod +x post` Then run: `./post`
 
 
