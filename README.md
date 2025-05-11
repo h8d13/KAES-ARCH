@@ -13,10 +13,13 @@ Use rufus or dd to flash.
 Then `archinstall` make sure to go through all the steps: select KDE Plasma & Create a user with sudo
 
 ---
+
 ```
 pacman -Sy git
 git clone https://github.com/h8d13/KAES-ARCH
-cd KAES-ARCH
-./post
+cd KAES-ARCH/
 ```
+Edit the targets: `user` and `kb` using editor of your choice.
+`./post`
+
 
