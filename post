@@ -168,17 +168,18 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-# Base alias
+# Base aliases
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
 alias topac="micro /etc/pacman.conf"
-# Utils alias
+alias mc="micro"
+# Utils aliases
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f"  # Changed from syslog to journalctl for Arch-based
 alias logds="dmesg -r"
-# pac
+# 2pac
 alias updapc="pacman -Syu"
 alias apklean="pacman -Sc"
 alias apka="pacman -S"
