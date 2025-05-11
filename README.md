@@ -12,6 +12,7 @@ Use rufus or dd to flash.
 > For wifi: `nmcli device wifi connect "SSID" password "password"`
 
 Then `archinstall` (for noobs) make sure to go through all the steps: select KDE Plasma & Create a user with sudo
+Reboot.  
 
 ---
 
