@@ -1,7 +1,6 @@
 #!/bin/bash
 ## /* SPDX-FileCopyrightText: 2025 
 # (O) Eihdran L. <hadean-eon-dev@proton.me>
-# (C) Lagan S. <sarbjitsinghsandhu509@gmail.com>
 # Desc: Minimal Post Script for Arch Linux KDE.
 # Made to be run as root post basic KDE install. 
 ##  SPDX-License-Identifier: MIT */
