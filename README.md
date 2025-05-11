@@ -8,7 +8,8 @@ This assumes you have a working latest version KDE Arch install.
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 Use rufus or dd to flash. 
 
-> Setup network (Ethernet works out of the box)
+### Setup network 
+> (Ethernet works out of the box)
 > For wifi: `nmcli device wifi connect "SSID" password "password"`
 
 > `ping google.com` for test 
