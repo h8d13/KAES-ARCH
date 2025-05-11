@@ -10,7 +10,8 @@ Use rufus or dd to flash.
 
 > Setup network (Ethernet works out of the box)
 > For wifi: `nmcli device wifi connect "SSID" password "password"`
-Then `archinstall` make sure to go through all the steps: select KDE Plasma & Create a user with sudo
+
+Then `archinstall` (for noobs) make sure to go through all the steps: select KDE Plasma & Create a user with sudo
 
 ---
 
