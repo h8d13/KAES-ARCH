@@ -294,3 +294,6 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
+
+# 3rd reboot but is cleaner this way
+reboot
