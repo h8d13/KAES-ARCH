@@ -29,9 +29,10 @@ Edit the targets: `user` and `kb` using editor of your choice.
 
 ```
 TARGET_USER=hadean
-KB_LAYOUT=be
-VARIANT=nodeadkeys
+KB_LAYOUT=us
+VARIANT=""
 ```
+> Variant is optional, can be left empty.
 > This makes it so that you can apply this to individual profiles + root (with handling of permissions).
 
 Make exec `chmod +x post` Then run: `./post`
