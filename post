@@ -257,12 +257,13 @@ ufw allow out 443/tcp
 #ufw limit SSH         # open SSH port and protect against brute-force login attacks
 #ufw allow out DNS     # allow outgoing DNS
 #ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
-#ufw allow 3389        # remote desktop on xorg
+#ufw allow 3389        # remote desktop on xrdp
+#pacman -S --noconfirm xrdp  
+
 #ufw allow 21          # ftp
 #ufw allow 22	       # sftp
 #ufw allow 51820/udp   # wireguard
 #ufw allow 1194/udp    # openvpn
-
 
 echo "Setting up Security fixes..." 
 ## Not a router stuff
