@@ -2,9 +2,6 @@
 Post Install for Arch KDE 
 
 --- 
-
-This assumes you have a working latest version KDE Arch install.
-
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > Use rufus or dd to flash. 
