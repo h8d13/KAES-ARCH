@@ -4,7 +4,7 @@ Post Install for Arch KDE
 --- 
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
-> Use rufus or dd to flash USB (Check GPT vs MBR). 
+> Use rufus or dd to flash USB.
 
 ### Setup network 
 > (Ethernet works out of the box)
