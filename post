@@ -52,14 +52,14 @@ systemctl enable power-profiles-daemon.service
 ufw enable
 ufw default deny incoming
 
-# Flatpak (Optional) 
+## Flatpak (Optional) 
 #pacman -S --noconfirm flatpak
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-# Example to install
-# flatpak install com.rustdesk.RustDesk
+## Example to install rdp software
+#flatpak install com.rustdesk.RustDesk -y
 
 ########################################## Kdepost helps do quick setup. Can add more kwrites as desired.
-# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
+## Mine is black theme, only konsole in taskbar and ofc mountain bg. 
 echo "Setting up KdePost..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
