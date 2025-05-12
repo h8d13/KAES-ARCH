@@ -52,6 +52,12 @@ systemctl enable power-profiles-daemon.service
 ufw enable
 ufw default deny incoming
 
+# Flatpak (Optional) 
+#pacman -S --noconfirm flatpak
+#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+# Example to install
+# flatpak install com.rustdesk.RustDesk
+
 ########################################## Kdepost helps do quick setup. Can add more kwrites as desired.
 # Mine is black theme, only konsole in taskbar and ofc mountain bg. 
 echo "Setting up KdePost..." 
@@ -279,15 +285,6 @@ touch "$HOME/.zshrc"
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
-
-########################################## RDP Optional
-
-#ufw allow 3389        # remote desktop on xrdp
-#pacman -S --noconfirm xrdp 
-#getent group ssl-cert || groupadd ssl-cert
-#usermod -aG ssl-cert xrdp
-#echo "startplasma-x11" > ~/.xsession 
-#systemctl enable xrdp
 
 ########################################## SYSTEM HARDENING
 
