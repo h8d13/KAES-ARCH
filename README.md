@@ -37,6 +37,7 @@ VARIANT=""
 ```
 > Variant is optional, can be left empty.
 > This makes it so that you can apply this to individual profiles + root (with handling of permissions).
+> Using vim you can use insert to edit, ESC to enter command made and !wq to write changes.
 
 Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
