@@ -44,3 +44,7 @@ Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
 You can then use `topac` to edit your pacman repos. And more useful stuff...`comms` for commands :)
 
+## The 4 shells
+
+Basically sets up zsh and bash for both the user and root. 
+And a lot of KDE stuff. 
