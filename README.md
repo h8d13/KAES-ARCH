@@ -22,7 +22,7 @@ Reboot **to hard disk.**
 ---
 
 ```
-pacman -Sy git
+sudo pacman -Sy git
 git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
@@ -36,7 +36,7 @@ VARIANT=""
 > Variant is optional, can be left empty.
 > This makes it so that you can apply this to individual profiles + root (with handling of permissions).
 
-Make exec `chmod +x post` Then run: `./post`
+Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
 ---
 
