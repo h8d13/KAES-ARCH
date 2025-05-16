@@ -174,7 +174,7 @@ EOF
 # Create ~/.bashrc if it doesn't exist
 touch "$HOME/.bashrc"
 # Add source line if not already present
-grep -q "HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
+grep -Fxq '. "$HOME/.config/bash/bashrc"' "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 
 ########################################## ZSH 
 echo "Setting up ZSH..." 
