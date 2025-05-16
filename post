@@ -134,6 +134,7 @@ alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f"  # Changed from syslog to journalctl for Arch-based
 alias logds="dmesg -r"
+alias birth="stat /"
 # pac
 alias updapc="pacman -Syu"
 alias apklean="pacman -Sc"
