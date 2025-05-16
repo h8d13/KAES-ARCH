@@ -47,7 +47,7 @@ echo "Setting up Bonuses..."
 ## Update package list first
 pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
-pacman -S --noconfirm zsh ufw power-profiles-daemon micro
+pacman -S --noconfirm zsh ufw power-profiles-daemon
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
@@ -80,25 +80,9 @@ echo "Setting up Directories..."
 ## Admin
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/bash"
-mkdir -p "$HOME/.config/micro/"
 mkdir -p "$HOME/.local/bin"
 ## User
-mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
-
-########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
-echo "Setting up Micro..." 
-cat > "$HOME/.config/micro/settings.json" << EOF
-{
-    "clipboard": "external"
-}
-EOF
-## Do the same for the user.
-cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
-{
-    "clipboard": "external"
-}
-EOF
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -145,7 +129,7 @@ alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
-alias topac="micro /etc/pacman.conf"
+alias topac="vim /etc/pacman.conf"
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
