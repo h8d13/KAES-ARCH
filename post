@@ -146,10 +146,6 @@ Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-
-#### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
-echo "Setting up permissions..." 
-chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
@@ -287,6 +283,12 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
+
+# Copy roots bashrc for user.
+mkdir -p "/home/$TARGET_USER/.config/bash"
+cp /root/.config/bash/bashrc "/home/$TARGET_USER/.config/bash/bashrc"
+# Source it
+echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## SYSTEM HARDENING
 
 ufw allow out 443/tcp  
@@ -327,6 +329,10 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
+
+#### Give everything back to user. ##### IMPORTANT IMPORTANT IMPORTANT #######
+echo "Setting up permissions..." 
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 
 # 3rd reboot but is cleaner this way
 reboot
