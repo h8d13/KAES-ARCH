@@ -217,7 +217,7 @@ EOF
 # Create ~/.bashrc if it doesn't exist
 touch "$HOME/.bashrc"
 # Add source line if not already present
-grep -q "HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
+grep -q "\$HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "\$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 
 ########################################## ZSH 
 echo "Setting up ZSH..." 
@@ -277,13 +277,6 @@ touch "$HOME/.zshrc"
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
-
-touch "/home/$TARGET_USER/.bashrc"
-# Copy roots bashrc for user.
-mkdir -p "/home/$TARGET_USER/.config/bash"
-cp /root/.config/bash/bashrc "/home/$TARGET_USER/.config/bash/bashrc"
-# Source it
-grep -qxF '. "$HOME/.config/bash/bashrc"' "/home/$TARGET_USER/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## SYSTEM HARDENING
 
 ufw allow out 443/tcp  
