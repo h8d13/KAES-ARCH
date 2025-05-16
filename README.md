@@ -21,6 +21,8 @@ Reboot **to hard disk.**
 
 ---
 
+Open Konsole.
+
 ```
 sudo pacman -Sy git
 git clone https://github.com/h8d13/KAES-ARCH
