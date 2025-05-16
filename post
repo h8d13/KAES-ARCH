@@ -65,8 +65,6 @@ echo "Setting up KdePost..."
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
@@ -132,7 +130,6 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
     "clipboard": "external"
 }
 EOF
-
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -168,7 +165,6 @@ pacman -Qs "$1"
 EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
-
 ########################################## SHARED (BASH & ZSH) ALIASES
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
@@ -197,7 +193,6 @@ alias ll='ls --color=auto -la'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 EOF
-
 ########################################## BASH CONFIGURATION
 echo "Setting up Bash..." 
 # === Create ~/.config/bash/bashrc ===
@@ -283,12 +278,12 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
-
+touch "/home/$TARGET_USER/.bashrc"
 # Copy roots bashrc for user.
 mkdir -p "/home/$TARGET_USER/.config/bash"
 cp /root/.config/bash/bashrc "/home/$TARGET_USER/.config/bash/bashrc"
 # Source it
-echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
+grep -qxF '. "$HOME/.config/bash/bashrc"' "/home/$TARGET_USER/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## SYSTEM HARDENING
 
 ufw allow out 443/tcp  
