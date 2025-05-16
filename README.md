@@ -28,6 +28,8 @@ cd KAES-ARCH/
 ```
 Edit the targets: `user` and `kb` using editor of your choice.
 
+`sudo vim post`
+
 ```
 TARGET_USER=hadean
 KB_LAYOUT=us
