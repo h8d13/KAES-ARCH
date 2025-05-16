@@ -10,11 +10,6 @@ if [ "$(whoami)" != "root" ]; then
     echo "This script must be run as root. Exiting."
     exit 1
 fi
-# Exit if no TARGET_USER found
-if [ -z "$TARGET_USER" ]; then
-    echo "ERROR: No user with /home directory found. Exiting."
-    exit 1
-fi
 
 #### CONFIG
 TARGET_USER=hadean
@@ -23,6 +18,12 @@ KB_LAYOUT=us
 VARIANT=""
 # For you to add more stuff if needed. Uncomment and add packages sueperated by " "
 #pacman -S --noconfirm fastfetch 
+
+# Check the target user is correct
+if [ ! -d "/home/$TARGET_USER" ]; then
+    echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
+    exit 1
+fi
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
