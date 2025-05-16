@@ -72,8 +72,6 @@ CONFIG_FILE4="/home/$TARGET_USER/.config/powerdevilrc"
 cat <<EOF > $CONFIG_FILE4
 [AC][Performance]
 PowerProfile=performance
-[Battery][Performance]
-PowerProfile=performance
 EOF
 ########################################## DIRS
 echo "Setting up Directories..." 
