@@ -2,12 +2,52 @@
 ## Same for pacman and Arch derivatives 
 TARGET_USER=hadean
 ## Only thing to specify is user and wanted packages.
+#pacman -S --noconfirm fastfetch
+########################################## KB Stuff
+KB_LAYOUT=us
+# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
+VARIANT=""
+# For you to add more stuff if needed. Uncomment and add packages sueperated by " "
+#pacman -S --noconfirm fastfetch 
+
+# Check the target user is correct
+if [ ! -d "/home/$TARGET_USER" ]; then
+    echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
+    exit 1
+fi
+
+# Check if we need to include variant in the configuration
+if [ -n "$VARIANT" ]; then
+    VARIANT_CONFIG="VariantList=$VARIANT"
+else
+    VARIANT_CONFIG=""
+fi
+########################################## FIX GLOBAL KB
+mkdir -p "/home/$TARGET_USER/.config"
+cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
+[Layout]
+LayoutList=$KB_LAYOUT
+Use=True
+EOF
+
+# Only add VariantList if VARIANT is not empty
+if [ -n "$VARIANT" ]; then
+    echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
+fi
+
+echo "Setting up Keyboard..." 
+mkdir -p "/usr/share/sddm/scripts/"
+cat >> /usr/share/sddm/scripts/Xsetup << EOF
+setxkbmap "$KB_LAYOUT"
+EOF
+chmod +x /usr/share/sddm/scripts/Xsetup
+
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
 pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
-pacman -S --noconfirm zsh micro ufw power-profiles-daemon  
+pacman -S --noconfirm zsh ufw power-profiles-daemon micro
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
@@ -28,7 +68,6 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=30
 EOF
-
 CONFIG_FILE4="/home/$TARGET_USER/.config/powerdevilrc"
 cat <<EOF > $CONFIG_FILE4
 [AC][Performance]
@@ -60,7 +99,6 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
     "clipboard": "external"
 }
 EOF
-
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -74,7 +112,6 @@ Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-
 #### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
