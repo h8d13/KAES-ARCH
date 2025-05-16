@@ -51,3 +51,5 @@ You can then use `topac` to edit your pacman repos. And more useful stuff...`com
 
 Basically sets up zsh and bash for both the user and root. 
 And a lot of KDE stuff. 
+
+I've also included a shortcut file in assets for user shell CTRL + Y. As I've made my default a login root shell.
