@@ -1,48 +1,7 @@
 #!/bin/bash
-## /* SPDX-FileCopyrightText: 2025 
-# (O) Eihdran L. <hadean-eon-dev@proton.me>
-# Desc: Minimal Post Script for Arch Linux KDE.
-# Made to be run as root (using sudo not su) post basic KDE install. 
-##  SPDX-License-Identifier: MIT */
-#set -e
-#set -x
-if [ "$(whoami)" != "root" ]; then
-    echo "This script must be run as root. Exiting."
-    exit 1
-fi
-
-#### CONFIG
+## Same for pacman and Arch derivatives 
 TARGET_USER=hadean
-KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
-VARIANT=""
-# For you to add more stuff if needed. Uncomment and add packages sueperated by " "
-#pacman -S --noconfirm fastfetch 
-
-# Check the target user is correct
-if [ ! -d "/home/$TARGET_USER" ]; then
-    echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
-    exit 1
-fi
-
-# Check if we need to include variant in the configuration
-if [ -n "$VARIANT" ]; then
-    VARIANT_CONFIG="VariantList=$VARIANT"
-else
-    VARIANT_CONFIG=""
-fi
-########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-EOF
-
-# Only add VariantList if VARIANT is not empty
-if [ -n "$VARIANT" ]; then
-    echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
-fi
+## Only thing to specify is user and wanted packages.
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
@@ -50,40 +9,8 @@ pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
 pacman -S --noconfirm zsh micro ufw power-profiles-daemon  
 systemctl enable power-profiles-daemon.service
-ufw enable
 ufw default deny incoming
-
-## Flatpak (Optional) 
-#pacman -S --noconfirm flatpak
-#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-## Example to install rdp software
-#flatpak install com.rustdesk.RustDesk -y
-
-########################################## Kdepost helps do quick setup. Can add more kwrites as desired.
-## Mine is black theme, only konsole in taskbar and ofc mountain bg. 
-echo "Setting up KdePost..." 
-mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
-cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
-#!/bin/sh
-# Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark
-# Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
-sudo systemctl restart sddm
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
-#!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
-########################################## FIX LOGIN KB
-echo "Setting up Keyboard..." 
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
-setxkbmap "$KB_LAYOUT"
-EOF
-chmod +x /usr/share/sddm/scripts/Xsetup
+ufw enable
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 mkdir -p "$HOME/.config"
@@ -101,10 +28,12 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=30
 EOF
-########################################## POWER PROFILE FOR CHARGING > Perf
+
 CONFIG_FILE4="/home/$TARGET_USER/.config/powerdevilrc"
 cat <<EOF > $CONFIG_FILE4
 [AC][Performance]
+PowerProfile=performance
+[Battery][Performance]
 PowerProfile=performance
 EOF
 ########################################## DIRS
@@ -117,6 +46,7 @@ mkdir -p "$HOME/.local/bin"
 ## User
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
+
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 echo "Setting up Micro..." 
 cat > "$HOME/.config/micro/settings.json" << EOF
@@ -130,6 +60,7 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
     "clipboard": "external"
 }
 EOF
+
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -143,6 +74,10 @@ Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
+
+#### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
+echo "Setting up permissions..." 
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
@@ -165,22 +100,22 @@ pacman -Qs "$1"
 EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
+
 ########################################## SHARED (BASH & ZSH) ALIASES
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-# Base aliases
+# Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
 alias topac="micro /etc/pacman.conf"
-alias mc="micro"
-# Utils aliases
+# Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f"  # Changed from syslog to journalctl for Arch-based
 alias logds="dmesg -r"
-# 2pac
+# pac
 alias updapc="pacman -Syu"
 alias apklean="pacman -Sc"
 alias apka="pacman -S"
@@ -193,6 +128,7 @@ alias ll='ls --color=auto -la'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 EOF
+
 ########################################## BASH CONFIGURATION
 echo "Setting up Bash..." 
 # === Create ~/.config/bash/bashrc ===
@@ -217,7 +153,7 @@ EOF
 # Create ~/.bashrc if it doesn't exist
 touch "$HOME/.bashrc"
 # Add source line if not already present
-grep -q "\$HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "\$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
+grep -q "HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 
 ########################################## ZSH 
 echo "Setting up ZSH..." 
@@ -277,16 +213,20 @@ touch "$HOME/.zshrc"
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
+
 ########################################## SYSTEM HARDENING
 
 ufw allow out 443/tcp  
+
 #ufw limit SSH         # open SSH port and protect against brute-force login attacks
 #ufw allow out DNS     # allow outgoing DNS
 #ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
+#ufw allow 3389        # remote desktop on xorg
 #ufw allow 21          # ftp
 #ufw allow 22	       # sftp
 #ufw allow 51820/udp   # wireguard
 #ufw allow 1194/udp    # openvpn
+
 
 echo "Setting up Security fixes..." 
 ## Not a router stuff
@@ -317,10 +257,3 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
-
-#### Give everything back to user. ##### IMPORTANT IMPORTANT IMPORTANT #######
-echo "Setting up permissions..." 
-chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-
-# 3rd reboot but is cleaner this way
-reboot
