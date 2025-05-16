@@ -171,8 +171,8 @@ EOF
 # === Ensure ~/.bashrc Sources the New Config ===
 # Create ~/.bashrc if it doesn't exist
 touch "$HOME/.bashrc"
-# Add source line if not already present
-grep -Fxq '. "$HOME/.config/bash/bashrc"' "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
+# Add source line 
+echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 
 ########################################## ZSH 
 echo "Setting up ZSH..." 
