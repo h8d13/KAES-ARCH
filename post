@@ -1,5 +1,5 @@
 #!/bin/bash
-## Same for pacman and Arch derivatives 
+## Same for pacman and Arch derivatives , mean to be run as user with elevated priv.
 TARGET_USER=hadean
 ## Only thing to specify is user and wanted packages.
 #pacman -S --noconfirm fastfetch
