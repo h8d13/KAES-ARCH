@@ -55,4 +55,5 @@ And a lot of KDE stuff.
 I've also included a shortcut file in assets for user shell CTRL + Y. As I've made my default a login root shell.
 
 > To go back to a user shell you can simply right click this and select Built-in:
+
 ![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
