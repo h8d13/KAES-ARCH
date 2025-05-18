@@ -1,8 +1,6 @@
 #!/bin/bash
 ## Same for pacman and Arch derivatives , mean to be run as user with elevated priv.
 TARGET_USER=hadean
-## Only thing to specify is user and wanted packages.
-#pacman -S --noconfirm fastfetch
 ########################################## KB Stuff
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
