@@ -5,8 +5,8 @@ TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
-# For you to add more stuff if needed. Uncomment and add packages sueperated by " "
-#pacman -S --noconfirm fastfetch 
+# For you to add more stuff if needed. Uncomment and add packages seperated by " "
+#pacman -S --noconfirm fastfetch micro
 
 # Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
@@ -39,7 +39,6 @@ cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
-
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
@@ -123,10 +122,12 @@ echo "Setting up aliases..."
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
+alias syncusr="cp ~/.config/aliases /home/$TARGER_USER/.config/alisases"
+alias runde="startplasma-wayland"
+alias topac="vim /etc/pacman.conf"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
-alias topac="vim /etc/pacman.conf"
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
@@ -148,7 +149,6 @@ alias ll='ls --color=auto -la'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 EOF
-
 ########################################## BASH CONFIGURATION
 echo "Setting up Bash..." 
 # === Create ~/.config/bash/bashrc ===
