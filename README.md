@@ -13,7 +13,8 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > `ping google.com` for test 
 
-Then `archinstall` (for noobs) make sure to go through all the steps: select KDE Plasma & Create a user with sudo
+Then `archinstall` (for noobs, btw) make sure to go through all the steps: select KDE Plasma & Create a user with sudo, walk through every single step.
+> IMPORTANT: Make sure to select network manager, time sync, etc... Don't skip any. I also like Grub instead of systemd boot. 
 
 When prompted to chroot press no. 
 
