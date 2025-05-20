@@ -6,7 +6,7 @@ KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
 # For you to add more stuff if needed. Uncomment and add packages seperated by " "
-#pacman -S --noconfirm fastfetch micro
+#pacman -S --noconfirm less tree fastfetch micro
 
 # Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
