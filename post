@@ -122,6 +122,7 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
+alias ecomms="vim ~/.config/aliases"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
@@ -133,12 +134,13 @@ alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f" 
 alias logds="dmesg -r"
 alias birth="stat /"
-# pac
+# Pac alias
 alias updapc="pacman -Syu"
 alias apklean="pacman -Sc"
 alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
+# Practical alias
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
