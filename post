@@ -7,12 +7,7 @@ if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
     exit 1
 fi
-########################################## KB Stuff
-KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
-VARIANT=""
-# For you to add more stuff if needed. Uncomment and add packages seperated by " "
-#pacman -S --noconfirm tree fastfetch micro
+########################################## Essential Arch stuff
 echo "Setting up Libs..." 
 DES_LIB=multilib
 sed -i "/^\#\[$DES_LIB\]/{
@@ -21,7 +16,13 @@ sed -i "/^\#\[$DES_LIB\]/{
   s/^\#//
 }" /etc/pacman.conf
 
-#pacman -S --noconfirm intel-ucode #amd-ucode
+#pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
+########################################## KB Stuff
+KB_LAYOUT=us
+# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
+VARIANT=""
+# For you to add more stuff if needed. Uncomment and add packages seperated by " "
+#pacman -S --noconfirm tree fastfetch micro
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
