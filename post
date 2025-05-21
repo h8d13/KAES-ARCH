@@ -17,12 +17,12 @@ sed -i "/^\#\[$DES_LIB\]/{
 }" /etc/pacman.conf
 
 #pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
+# For you to add more stuff if needed. Uncomment and add packages seperated by " "
+#pacman -S --noconfirm tree fastfetch micro
 ########################################## KB Stuff
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
-# For you to add more stuff if needed. Uncomment and add packages seperated by " "
-#pacman -S --noconfirm tree fastfetch micro
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
