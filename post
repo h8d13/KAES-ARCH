@@ -19,6 +19,17 @@ sed -i "/^\#\[$DES_LIB\]/{
 #pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 # For you to add more stuff if needed. Uncomment and add packages seperated by " "
 #pacman -S --noconfirm tree less fastfetch micro
+
+########################################## DIRS
+echo "Setting up Directories..." 
+## Admin/User
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.config/zsh"
+mkdir -p "$HOME/.config/bash"
+mkdir -p "$HOME/.local/bin"
+## User only
+mkdir -p "/home/$TARGET_USER/.config"
+mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## KB Stuff
 echo "Setting up Keyboard..." 
 KB_LAYOUT=us
@@ -32,18 +43,15 @@ else
     VARIANT_CONFIG=""
 fi
 ########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 [Layout]
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
-
 # Only add VariantList if VARIANT is not empty
 if [ -n "$VARIANT" ]; then
     echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
 fi
-
 mkdir -p "/usr/share/sddm/scripts/"
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
@@ -60,7 +68,6 @@ ufw default deny incoming
 ufw enable
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
-mkdir -p "$HOME/.config"
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
@@ -80,14 +87,6 @@ cat <<EOF > $CONFIG_FILE4
 [AC][Performance]
 PowerProfile=performance
 EOF
-########################################## DIRS
-echo "Setting up Directories..." 
-## Admin/User
-mkdir -p "$HOME/.config/zsh"
-mkdir -p "$HOME/.config/bash"
-mkdir -p "$HOME/.local/bin"
-## User only
-mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
