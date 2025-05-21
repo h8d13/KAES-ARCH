@@ -114,7 +114,6 @@ fi
 EOF
 
 ########################################## Example Script: Called "iapps" To search in installed packages. 
-# Create the script file - using pacman instead of dpkg for arch-based systems
 cat > ~/.local/bin/iapps << 'EOF'
 #!/bin/sh
 # this script lets you search your installed packages easily
@@ -286,3 +285,12 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
+
+cp ./assets/issue.ceauron /etc/issue.ceauron
+cat > /etc/profile.d/ceauron << 'EOF'
+#!/bin/sh
+cat /etc/issue.ceauron
+sleep 1
+clear
+EOF
+chmod +x ~/etc/profile.d/ceauron
