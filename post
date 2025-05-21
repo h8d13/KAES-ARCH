@@ -82,11 +82,11 @@ PowerProfile=performance
 EOF
 ########################################## DIRS
 echo "Setting up Directories..." 
-## Admin
+## Admin/User
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/bash"
 mkdir -p "$HOME/.local/bin"
-## User
+## User only
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
