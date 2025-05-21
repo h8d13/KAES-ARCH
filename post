@@ -1,6 +1,9 @@
 #!/bin/bash
 ## Same for pacman and Arch derivatives , mean to be run as user with elevated priv.
 TARGET_USER=hadean
+KB_LAYOUT=us
+# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
+VARIANT=""
 echo "Checking user..." 
 # Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
@@ -15,11 +18,9 @@ sed -i "/^\#\[$DES_LIB\]/{
   n
   s/^\#//
 }" /etc/pacman.conf
-
 #pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
-# For you to add more stuff if needed. Uncomment and add packages seperated by " "
+## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 #pacman -S --noconfirm tree less fastfetch micro
-
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin/User
@@ -32,10 +33,6 @@ mkdir -p "/home/$TARGET_USER/.config"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## KB Stuff
 echo "Setting up Keyboard..." 
-KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
-VARIANT=""
-
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
     VARIANT_CONFIG="VariantList=$VARIANT"
@@ -100,7 +97,7 @@ Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-#### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
+########################################## IMPORTANT: BELOW NO MORE USER CHANGES. 
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## Custom Localbin
