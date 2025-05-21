@@ -7,6 +7,7 @@ KB_LAYOUT=us
 VARIANT=""
 # For you to add more stuff if needed. Uncomment and add packages seperated by " "
 #pacman -S --noconfirm tree fastfetch micro
+#pacman -S --noconfirm intel-ucode #amd-ucode
 
 # Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
