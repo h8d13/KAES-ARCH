@@ -238,15 +238,8 @@ grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 
-ufw allow out 443/tcp  
+ufw allow out 443/tcp  # https
 ufw allow 22	       # sftp/ssh
-
-#ufw allow out DNS     # allow outgoing DNS
-#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
-#ufw allow 3389        # remote desktop on xorg
-#ufw allow 21          # ftp
-#ufw allow 51820/udp   # wireguard
-#ufw allow 1194/udp    # openvpn
 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
