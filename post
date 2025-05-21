@@ -104,7 +104,7 @@ EOF
 #### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-########################################## LOCAL BIN THE GOAT <3
+########################################## Custom Localbin
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
@@ -112,7 +112,6 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
-
 ########################################## Example Script: Called "iapps" To search in installed packages. 
 cat > ~/.local/bin/iapps << 'EOF'
 #!/bin/sh
@@ -242,20 +241,18 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
+echo "Setting up Security fixes..." 
 
 ufw allow out 443/tcp  
+ufw allow 22	       # sftp/ssh
 
-#ufw limit SSH         # open SSH port and protect against brute-force login attacks
 #ufw allow out DNS     # allow outgoing DNS
 #ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
 #ufw allow 3389        # remote desktop on xorg
 #ufw allow 21          # ftp
-#ufw allow 22	       # sftp
 #ufw allow 51820/udp   # wireguard
 #ufw allow 1194/udp    # openvpn
 
-
-echo "Setting up Security fixes..." 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
 # Network performance and security
