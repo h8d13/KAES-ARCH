@@ -1,19 +1,27 @@
 #!/bin/bash
 ## Same for pacman and Arch derivatives , mean to be run as user with elevated priv.
 TARGET_USER=hadean
-########################################## KB Stuff
-KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
-VARIANT=""
-# For you to add more stuff if needed. Uncomment and add packages seperated by " "
-#pacman -S --noconfirm tree fastfetch micro
-#pacman -S --noconfirm intel-ucode #amd-ucode
 
 # Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
     exit 1
 fi
+########################################## KB Stuff
+KB_LAYOUT=us
+# Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
+VARIANT=""
+# For you to add more stuff if needed. Uncomment and add packages seperated by " "
+#pacman -S --noconfirm tree fastfetch micro
+echo "Setting up Libs..." 
+DES_LIB=multilib
+sed -i "/^\#\[$DES_LIB\]/{
+  s/^\#//
+  n
+  s/^\#//
+}" /etc/pacman.conf
+
+#pacman -S --noconfirm intel-ucode #amd-ucode
 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
