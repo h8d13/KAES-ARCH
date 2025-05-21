@@ -18,7 +18,7 @@ sed -i "/^\#\[$DES_LIB\]/{
 
 #pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 # For you to add more stuff if needed. Uncomment and add packages seperated by " "
-#pacman -S --noconfirm tree fastfetch micro
+#pacman -S --noconfirm tree less fastfetch micro
 ########################################## KB Stuff
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
@@ -54,7 +54,7 @@ echo "Setting up Bonuses..."
 ## Update package list first
 pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
-pacman -S --noconfirm zsh ufw power-profiles-daemon less
+pacman -S --noconfirm zsh ufw power-profiles-daemon 
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
