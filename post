@@ -29,7 +29,6 @@ mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/bash"
 mkdir -p "$HOME/.local/bin"
 ## User only
-mkdir -p "/home/$TARGET_USER/.config"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## KB Stuff
 echo "Setting up Keyboard..." 
