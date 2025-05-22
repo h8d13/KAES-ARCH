@@ -49,6 +49,7 @@ EOF
 if [ -n "$VARIANT" ]; then
     echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
 fi
+########################################## FIX SDDM KB
 mkdir -p "/usr/share/sddm/scripts/"
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
@@ -162,10 +163,6 @@ export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\A\[\033[1;34m\]]─[\[\033[0m
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
-EOF
-
-# Source environment file in bash
-cat >> "$HOME/.config/bash/bashrc" << 'EOF'
 # === Source environment file ===
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
@@ -219,10 +216,6 @@ export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
-EOF
-
-# Source environment file in zsh
-cat >> "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Source environment file ===
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
