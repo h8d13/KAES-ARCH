@@ -20,8 +20,7 @@ sed -i "/^\#\[$DES_LIB\]/{
 }" /etc/pacman.conf
 ########################################## Extras
 echo "Setting up Extras..." 
-pacman -Sy
-# Add after pacman operations
+# Update and check
 if ! pacman -Sy; then
     echo "ERROR: Failed to sync package databases"
     exit 1
@@ -234,7 +233,7 @@ grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
-ufw allow 443/tcp  # https
+ufw allow out 443/tcp  # https
 ufw allow 22/tcp	       # sftp/ssh
 
 ## Not a router stuff
