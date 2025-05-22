@@ -54,5 +54,3 @@ Basically sets up zsh and bash for both the user and root.
 And a lot of KDE stuff. 
 
 I've also included a shortcut file in assets for user shell CTRL + Y. As I've made my default a login root shell.
-
-> To go back to a user shell you can simply right click this and select Built-in:
