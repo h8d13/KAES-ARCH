@@ -221,14 +221,11 @@ if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
 fi
 EOF
-
 ## Add source line
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
-
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
-
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ufw allow out 443/tcp  # https
@@ -259,10 +256,9 @@ net.ipv4.conf.default.secure_redirects = 0
 net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 EOF
-
 ## Apply settings
 sysctl --system >/dev/null 2>&1
-
+## ASCII ART
 echo "Setting up Issue Art..." 
 cp ./assets/issue.ceauron /etc/issue.ceauron
 cat > /etc/profile.d/ceauron << 'EOF'
