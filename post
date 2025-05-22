@@ -18,6 +18,9 @@ sed -i "/^\#\[$DES_LIB\]/{
   n
   s/^\#//
 }" /etc/pacman.conf
+########################################## Extras
+echo "Setting up Extras..." 
+pacman -Sy
 pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 pacman -S --noconfirm tree less zip unzip rsync
@@ -32,7 +35,7 @@ mkdir -p "$HOME/.local/bin"
 ## User only
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## KB Stuff
-echo "Setting up Keyboard..." 
+echo "Setting up Keyboards..." 
 # Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
     VARIANT_CONFIG="VariantList=$VARIANT"
@@ -57,8 +60,6 @@ EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
-## Update package list first
-pacman -Sy
 ## Extended bonuses if you remove, remove corresponding code bellow
 ## First part is for laptops to be on perf mode on charge.
 pacman -S --noconfirm zsh ufw power-profiles-daemon 
@@ -100,7 +101,7 @@ Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
 ########################################## IMPORTANT: BELOW NO MORE USER CHANGES. 
-echo "Setting up permissions..." 
+echo "Setting up Permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
