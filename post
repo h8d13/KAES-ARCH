@@ -52,7 +52,7 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
-# Only add VariantList if VARIANT is not empty
+## Only add VariantList if VARIANT is not empty
 if [ -n "$VARIANT" ]; then
     echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
 fi
@@ -107,7 +107,7 @@ echo "Setting up Permissions..."
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
-# Add local bin to PATH if it exists
+## Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
@@ -123,7 +123,7 @@ if [ -z "$1" ]; then
 fi
 pacman -Qs "$1"
 EOF
-# Make it executable ### Can now be called simply as iapps git
+## Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
 ########################################## SHARED (BASH & ZSH) ALIASES
 echo "Setting up aliases..." 
@@ -158,7 +158,6 @@ alias l='ls --color=auto -CF'
 EOF
 ########################################## BASH CONFIGURATION
 echo "Setting up Bash..." 
-# === Create ~/.config/bash/bashrc ===
 cat > "$HOME/.config/bash/bashrc" << 'EOF'
 # === Custom Bash Prompt Blue ===
 export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\A\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
@@ -173,7 +172,6 @@ if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
 fi
 EOF
-# === Ensure ~/.bashrc Sources the New Config ===
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
@@ -224,11 +222,11 @@ if [ -f "$HOME/.config/environment" ]; then
 fi
 EOF
 
-# === Ensure ~/.zshrc Sources the New Config ===
 ## Add source line
 touch "$HOME/.zshrc"
-grep -qF '$HOME/.config/zsh/zshrc' "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
-# === Add zsh to /etc/shells if missing ===
+echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
+
+## add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
