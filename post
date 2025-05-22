@@ -168,13 +168,9 @@ if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
 fi
 EOF
-
 # === Ensure ~/.bashrc Sources the New Config ===
-# Create ~/.bashrc if it doesn't exist
 touch "$HOME/.bashrc"
-# Add source line 
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
-
 ########################################## ZSH 
 echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
@@ -216,6 +212,7 @@ export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
+
 # === Source environment file ===
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
