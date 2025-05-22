@@ -226,7 +226,7 @@ EOF
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 
-## add to shells
+## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
