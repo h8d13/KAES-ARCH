@@ -5,7 +5,7 @@ KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
 VARIANT=""
 echo "Checking user..." 
-# Check the target user is correct
+## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
     exit 1
@@ -21,6 +21,11 @@ sed -i "/^\#\[$DES_LIB\]/{
 ########################################## Extras
 echo "Setting up Extras..." 
 pacman -Sy
+# Add after pacman operations
+if ! pacman -Sy; then
+    echo "ERROR: Failed to sync package databases"
+    exit 1
+fi
 pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 pacman -S --noconfirm tree less zip unzip rsync
@@ -36,7 +41,7 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## KB Stuff
 echo "Setting up Keyboards..." 
-# Check if we need to include variant in the configuration
+## Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
     VARIANT_CONFIG="VariantList=$VARIANT"
 else
@@ -79,8 +84,6 @@ TMP_FILE="$(mktemp)"
 echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
 cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
 mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basically just makes it so that new sessions are fresh
-# Simple override the whole file for 15 min lockout and 5 min password grace. 
 CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
 [Daemon]
@@ -93,7 +96,7 @@ cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
 EOF
-# Create the profile file with a .profile extension
+## Set default Konsole + Settings
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
 Command=su -l -c 'zsh'
@@ -128,7 +131,7 @@ echo "Setting up aliases..."
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
-alias syncusr="cp ~/.config/aliases /home/$TARGER_USER/.config/aliases"
+alias syncusr="cp ~/.config/aliases /home/$TARGET_USER/.config/aliases"
 alias topac="vim /etc/pacman.conf"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
@@ -223,21 +226,19 @@ fi
 EOF
 
 # === Ensure ~/.zshrc Sources the New Config ===
-# Create ~/.zshrc if it doesn't exist
+## Add source line
 touch "$HOME/.zshrc"
-# Add source line if not already present
-grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
+grep -qF '$HOME/.config/zsh/zshrc' "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
-
-ufw allow out 443/tcp  # https
-ufw allow 22	       # sftp/ssh
+ufw allow 443/tcp  # https
+ufw allow 22/tcp	       # sftp/ssh
 
 ## Not a router stuff
-cat > /etc/sysctl.conf << 'EOF'
+cat > /etc/sysctl.d/99-custom-harden.conf << 'EOF'
 # Network performance and security
 net.core.rmem_max = 16777216
 net.core.wmem_max = 16777216
@@ -262,8 +263,8 @@ net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 EOF
 
-# Apply settings
-sysctl -p >/dev/null 2>&1
+## Apply settings
+sysctl --system >/dev/null 2>&1
 
 echo "Setting up Issue Art..." 
 cp ./assets/issue.ceauron /etc/issue.ceauron
@@ -273,4 +274,4 @@ cat /etc/issue.ceauron
 sleep 1
 clear
 EOF
-chmod +x ~/etc/profile.d/ceauron
+chmod +x /etc/profile.d/ceauron
