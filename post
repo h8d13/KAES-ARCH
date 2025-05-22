@@ -98,8 +98,15 @@ EOF
 ## Set default Konsole + Settings
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=su -l -c 'zsh'
+Command=zsh
 Name=$TARGET_USER
+Parent=FALLBACK/
+EOF
+## Root shell
+cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
+[General]
+Command=su -l -c 'zsh'
+Name=root
 Parent=FALLBACK/
 EOF
 ########################################## IMPORTANT: BELOW NO MORE USER CHANGES. 
