@@ -1,5 +1,5 @@
 #!/bin/bash
-## Same for pacman and Arch derivatives , mean to be run as user with elevated priv.
+## Pacman and Arch derivatives , mean to be run with elevated priv.
 TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or ex: "nodeadkeys"
