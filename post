@@ -99,7 +99,7 @@ EOF
 ## Set default Konsole + Settings
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=zsh -l
+Command=zsh
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
