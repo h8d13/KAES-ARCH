@@ -20,6 +20,8 @@ When prompted to chroot press no.
 
 Reboot **to hard disk.**  
 
+> Login normally using the user you created. This will let KDE create all the files it needs.
+
 ---
 
 Open Konsole.
