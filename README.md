@@ -39,7 +39,7 @@ KB_LAYOUT=us
 VARIANT=""
 ```
 > Variant is optional, can be left empty.
-> Using vim you can use insert to edit, ESC to enter command made and !wq to write changes.
+> Using vim you can use insert to edit, ESC to enter command mode and !wq to write changes.
 
 Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
