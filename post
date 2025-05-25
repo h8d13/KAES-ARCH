@@ -10,14 +10,6 @@ if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
     exit 1
 fi
-########################################## Essential Arch stuff
-echo "Setting up Libs..." 
-DES_LIB=multilib
-sed -i "/^\#\[$DES_LIB\]/{
-  s/^\#//
-  n
-  s/^\#//
-}" /etc/pacman.conf
 ########################################## Extras
 echo "Setting up Extras..." 
 # Update and check
@@ -25,11 +17,11 @@ if ! pacman -Sy; then
     echo "ERROR: Failed to sync package databases"
     exit 1
 fi
-pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
+#pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 pacman -S --noconfirm tree less zip unzip rsync
 pacman -S --noconfirm python-gobject gtk4 libadwaita
-#pacman -S --noconfirm helix neovim fastfetch
+#pacman -S --noconfirm helix micro neovim fastfetch
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin/User
