@@ -64,6 +64,8 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
 ## Further config
 
+#### Tiling 
 `System Settings` > `Window Management` > `Kwin` > `Get New` > `Krohnkite`
 
+#### Or Bg blur
 `System Settings` > `Wallpaper` > `Get New` > `Active Blur` 
