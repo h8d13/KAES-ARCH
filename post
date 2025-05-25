@@ -17,9 +17,9 @@ if ! pacman -Sy; then
     echo "ERROR: Failed to sync package databases"
     exit 1
 fi
-#pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
+#pacman -S --noconfirm intel-ucode #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
-pacman -S --noconfirm tree less zip unzip rsync
+pacman -S --noconfirm tree less zip unzip rsync alsa-utils
 pacman -S --noconfirm python-gobject gtk4 libadwaita
 #pacman -S --noconfirm helix micro neovim fastfetch
 ########################################## DIRS
