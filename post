@@ -266,13 +266,3 @@ net.ipv6.conf.default.use_tempaddr = 2
 EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
-## ASCII ART
-echo "Setting up Issue Art..." 
-cp ./assets/issue.ceauron /etc/issue.ceauron
-cat > /etc/profile.d/ceauron << 'EOF'
-#!/bin/sh
-cat /etc/issue.ceauron
-sleep 1
-clear
-EOF
-chmod +x /etc/profile.d/ceauron
