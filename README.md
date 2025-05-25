@@ -54,6 +54,8 @@ You can then use `topac` to edit your pacman repos. And more useful stuff...`com
 Basically sets up zsh and bash for both the user and root. 
 And a lot of KDE stuff.
 
+Install example video can be found here: [K2-ArchiNoob](https://cae-sura/archinoob)
+
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
 
 
