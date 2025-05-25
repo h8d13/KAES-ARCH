@@ -38,6 +38,8 @@ mkdir -p "$HOME/.config/bash"
 mkdir -p "$HOME/.local/bin"
 ## User only
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
+mkdir -p "/home/$TARGET_USER/.config/zsh"
+mkdir -p "/home/$TARGET_USER/.config/bash"
 ########################################## KB Stuff
 echo "Setting up Keyboards..." 
 ## Check if we need to include variant in the configuration
@@ -234,10 +236,6 @@ grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## USER SHELL SETUP
 echo "Setting up user shell configurations..."
-
-# Create user's config directories
-mkdir -p "/home/$TARGET_USER/.config/zsh"
-mkdir -p "/home/$TARGET_USER/.config/bash"
 
 # Copy shell configs to user
 cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
