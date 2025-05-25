@@ -39,7 +39,6 @@ KB_LAYOUT=us
 VARIANT=""
 ```
 > Variant is optional, can be left empty.
-> This makes it so that you can apply this to individual profiles + root (with handling of permissions).
 > Using vim you can use insert to edit, ESC to enter command made and !wq to write changes.
 
 Make exec `sudo chmod +x post` Then run: `sudo ./post`
@@ -52,5 +51,3 @@ You can then use `topac` to edit your pacman repos. And more useful stuff...`com
 
 Basically sets up zsh and bash for both the user and root. 
 And a lot of KDE stuff. 
-
-I've also included a shortcut file in assets for user shell CTRL + Y. As I've made my default a login root shell.
