@@ -138,6 +138,7 @@ cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
 alias syncusr="cp ~/.config/aliases /home/$TARGET_USER/.config/aliases"
+alias srcall=". ~/.config/aliases"
 alias topac="vim /etc/pacman.conf"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
