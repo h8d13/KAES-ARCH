@@ -14,7 +14,7 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 > `ping google.com` for test 
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps: select KDE Plasma & Create a user with sudo, walk through every single step.
-> IMPORTANT: Make sure to select network manager, time sync, etc... Don't skip any. I also like Grub instead of systemd boot. 
+> IMPORTANT: Make sure to select mirrors, network manager, time zone, etc... Don't skip any. I also like Grub instead of systemd boot. Pipewire for audio as it's dep of KDE.
 
 When prompted to chroot press no. 
 
@@ -61,3 +61,9 @@ Install example video can be found here: [K2-ArchiNoob](https://cae-sura.com/arc
 ## Pacman GUI 
 
 PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
+
+## Further config
+
+`System Settings` > `Window Management` > `Kwin` > `Get New` > `Krohnkite`
+
+`System Settings` > `Wallpaper` > `Get New` > `Active Blur` 
