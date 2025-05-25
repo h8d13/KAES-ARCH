@@ -69,8 +69,8 @@ echo "Setting up Bonuses..."
 ## Extended bonuses if you remove, remove corresponding code bellow
 pacman -S --noconfirm zsh ufw 
 ## First part is for laptops to be on perf mode on charge.
-pacman -S --noconfirm power-profiles-daemon 
-systemctl enable power-profiles-daemon.service
+#pacman -S --noconfirm power-profiles-daemon 
+#systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
 ########################################## FIX SESSIONS
@@ -92,7 +92,7 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=30
 EOF
-########################################## CREATE THE KONSOLE PROFILE 
+########################################## CREATE THE KONSOLE PROFILES
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
@@ -254,6 +254,12 @@ echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 
 # Set user's default shell to zsh
 chsh -s /usr/bin/zsh $TARGET_USER
+
+########################################## PacToPac
+echo "Setting up Github/K2..." 
+git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
+mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
+rm -rf /tmp/PacToPac
 
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
