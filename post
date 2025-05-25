@@ -110,9 +110,6 @@ Command=su -l -c 'zsh'
 Name=root
 Parent=FALLBACK/
 EOF
-########################################## IMPORTANT: BELOW NO MORE USER CHANGES. 
-echo "Setting up Permissions..." 
-chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
@@ -234,6 +231,32 @@ touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
+
+########################################## USER SHELL SETUP
+echo "Setting up user shell configurations..."
+
+# Create user's config directories
+mkdir -p "/home/$TARGET_USER/.config/zsh"
+mkdir -p "/home/$TARGET_USER/.config/bash"
+
+# Copy shell configs to user
+cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
+cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
+cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
+cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
+
+# Create user's shell rc files
+touch "/home/$TARGET_USER/.zshrc"
+echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
+
+touch "/home/$TARGET_USER/.bashrc"
+echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
+
+# Set user's default shell to zsh
+chsh -s /usr/bin/zsh $TARGET_USER
+
+# Fix ownership after copying
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ufw allow out 443/tcp  # https
