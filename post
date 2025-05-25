@@ -65,8 +65,9 @@ chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Extended bonuses if you remove, remove corresponding code bellow
+pacman -S --noconfirm zsh ufw 
 ## First part is for laptops to be on perf mode on charge.
-pacman -S --noconfirm zsh ufw power-profiles-daemon 
+pacman -S --noconfirm power-profiles-daemon 
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
