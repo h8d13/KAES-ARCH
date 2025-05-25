@@ -28,6 +28,7 @@ fi
 pacman -S --noconfirm intel-ucode alsa-utils #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 pacman -S --noconfirm tree less zip unzip rsync
+pacman -S --noconfirm python-gobject gtk4 libadwaita
 #pacman -S --noconfirm helix neovim fastfetch
 ########################################## DIRS
 echo "Setting up Directories..." 
