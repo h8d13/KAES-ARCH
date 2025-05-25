@@ -156,6 +156,7 @@ alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
 # Practical alias
+alias sudo='sudo ' # crucial
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
