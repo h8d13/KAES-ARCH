@@ -65,15 +65,15 @@ pacman -S --noconfirm zsh ufw
 ufw default deny incoming
 ufw enable
 ########################################## KDE Config files
+echo "Setting up KDE Config..." 
+## Commented out because it's for laptops only.
 #pacman -S --noconfirm power-profiles-daemon 
 #systemctl enable power-profiles-daemon.service
-echo "Setting up KDE Config..." 
 #CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
 #cat <<EOF > $CONFIG_FILE
 #[AC][Performance]
 #PowerProfile=performance
 #EOF
-
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
