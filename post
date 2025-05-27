@@ -131,10 +131,9 @@ echo "Setting up aliases..."
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
-alias syncusr="cp ~/.config/aliases /home/$TARGET_USER/.config/aliases"
 alias srcall=". ~/.config/aliases"
 alias topac="vim /etc/pacman.conf"
-# Base alias
+# Root alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
 # Utils alias
@@ -151,7 +150,7 @@ alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
 # Practical alias
-alias sudo='sudo ' # crucial
+alias sudo='sudo '
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
