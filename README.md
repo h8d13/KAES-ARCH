@@ -72,7 +72,7 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
 ## Sensors for temps
 
-Install mission-center for overview
+Install `mission-center` for overview
 `pacman -S lm_sensors && sensors-detect`
 `systemctl enable --now fancontrol`
 
