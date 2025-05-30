@@ -66,7 +66,7 @@ ufw default deny incoming
 ufw enable
 ########################################## KDE Config files
 echo "Setting up KDE Config..." 
-## Commented out because it's for laptops only.
+## Commented out because it's for LAPTOPS
 #pacman -S --noconfirm power-profiles-daemon 
 #systemctl enable power-profiles-daemon.service
 #CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
@@ -74,6 +74,11 @@ echo "Setting up KDE Config..."
 #[AC][Performance]
 #PowerProfile=performance
 #EOF
+## For DESKTOPS
+#pacman -S --noconfirm cpupower
+#cpupower frequency-set -g performance
+#systemctl enable cpupower.service
+
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
