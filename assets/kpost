@@ -1,0 +1,6 @@
+# Mine is black theme and  mountain bg. 
+#!/bin/sh
+plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+plasma-apply-desktoptheme breeze-dark
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark
