@@ -14,7 +14,7 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 > `ping google.com` for test 
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps: select KDE Plasma & Create a user with sudo, walk through every single step.
-> IMPORTANT: Make sure to select mirrors, time zone, etc... I also like Grub instead of systemd boot. Pipewire for audio as it's dep of KDE. Also use NetworkManager in network section. For gaphics drivers select appropraite to your hardware. Don't skip any step.
+> IMPORTANT: Make sure to select mirrors, time zone, etc... I also like Grub instead of systemd boot. Pipewire for audio as it's dep of KDE. Also use NetworkManager in network section. For gaphics drivers select appropriate to your hardware. Don't skip any step.
 
 When prompted to chroot press no. 
 
