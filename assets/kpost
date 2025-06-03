@@ -1,4 +1,5 @@
 # Mine is black theme and  mountain bg. 
+# Meant to be run in a usershell and can add kwrites
 #!/bin/sh
 plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 plasma-apply-desktoptheme breeze-dark
