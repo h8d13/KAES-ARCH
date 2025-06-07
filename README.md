@@ -47,7 +47,7 @@ Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
 ---
 
-You can then use `topac` to edit your pacman repos. And more useful stuff...`comms` for commands :)
+## More useful stuff...`comms` for commands :)
 
 To configure aliases: 
 ```
