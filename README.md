@@ -79,9 +79,3 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 #### Or Bg blur
 `System Settings` > `Wallpaper` > `Get New` > `Active Blur` 
 
-## Sensors for temps
-
-Install `mission-center` for overview
-`pacman -S lm_sensors && sensors-detect`
-`systemctl enable --now fancontrol`
-
