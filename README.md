@@ -13,12 +13,20 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > `ping google.com` for test 
 
-Then `archinstall` (for noobs, btw) make sure to go through all the steps: select KDE Plasma & Create a user with sudo, walk through every single step.
-> IMPORTANT: Make sure to select mirrors, time zone, etc... I also like Grub instead of systemd boot. Pipewire for audio as it's dep of KDE. Also use NetworkManager in network section. For gaphics drivers select appropriate to your hardware. Don't skip any step.
+Then `archinstall` (for noobs, btw) make sure to go through all the steps: select KDE Plasma.
 
-When prompted to chroot press no. 
+Create a user with sudo (required for KDE/SDDM) 
+> IMPORTANT: Make sure to select mirrors, time zone, etc...
+> I also like Grub instead of systemd boot.
+> Pipewire for audio as it's dep of KDE.
+> Also use NetworkManager in network section.
+> For gaphics drivers select appropriate to your hardware.
+> For formatting I usually use Ext4. 
+> Don't skip any step.
 
-Reboot **to hard disk.**  
+When prompted to chroot into new installation press no. Then type "poweroff" or "reboot" 
+
+Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
 > Login normally using the user you created. This will let KDE create all the files it needs.
 
