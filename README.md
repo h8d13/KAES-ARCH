@@ -13,7 +13,7 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > `ping google.com` for test 
 
-Run `pacman -Syu` to make sure you have latest pkgs. 
+Run `pacman -S archinstall`
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps: Select KDE Plasma.
 
