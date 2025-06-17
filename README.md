@@ -37,7 +37,7 @@ Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 Open Konsole.
 
 ```
-sudo pacman -Sy git
+sudo pacman -S git
 git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
@@ -46,7 +46,7 @@ Edit the targets: `user` and `kb` using editor of your choice.
 `sudo vim post`
 
 ```
-TARGET_USER=hadean
+TARGET_USER=johndoe
 KB_LAYOUT=us
 VARIANT=""
 ```
