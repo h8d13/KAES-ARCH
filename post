@@ -120,7 +120,7 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 EOF
 ########################################## Example Script: Called "iapps" To search in installed packages. 
-cat > ~/.local/bin/iapps << 'EOF'
+cat > "$HOME/.local/bin/iapps" << 'EOF'
 #!/bin/sh
 # this script lets you search your installed packages easily
 if [ -z "$1" ]; then
@@ -129,8 +129,7 @@ if [ -z "$1" ]; then
 fi
 pacman -Qs "$1"
 EOF
-## Make it executable ### Can now be called simply as iapps git
-chmod +x ~/.local/bin/iapps
+chmod +x "$HOME/.local/bin/iapps"
 ########################################## SHARED (BASH & ZSH) ALIASES
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
@@ -242,6 +241,7 @@ cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
 cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
 cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
 cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
+cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 
 # Create user's shell rc files
 touch "/home/$TARGET_USER/.zshrc"
