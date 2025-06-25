@@ -241,6 +241,9 @@ cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
 cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
 cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
 cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
+
+# Create local bin for usr
+mkdir -p /home/$TARGET_USER/.local/bin
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 
 # Create user's shell rc files
