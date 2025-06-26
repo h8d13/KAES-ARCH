@@ -33,7 +33,7 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 mkdir -p "/home/$TARGET_USER/.config/zsh"
 mkdir -p "/home/$TARGET_USER/.config/bash"
-mkdir -p /home/$TARGET_USER/.local/bin
+mkdir -p "/home/$TARGET_USER/.local/bin"
 
 ########################################## KB Stuff
 echo "Setting up Keyboards..." 
