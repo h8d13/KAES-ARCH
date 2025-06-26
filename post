@@ -33,6 +33,8 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 mkdir -p "/home/$TARGET_USER/.config/zsh"
 mkdir -p "/home/$TARGET_USER/.config/bash"
+mkdir -p /home/$TARGET_USER/.local/bin
+
 ########################################## KB Stuff
 echo "Setting up Keyboards..." 
 ## Check if we need to include variant in the configuration
@@ -245,7 +247,6 @@ cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
 cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 
 # Create local bin for usr
-mkdir -p /home/$TARGET_USER/.local/bin
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 
 # Create user's shell rc files
