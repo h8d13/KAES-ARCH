@@ -62,7 +62,7 @@ chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Extended bonuses if you remove, remove corresponding code bellow
-pacman -S --noconfirm zsh ufw 
+pacman -S --noconfirm ufw 
 ## First part is for laptops to be on perf mode on charge.
 ufw default deny incoming
 ufw enable
@@ -214,7 +214,8 @@ echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
 echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
-pacman -S --noconfirm zsh-autosuggestions \
+pacman -S --noconfirm zsh \
+                      zsh-autosuggestions \
                       zsh-syntax-highlighting
 
 # === Create ~/.config/zsh/zshrc ===
