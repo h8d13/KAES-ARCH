@@ -113,6 +113,32 @@ Command=su -l -c 'zsh'
 Name=root
 Parent=FALLBACK/
 EOF
+cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/x-executable;
+Actions=runInKonsoleSudo;
+X-KDE-AuthorizeAction=shell_access
+
+[Desktop Action runInKonsoleSudo]
+Name=Run In Konsole (sudo)
+Icon=utilities-terminal
+Exec=konsole -e bash -c 'sudo "%f"; sudo -s'
+EOF
+cat > "/usr/share/kio/servicemenus/konsolediroot.desktop" << EOF
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory;
+Actions=openRootTerminal;
+X-KDE-AuthorizeAction=shell_access
+
+[Desktop Action openRootTerminal]
+Name=Open Root Terminal Here
+Icon=utilities-terminal
+Exec=konsole --workdir %f -e sudo -s
+EOF
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
