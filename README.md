@@ -24,7 +24,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps: Selec
 > Pipewire for audio as it's dep of KDE.
 > Also use NetworkManager in network section.
 > For gaphics drivers select appropriate to your hardware.
-> Don't skip any step.
+> Don't skip any step. Personal preferences for reference. Use your prefered set-up.
 
 When prompted to chroot into new installation press no. Then type "poweroff" or "reboot" 
 
