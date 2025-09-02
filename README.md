@@ -57,7 +57,9 @@ Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
 ---
 
-## More useful stuff...`comms` for commands :)
+## More useful stuff...
+
+Use `comms` for commands :)
 
 To configure aliases: 
 ```
