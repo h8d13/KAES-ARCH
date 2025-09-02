@@ -126,6 +126,8 @@ Name=Run In Konsole (sudo)
 Icon=utilities-terminal
 Exec=konsole -e bash -c 'sudo "%f"; sudo -s'
 EOF
+chmod +x /usr/share/kio/servicemenus/konsolerunsudo.desktop
+
 cat > "/usr/share/kio/servicemenus/konsolediroot.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -139,6 +141,7 @@ Name=Open Root Terminal Here
 Icon=utilities-terminal
 Exec=konsole --workdir %f -e sudo -s
 EOF
+chmod +x /usr/share/kio/servicemenus/konsolediroot.desktop
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
