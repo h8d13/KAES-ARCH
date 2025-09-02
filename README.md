@@ -17,7 +17,7 @@ Run `pacman -S archinstall`
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps: Select KDE Plasma.
 
-> IMPORTANT DO NOT SKIP ANU STEPS: Make sure to select mirrors, time zone, etc...
+> IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc...
 > Create a user with sudo (required for KDE/SDDM) 
 > For formatting I usually use Ext4. 
 > I also like Grub instead of systemd boot.
