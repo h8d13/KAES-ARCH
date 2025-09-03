@@ -5,7 +5,7 @@ A single setup script from a default install.
 --- 
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
-> Use rufus or dd to flash USB.
+> Use [rufus](https://rufus.ie/en/) or dd to flash USB.
 
 ### Setup network 
 > (Ethernet works out of the box)
@@ -13,17 +13,20 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > `ping google.com` for test 
 
-Run `pacman -S archinstall`
+Run `pacman-key --init && pacman -Sy archinstall`
 
-Then `archinstall` (for noobs, btw) make sure to go through all the steps: Select KDE Plasma.
+Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
-> IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc...
+> ! IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
+
+
 > Create a user with sudo (required for KDE/SDDM) 
 > For formatting I usually use Ext4. 
 > I also like Grub instead of systemd boot.
 > Pipewire for audio as it's dep of KDE.
 > Also use NetworkManager in network section.
 > For gaphics drivers select appropriate to your hardware.
+> Type Desktop/Plasma
 > Don't skip any step. Personal preferences for reference. Use your prefered set-up.
 
 When prompted to chroot into new installation press no. Then type "poweroff" or "reboot" 
