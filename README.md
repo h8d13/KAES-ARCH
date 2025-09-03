@@ -36,8 +36,6 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 > Don't skip any step. Personal preferences for reference. Use your prefered set-up.
 
-When prompted to chroot into new installation press no. Then type "poweroff" or "reboot" 
-
 Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
 > Login normally using the user you created. This will let KDE create all the files it needs.
