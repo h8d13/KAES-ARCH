@@ -84,6 +84,15 @@ And a lot of KDE stuff.
 
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
 
+## New context menus!
+
+Added run as root and open directory as root context menus for Dolphin! 
+
+## Kernels
+
+For gaming you'd likely want to test linux-zen 
+
+To check current `uname -a`.
 
 ## Pacman GUI 
 
