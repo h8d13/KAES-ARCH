@@ -81,6 +81,10 @@ echo "Setting up KDE Config..."
 #cpupower frequency-set -g performance
 #systemctl enable cpupower.service
 
+## For Gaming (Assumes grub)
+#pacman -S --noconfirm linux-zen linuz-zen-headers
+#grub-mkconfig -o /boot/grub/grub.cfg
+
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
