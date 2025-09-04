@@ -141,6 +141,26 @@ Icon=utilities-terminal
 Exec=konsole --workdir %f -e sudo -s
 EOF
 chmod +x /usr/share/kio/servicemenus/konsolediroot.desktop
+
+
+cat > "/usr/share/kio/servicemenus/makex.desktop" << EOF
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/x-executable;application/x-shellscript;text/x-shellscript;
+X-KDE-ServiceTypes=all/allfiles
+Actions=makeExecutable;
+
+[Desktop Action makeExecutable]
+Name=Make Executable
+Icon=system-run
+Exec=chmod +x "%f"
+EOF
+chmod +x /usr/share/kio/servicemenus/makex.desktop
+
+## Modify the existing "Run in Konsole" to a better command:
+sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
+
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
