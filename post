@@ -94,6 +94,11 @@ Timeout=30
 EOF
 ########################################## CREATE THE KONSOLE PROFILES
 echo "Setting up Konsole..." 
+# Set user's default shell to zsh
+chsh -s /usr/bin/zsh $TARGET_USER
+## Add to shells
+grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
+
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
@@ -112,8 +117,7 @@ Command=su -l -c 'zsh'
 Name=root
 Parent=FALLBACK/
 EOF
-
-############### Context menus
+########################################## Context menus
 cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -284,9 +288,6 @@ EOF
 ## Add source line
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
-## Add to shells
-grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
-
 ########################################## USER SHELL SETUP
 echo "Setting up user shell configurations..."
 
@@ -305,10 +306,6 @@ echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
 
 touch "/home/$TARGET_USER/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
-
-# Set user's default shell to zsh
-chsh -s /usr/bin/zsh $TARGET_USER
-
 ########################################## PacToPac
 echo "Setting up Github/K2..." 
 pacman -S --noconfirm python-gobject gtk4 libadwaita
