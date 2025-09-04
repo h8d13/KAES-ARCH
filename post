@@ -98,20 +98,22 @@ cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
 EOF
-## Set default Konsole + Settings
+## Set default Konsole : Can use bash if prefered. Change command=
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
 Command=zsh
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-## Root shell
+## Root login shell
 cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
 [General]
 Command=su -l -c 'zsh'  
 Name=root
 Parent=FALLBACK/
 EOF
+
+############### Context menus
 cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -142,7 +144,6 @@ Exec=konsole --workdir %f -e sudo -s
 EOF
 chmod +x /usr/share/kio/servicemenus/konsolediroot.desktop
 
-
 cat > "/usr/share/kio/servicemenus/makex.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -160,7 +161,6 @@ chmod +x /usr/share/kio/servicemenus/makex.desktop
 
 ## Modify the existing "Run in Konsole" to a better command:
 sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
-
 ########################################## Custom Localbin
 echo "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
