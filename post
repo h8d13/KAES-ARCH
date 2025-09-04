@@ -95,6 +95,12 @@ EOF
 ########################################## CREATE THE KONSOLE PROFILES
 echo "Setting up Konsole..." 
 # Set user's default shell to zsh
+echo "Setting up ZSH..." 
+# Install ZSH + plugins
+pacman -S --noconfirm zsh \
+                      zsh-autosuggestions \
+                      zsh-syntax-highlighting
+
 chsh -s /usr/bin/zsh $TARGET_USER
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
@@ -223,12 +229,6 @@ EOF
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
-echo "Setting up ZSH..." 
-# Install ZSH plugins via package manager instead of git
-pacman -S --noconfirm zsh \
-                      zsh-autosuggestions \
-                      zsh-syntax-highlighting
-
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
