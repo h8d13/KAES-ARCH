@@ -141,7 +141,7 @@ Actions=runInKonsoleSudo;
 X-KDE-AuthorizeAction=shell_access
 
 [Desktop Action runInKonsoleSudo]
-Name=Run In Konsole (sudo)
+Name=Run In Root Konsole
 Icon=utilities-terminal
 Exec=konsole -e bash -c 'sudo "%f"; sudo -s'
 EOF
