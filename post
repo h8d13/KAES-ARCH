@@ -61,12 +61,12 @@ cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
-########################################## MORE Nice to haves
-echo "Setting up Bonuses..." 
-## Extended bonuses if you remove, remove corresponding code bellow
+########################################## UFW
+echo "Setting up UFW..." 
 pacman -S --noconfirm ufw 
-## First part is for laptops to be on perf mode on charge.
 ufw default deny incoming
+ufw allow out 443/tcp  # https
+ufw allow 22/tcp	   # sftp/ssh
 ufw enable
 ########################################## KDE Config files
 echo "Setting up KDE Desktop..." 
@@ -327,9 +327,6 @@ rm -rf /tmp/PacToPac
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
-ufw allow out 443/tcp  # https
-ufw allow 22/tcp	       # sftp/ssh
-
 ## Not a router stuff / Others
 cat > /etc/sysctl.d/99-custom-harden.conf << 'EOF'
 # Network performance and security
