@@ -2,7 +2,7 @@
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 TARGET_USER=hadean
 KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or for ex: nodeadkeys
+# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
 echo "Checking user..." 
 ## Check the target user is correct
