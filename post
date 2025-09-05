@@ -99,7 +99,8 @@ echo "Setting up ZSH..."
 # Install ZSH + plugins
 pacman -S --noconfirm zsh \
                       zsh-autosuggestions \
-                      zsh-syntax-highlighting
+                      zsh-syntax-highlighting \
+                      bash-completion
 
 chsh -s /usr/bin/zsh $TARGET_USER
 ## Add to shells
@@ -225,6 +226,9 @@ fi
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
 fi
+=== Enable bash completion ===                                                 
+if [ -f /usr/share/bash-completion/bash_completion ]; then                    
+    . /usr/share/bash-completion/bash_completion  
 EOF
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
