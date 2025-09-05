@@ -228,7 +228,8 @@ if [ -f "$HOME/.config/environment" ]; then
 fi
 === Enable bash completion ===                                                 
 if [ -f /usr/share/bash-completion/bash_completion ]; then                    
-    . /usr/share/bash-completion/bash_completion  
+    . /usr/share/bash-completion/bash_completion 
+fi
 EOF
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
