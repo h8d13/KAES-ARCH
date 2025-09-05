@@ -102,7 +102,8 @@ pacman -S --noconfirm zsh \
                       zsh-syntax-highlighting \
                       bash-completion
 
-chsh -s /usr/bin/zsh $TARGET_USER
+#chsh -s /usr/bin/zsh $TARGET_USER
+## Uncomment above if you want built-in to be zsh
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
