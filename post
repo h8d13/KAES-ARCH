@@ -226,7 +226,7 @@ fi
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
 fi
-=== Enable bash completion ===                                                 
+# === Enable bash completion ===                                                 
 if [ -f /usr/share/bash-completion/bash_completion ]; then                    
     . /usr/share/bash-completion/bash_completion 
 fi
