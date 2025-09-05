@@ -160,6 +160,20 @@ Exec=konsole --workdir %f -e sudo -s
 EOF
 chmod +x /usr/share/kio/servicemenus/konsolediroot.desktop
 
+cat > "/usr/share/kio/servicemenus/createdesktopshortcut.desktop" << 'EOF'
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/x-executable;
+Actions=createDesktopShortcut;
+
+[Desktop Action createDesktopShortcut]
+Name=Create Desktop Shortcut
+Icon=application-x-desktop
+Exec=sh -c 'echo "[Desktop Entry]\nType=Application\nName=$(basename "%f")\nName[en_US]=$(basename "%f")\nGenericName=\nGenericName[en_US]=\nExec=%f\nIcon=application-x-executable\nMimeType=\nPath=\nStartupNotify=true\nTerminal=false\nTerminalOptions=\nX-KDE-SubstituteUID=false\nX-KDE-Username=" > "$HOME/Desktop/$(basename "%f").desktop"; chmod +x "$HOME/Desktop/$(basename "%f").desktop"'
+EOF
+chmod +x /usr/share/kio/servicemenus/createdesktopshortcut.desktop 
+
 ## Modify the existing "Run in Konsole" to a better command:
 sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
 ########################################## Custom Localbin
