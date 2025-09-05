@@ -69,23 +69,8 @@ ufw allow out 443/tcp  # https
 ufw allow 22/tcp	   # sftp/ssh
 ufw enable
 ########################################## KDE Config files
-echo "Setting up KDE Desktop..." 
+echo "Setting up KDE Files..." 
 # Run KDE configuration commands as the target user
-sudo -u $TARGET_USER bash << 'EOF' >/dev/null 2>&1
-# Wallpaper
-plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-# Dark theme
-plasma-apply-desktoptheme breeze-dark
-# Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
-# Only Konsole in taskbar clean look
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-    --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
-    --key "launchers" "applications:org.kde.konsole.desktop"
-
-killall plasmashell; plasmashell &
-EOF
-
 ## Commented out because it's for LAPTOPS
 #pacman -S --noconfirm power-profiles-daemon 
 #systemctl enable power-profiles-daemon.service
