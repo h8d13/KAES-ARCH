@@ -1,7 +1,13 @@
-# Mine is black theme and  mountain bg. 
-# Meant to be run in a usershell and can add kwrites
 #!/bin/sh
+## Wallpaper
 plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+# Darktheme
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
+# Only Konsole in taskbar
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+    --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
+    --key "launchers" "applications:org.kde.konsole.desktop"
+
+killall plasmashell; plasmashell &
