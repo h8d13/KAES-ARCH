@@ -37,6 +37,8 @@ mkdir -p "/home/$TARGET_USER/.config/zsh"
 mkdir -p "/home/$TARGET_USER/.config/bash"
 mkdir -p "/home/$TARGET_USER/.local/bin"
 
+#mkdir -p /Scripts && echo -e "[Desktop Entry]\nIcon=folder-script" > /Scripts/.directory
+#Optional home folders with icons
 ########################################## KB Stuff
 echo "Setting up Keyboards..." 
 ## Check if we need to include variant in the configuration
