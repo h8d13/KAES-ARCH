@@ -1,4 +1,5 @@
 #!/bin/sh
+# Mean to be run on user
 ## Wallpaper
 plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 # Darktheme
