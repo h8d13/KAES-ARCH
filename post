@@ -166,7 +166,7 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
-########################################## Example Script: Called "iapps" To search in installed packages. 
+########################################## Example script iapps search in installed packages. 
 cat > "$HOME/.local/bin/iapps" << 'EOF'
 #!/bin/sh
 # this script lets you search your installed packages easily
