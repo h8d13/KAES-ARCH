@@ -28,9 +28,38 @@ while read -r line; do
 done
 ```
 
-While it's running I go to settings page or wherever in KDE that I want, and watch which files got modified/created/deleted. 
+While it's running I go to settings page or wherever in KDE that I want, and watch which files got modified/created/deleted. The `-r` sets it to be recursive.
 
-Then we can create a simple test script. For this I use qemu with a rollback mechanism (basically just a fresh install of ArchKDE that I test on). 
+I then create a dump of the file before edit and after. 
+
+Example output:
+```
+2025-04-22 00:46:30 CREATE /home/harch/.config/ksmserverrc.lock
+2025-04-22 00:46:30 MODIFY /home/harch/.config/ksmserverrc.lock
+2025-04-22 00:46:30 MODIFY /home/harch/.config/#3179144
+2025-04-22 00:46:30 CREATE /home/harch/.config/ksmserverrc.mrSOsU
+2025-04-22 00:46:30 MOVED_FROM /home/harch/.config/ksmserverrc.mrSOsU
+/home/harch/.config/ksmserverrc
+[General]
+loginMode=emptySession
+
+MOVED_TO /home/harch/.config/kglobalshortcutsrc
+
+cat /home/harch/.config/kscreenlockerrc
+[Daemon]
+Timeout=10
+
+2025-04-22 00:46:30 DELETE /home/harch/.config/ksmserverrc.lock
+2025-04-22 00:46:57 CREATE /home/harch/.config/ksmserverrc.lock
+2025-04-22 00:46:57 MODIFY /home/harch/.config/ksmserverrc.lock
+2025-04-22 00:46:57 MODIFY /home/harch/.config/#3179143
+2025-04-22 00:46:57 CREATE /home/harch/.config/ksmserverrc.wIqinP
+2025-04-22 00:46:57 MOVED_FROM /home/harch/.config/ksmserverrc.wIqinP
+2025-04-22 00:46:57 MOVED_TO /home/harch/.config/ksmserverrc
+2025-04-22 00:46:57 DELETE /home/harch/.config/ksmserverrc.lock
+```
+
+Then we can create a simple test script. For this I use qemu with a rollback mechanism (basically just a fresh install of ArchKDE that I test on). But essentially this helps me not look for things on forums instead I can directly see what is happening under the hood.
 
 ## Some useful things
 
