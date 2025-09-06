@@ -63,7 +63,7 @@ Then we can create a simple test script. For this I use qemu with a rollback mec
 
 ## Some useful things
 
-KDE has neat built-in stuff for programmers too: `kbuildsycoca6` rebuild system cached files .
+KDE has neat built-in stuff for programmers: `kbuildsycoca6` rebuild system cached files .
 
 ```
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
