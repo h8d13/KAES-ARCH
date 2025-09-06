@@ -44,3 +44,7 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 killall plasmashell; plasmashell & disown
 ``` 
 
+## Special thanks
+
+[This Github Repo](https://github.com/shalva97/kde-configuration-files) 
+
