@@ -5,7 +5,7 @@ A single setup script from a default install.
 --- 
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
-> Use [rufus](https://rufus.ie/en/) or dd to flash USB.
+> Use [rufus](https://rufus.ie/en/) or dd to flash USB. Use GPT/MBR appropriate to hardware. 
 
 ### Setup network 
 > (Ethernet works out of the box)
