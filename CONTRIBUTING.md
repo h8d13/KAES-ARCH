@@ -32,3 +32,15 @@ While it's running I go to settings page or wherever in KDE that I want, and wat
 
 Then we can create a simple test script. For this I use qemu with a rollback mechanism (basically just a fresh install of ArchKDE that I test on). 
 
+## Some useful things
+
+KDE has neat built-in stuff for programmers too: `kbuildsycoca6` rebuild system cached files .
+
+```
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+    --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
+    --key "launchers" "applications:org.kde.konsole.desktop"
+
+killall plasmashell; plasmashell &
+``` 
+
