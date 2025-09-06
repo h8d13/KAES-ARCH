@@ -27,7 +27,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 - Kernels: try linux-zen for gaming !
 - For gaphics drivers select appropriate to your hardware.
 - Type Desktop/Plasma
-- Don't skip any step. Personal preferences for reference. Use your prefered set-up.
+- Personal preferences for reference. Use your prefered set-up.
 
 Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
