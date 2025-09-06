@@ -2,7 +2,7 @@
 
 ## Get started helping out !
 
-Create a testing user on your existing KDE install. 
+Create a testing user on your existing KDE install. Make sure you have logged-in once at least normally (this first loading screen is slightly longer because it creates all the files for the user).
 
 `$ sudo pacman -S inotify-tools`
 
