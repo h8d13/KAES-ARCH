@@ -89,9 +89,11 @@ This should work both for bash and zsh.
 Basically sets up zsh and bash for both the user and root. 
 And a lot of KDE stuff.
 
+<img width="1015" height="175" alt="image" src="https://github.com/user-attachments/assets/0912aa56-5799-48fb-9a78-45527bcaf9c4" />
+
+And the same for root.
+
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
-
-
 
 ## New context menus!
 
