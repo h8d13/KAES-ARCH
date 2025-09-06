@@ -95,8 +95,9 @@ And a lot of KDE stuff.
 
 ## New context menus!
 
-Added run as root and open directory as root context menus for Dolphin! 
 <img width="362" height="422" alt="image" src="https://github.com/user-attachments/assets/3937feab-91b9-48a8-af6a-6417b3985a42" />
+
+
 <img width="611" height="474" alt="image" src="https://github.com/user-attachments/assets/e259ed41-50b8-4eaf-ae3a-7a5e2356dc78" />
 
 ## Pacman GUI 
