@@ -78,7 +78,7 @@ killall plasmashell; plasmashell & disown
 [This Github Repo](https://github.com/shalva97/kde-configuration-files) 
 
 
-## Scope
+## Current Scope
 
 - KDE Default values I didn't like: Empty sessions, Lock-out grace, Powerprofiles
 - KDE Dolphin interaction menus
