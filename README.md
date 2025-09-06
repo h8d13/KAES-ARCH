@@ -85,8 +85,6 @@ And a lot of KDE stuff.
 
 <img width="1015" height="175" alt="image" src="https://github.com/user-attachments/assets/0912aa56-5799-48fb-9a78-45527bcaf9c4" />
 
-And the same for root.
-
 ## New context menus!
 
 <img width="362" height="422" alt="image" src="https://github.com/user-attachments/assets/3937feab-91b9-48a8-af6a-6417b3985a42" />
