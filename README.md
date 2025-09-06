@@ -29,6 +29,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 > Pipewire for audio as it's dep of KDE.
 
 > Also use NetworkManager in network section.
+
 > Kernels: try linux-zen for gaming !
 
 > For gaphics drivers select appropriate to your hardware.
