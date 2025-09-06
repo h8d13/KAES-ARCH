@@ -7,6 +7,8 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > Use [rufus](https://rufus.ie/en/) or dd to flash USB. Use GPT/MBR appropriate to hardware. 
 
+Boot off the USB with DEL or f10 or f12 to get to BIOS.
+
 ### Setup network 
 > (Ethernet works out of the box)
 > For wifi: `nmcli device wifi connect "SSID" password "password"`
