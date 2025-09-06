@@ -41,6 +41,6 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
     --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
     --key "launchers" "applications:org.kde.konsole.desktop"
 
-killall plasmashell; plasmashell &
+killall plasmashell; plasmashell & disown
 ``` 
 
