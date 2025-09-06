@@ -19,24 +19,15 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 > ! IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
 
-
-> Create a user with sudo (required for KDE/SDDM)
-
-> For formatting I usually use Ext4.
-
-> I also like Grub instead of systemd boot.
-
-> Pipewire for audio as it's dep of KDE.
-
-> Also use NetworkManager in network section.
-
-> Kernels: try linux-zen for gaming !
-
-> For gaphics drivers select appropriate to your hardware.
-
-> Type Desktop/Plasma
-
-> Don't skip any step. Personal preferences for reference. Use your prefered set-up.
+- Create a user with sudo (required for KDE/SDDM)
+- For formatting I usually use Ext4. (Or btrfs with snapper) 
+- I also like Grub instead of systemd boot.
+- Pipewire for audio as it's dep of KDE.
+- Also use NetworkManager in network section.
+- Kernels: try linux-zen for gaming !
+- For gaphics drivers select appropriate to your hardware.
+- Type Desktop/Plasma
+- Don't skip any step. Personal preferences for reference. Use your prefered set-up.
 
 Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
