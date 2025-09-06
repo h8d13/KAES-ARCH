@@ -85,8 +85,6 @@ And a lot of KDE stuff.
 
 And the same for root.
 
-![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
-
 ## New context menus!
 
 <img width="362" height="422" alt="image" src="https://github.com/user-attachments/assets/3937feab-91b9-48a8-af6a-6417b3985a42" />
@@ -109,3 +107,6 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 #### Or Bg blur
 `System Settings` > `Wallpaper` > `Get New` > `Active Blur` 
 
+## Preview 
+
+![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
