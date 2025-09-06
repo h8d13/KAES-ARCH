@@ -99,9 +99,7 @@ LockGrace=300
 Timeout=30
 EOF
 ########################################## CREATE THE KONSOLE PROFILES
-echo "Setting up Konsole..." 
-# Set user's default shell to zsh
-echo "Setting up ZSH..." 
+echo "Setting up Konsoles..." 
 # Install ZSH + plugins
 pacman -S --noconfirm zsh \
                       zsh-autosuggestions \
