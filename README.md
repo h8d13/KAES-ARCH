@@ -29,6 +29,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 > Pipewire for audio as it's dep of KDE.
 
 > Also use NetworkManager in network section.
+> Kernels: try linux-zen for gaming !
 
 > For gaphics drivers select appropriate to your hardware.
 
@@ -90,15 +91,13 @@ And a lot of KDE stuff.
 
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
 
+
+
 ## New context menus!
 
 Added run as root and open directory as root context menus for Dolphin! 
-
-## Kernels
-
-For gaming you'd likely want to test linux-zen 
-
-To check current `uname -a`.
+<img width="362" height="422" alt="image" src="https://github.com/user-attachments/assets/3937feab-91b9-48a8-af6a-6417b3985a42" />
+<img width="611" height="474" alt="image" src="https://github.com/user-attachments/assets/e259ed41-50b8-4eaf-ae3a-7a5e2356dc78" />
 
 ## Pacman GUI 
 
