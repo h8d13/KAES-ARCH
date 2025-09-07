@@ -87,7 +87,6 @@ ufw allow 22/tcp           # sftp/ssh
 ufw enable
 ########################################## Power profiles
 pacman -S --noconfirm power-profiles-daemon 
-## Commented out because it's for LAPTOPS
 if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
     info "Detected laptop - configuring power management..."
     systemctl enable power-profiles-daemon.service
@@ -102,6 +101,7 @@ else
     systemctl enable power-profiles-daemon.service
 fi
 ########################################## KDE Config files
+info "Setting up Sessions..." 
 cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
@@ -112,7 +112,7 @@ LockGrace=300
 Timeout=30
 EOF
 ########################################## CREATE THE KONSOLE PROFILES
-info "Setting up Konsole..." 
+info "Setting up Konsoles..." 
 # Install ZSH + plugins
 pacman -S --noconfirm zsh \
                       zsh-autosuggestions \
@@ -143,8 +143,7 @@ Name=root
 Parent=FALLBACK/
 EOF
 ########################################## Dolpin context menus
-info "Setting up Dolpin context menus..." 
-
+info "Setting up Dolpin..." 
 cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -192,7 +191,7 @@ chmod +x /usr/share/kio/servicemenus/createdesktopshortcut.desktop
 ## Modify the existing "Run in Konsole" to a better command:
 sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
 ########################################## Custom Localbin
-info "Setting up local bin..." 
+info "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
 if [ -d "$HOME/.local/bin" ]; then
@@ -211,7 +210,7 @@ pacman -Qs "$1"
 EOF
 chmod +x "$HOME/.local/bin/iapps"
 ########################################## SHARED (BASH & ZSH) ALIASES
-info "Setting up aliases..." 
+info "Setting up Aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
@@ -268,7 +267,7 @@ EOF
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
-# === Create ~/.config/zsh/zshrc ===
+info "Setting up ZSH..." 
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
 if [ -d "/usr/share/zsh/site-functions" ]; then
@@ -313,8 +312,7 @@ EOF
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 ########################################## USER SHELL SETUP
-info "Setting up user shell configurations..."
-
+info "Setting up Root..."
 # Copy shell configs to user
 cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
 cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
@@ -387,7 +385,7 @@ EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
 ########################################## User visual settings
-info "Setting up KDE theme and desktop..."
+info "Setting up KDE theme..."
 # Run as target user, not root
 sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
@@ -414,7 +412,7 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --key "Image" "\$WALLPAPER" >/dev/null 2>&1
 EOF
 ########################################## User SDDM visual settings
-info "Setting up SDDM visual..."
+info "Setting up login SDDM..."
 mkdir -p /etc/sddm.conf.d
 cat > /etc/sddm.conf.d/kde_settings.conf << 'EOF'
 [Autologin]
@@ -438,7 +436,7 @@ EOF
 mkdir -p /var/lib/sddm/.config
 cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
 chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
-
+########################################## Exit reboot
 info "ALL DONE! Welcome."
 info "Rebooting..."
 sleep 3
