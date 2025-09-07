@@ -13,5 +13,8 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
     --key "launchers" "applications:org.kde.konsole.desktop" >/dev/null 2>&1
 
 #restart 
-killall plasmashell; plasmashell & disown
+killall plasmashell >/dev/null 2>&1; plasmashell >/dev/null 2>&1 & disown
+
+# Close the current Konsole window
+exit
 
