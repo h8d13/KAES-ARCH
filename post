@@ -1,15 +1,16 @@
 #!/bin/bash
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 
-# Colored echo functions
-info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
-die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
-
 TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
+
 #set -e ## Exit on error debug
+# Colored echo functions
+info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
+die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
+
 info "Checking target user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
@@ -139,7 +140,9 @@ Command=su -l -c 'zsh'
 Name=root
 Parent=FALLBACK/
 EOF
-########################################## Context menus
+########################################## Dolpin context menus
+info "Setting up Dolpin context menus..." 
+
 cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -381,7 +384,6 @@ EOF
 
 ## Apply settings
 sysctl --system >/dev/null 2>&1
-
 ########################################## User visual settings
 info "Setting up KDE theme and desktop..."
 # Run as target user, not root
