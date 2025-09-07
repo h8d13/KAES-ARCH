@@ -5,8 +5,10 @@ TARGET_USER=hadean
 DTHEME=dark
 ## dark/light
 KB_LAYOUT=us
-# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
+# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
+CREATE_GUEST=false
+# Create guest user (set to true/false) No access to your files or sudo. But has access to same apps.
 
 #set -e ## Exit on error debug
 # Colored echo functions
@@ -339,8 +341,34 @@ mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/PacToPac
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
+########################################## GUEST USER SETUP
+if [ "$CREATE_GUEST" = "true" ]; then
+    info "Setting up guest User..."
+    USERNAME="guest"
+    DISPLAY_NAME="Guest"
+    
+    # Check if user already exists
+    if id "$USERNAME" &>/dev/null; then
+        info "User $USERNAME already exists. Skipping creation."
+    else
+        # Create user with home directory
+        useradd -m -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME"
+        
+        # Add to necessary groups for KDE functionality
+        usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
+        
+        # Empty password
+        passwd -d "$USERNAME"
+        
+        # Set up basic permissions
+        chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
+        chmod 755 "/home/$USERNAME"
+        
+        info "Guest user created successfully! Can log in through SDDM without password."
+    fi
+fi
 ########################################## SYSTEM HARDENING
-info "Setting up security fixes..." 
+info "Setting up Security..." 
 ## Not a router stuff / Others
 cat > /etc/sysctl.d/99-custom-harden.conf << 'EOF'
 # Network performance and security
