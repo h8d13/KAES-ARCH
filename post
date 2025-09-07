@@ -321,9 +321,12 @@ pacman -S --noconfirm python-gobject gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/PacToPac
-
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
+########################################## User settings
+chmod +x "$(pwd)/assets/kpost"
+su - $TARGET_USER -c "$(pwd)/assets/kpost"
+
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ## Not a router stuff / Others
