@@ -333,11 +333,6 @@ chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 chmod +x "$(pwd)/assets/kpost"
 echo "Optional: Run quick black theme & background script" 
 echo "./$(pwd)/assets/kpost"
-
-su - $TARGET_USER -c "kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-    --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
-    --key "launchers" "applications:org.kde.konsole.desktop" >/dev/null 2>&1"
-
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ## Not a router stuff / Others
