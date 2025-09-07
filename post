@@ -419,7 +419,7 @@ HaltCommand=/usr/bin/systemctl poweroff
 RebootCommand=/usr/bin/systemctl reboot
 
 [Theme]
-Current=breeze-dark
+Current=breeze
 CursorTheme=breeze_cursors
 Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 
