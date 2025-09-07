@@ -6,7 +6,11 @@ plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark
 plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
+
 # Only Konsole in taskbar clean look
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+    --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
+    --key "launchers" "applications:org.kde.konsole.desktop" >/dev/null 2>&1
 
 #restart 
 killall plasmashell; plasmashell & disown
