@@ -40,13 +40,13 @@ Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 Open Konsole.
 
 ```
-sudo pacman -S git
+sudo pacman -S git 
 git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
 Edit the targets: `user` and `kb` using editor of your choice.
 
-`sudo vim post`
+`sudo vim post` or `sudo nano post`
 
 ```
 TARGET_USER=johndoe
@@ -58,7 +58,7 @@ VARIANT=""
 
 Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
-You are done ! Here a restart is probably wise. 
+You are done !
 
 ---
 
