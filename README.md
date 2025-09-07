@@ -15,7 +15,7 @@ Boot off the USB with DEL or f10 or f12 to get to BIOS.
 
 > `ping google.com` for test 
 
-Run `pacman -Sy archinstall`
+Run `pacman-key --init && pacman -Sy archinstall` then `y`.
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
