@@ -329,10 +329,6 @@ mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/PacToPac
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-########################################## User settings
-chmod +x "$(pwd)/assets/kpost"
-echo "Optional: Run quick black theme & background script" 
-echo "./$(pwd)/assets/kpost"
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ## Not a router stuff / Others
@@ -381,3 +377,9 @@ EOF
 
 ## Apply settings
 sysctl --system >/dev/null 2>&1
+
+########################################## User settings
+chmod +x "$(pwd)/assets/kpost"
+echo "ALL DONE! Welcome."
+echo "Optional: Run quick black theme & background image script. (Without sudo this time)" 
+echo "./assets/kpost"
