@@ -85,23 +85,23 @@ ufw default deny incoming
 ufw allow out 443/tcp  # https
 ufw allow 22/tcp           # sftp/ssh
 ufw enable
-########################################## KDE Config files
-info "Setting up KDE files..." 
-
+########################################## Power profiles
+pacman -S --noconfirm power-profiles-daemon 
 ## Commented out because it's for LAPTOPS
-#pacman -S --noconfirm power-profiles-daemon 
-#systemctl enable power-profiles-daemon.service
-#CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
-#cat <<EOF > $CONFIG_FILE
-#[AC][Performance]
-#PowerProfile=performance
-#EOF
-
-## For DESKTOPS
-#pacman -S --noconfirm cpupower
-#cpupower frequency-set -g performance
-#systemctl enable cpupower.service
-
+if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
+    info "Detected laptop - configuring power management..."
+    systemctl enable power-profiles-daemon.service
+    CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
+    cat <<EOF > $CONFIG_FILE
+[AC][Performance]
+PowerProfile=performance
+EOF
+else 
+    info "Detected desktop/server - configuring power management..."
+    powerprofilesctl set performance
+    systemctl enable power-profiles-daemon.service
+fi
+########################################## KDE Config files
 cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
