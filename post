@@ -5,13 +5,14 @@ KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
 #set -e ## Exit on error debug
-echo "Checking user..." 
+echo "Checking taget user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
     exit 1
 fi
 # Check if running as root
+echo "Checking elevated..." 
 if [ "$EUID" -ne 0 ]; then
     echo "ERROR: This script must be run as root"
     exit 1
