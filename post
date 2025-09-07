@@ -396,5 +396,4 @@ EOF
 
 echo "ALL DONE! Welcome."
 echo "Restarting SDDM..."
-sleep 3
 systemctl restart sddm 
