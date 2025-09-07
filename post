@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e ## Exit on error
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 TARGET_USER=hadean
 KB_LAYOUT=us
@@ -8,6 +9,11 @@ echo "Checking user..."
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
     echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
+    exit 1
+fi
+# Check if running as root
+if [ "$EUID" -ne 0 ]; then
+    echo "ERROR: This script must be run as root"
     exit 1
 fi
 ########################################## Extras
