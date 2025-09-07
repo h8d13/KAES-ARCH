@@ -60,10 +60,6 @@ Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
 You are done ! Here a restart is probably wise. 
 
-Then inside `assets/` you will find a user script to quickly do visual settings
-
-> The same but without sudo: `cd assets` then `sudo chmod +x kpost && ./kpost`
-
 ---
 
 ## More useful stuff...
