@@ -32,8 +32,8 @@ if ! pacman -Sy; then
 fi
 #pacman -S --noconfirm intel-ucode #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
-pacman -S --noconfirm tree less zip unzip rsync alsa-utils firefox
-#pacman -S --noconfirm helix micro fastfetch kdeconnect
+pacman -S --noconfirm tree less zip unzip rsync alsa-utils 
+#pacman -S --noconfirm helix micro fastfetch kdeconnect firefox
 
 ## For you to rem stuff if needed
 #pacman -R --noconfirm  kate kate-common
