@@ -382,4 +382,7 @@ sysctl --system >/dev/null 2>&1
 chmod +x "$(pwd)/assets/kpost"
 echo "ALL DONE! Welcome."
 echo "Optional: Run quick black theme & background image script. (Without sudo this time)" 
-echo "./assets/kpost"
+echo "Run: .$(pwd)/assets/kpost"
+echo "Restarting SDDM..."
+sleep 3
+systemctl restart sddm 
