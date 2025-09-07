@@ -1,27 +1,33 @@
 #!/bin/bash
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
+
+# Colored echo functions
+info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
+warn() { printf "\033[33m[WARN]\033[0m %s\n" "$*"; }
+die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
+
 TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
 #set -e ## Exit on error debug
-echo "Checking taget user..." 
+info "Checking target user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
-    echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
+    die "Home directory for user '$TARGET_USER' does not exist"
     exit 1
 fi
 # Check if running as root
-echo "Checking elevated..." 
+info "Checking elevated privileges..." 
 if [ "$EUID" -ne 0 ]; then
-    echo "ERROR: This script must be run as root"
+    die "This script must be run as root"
     exit 1
 fi
 ########################################## Extras
-echo "Setting up Extras..." 
+info "Setting up extras..." 
 # Update and check
 if ! pacman -Sy; then
-    echo "ERROR: Failed to sync package databases"
+    die "Failed to sync package databases"
     exit 1
 fi
 #pacman -S --noconfirm intel-ucode #amd-ucode
@@ -32,7 +38,7 @@ pacman -S --noconfirm tree less zip unzip rsync alsa-utils firefox
 ## For you to rem stuff if needed
 #pacman -R --noconfirm  kate kate-common
 ########################################## DIRS
-echo "Setting up Directories..." 
+info "Setting up directories..." 
 ## Admin/User
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/zsh"
@@ -46,8 +52,8 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 
 #mkdir -p "/home/$TARGET_USER/Scripts" && echo -e "[Desktop Entry]\nIcon=folder-script" > "/home/$TARGET_USER/Scripts"
 ##Optional home folders with icons
-########################################## KB Stuff
-echo "Setting up Keyboards..." 
+########################################## Check if we have a KB variant
+info "Setting up keyboards..." 
 ## Check if we need to include variant in the configuration
 if [ -n "$VARIANT" ]; then
     VARIANT_CONFIG="VariantList=$VARIANT"
@@ -71,15 +77,15 @@ setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## UFW
-echo "Setting up UFW..." 
+info "Setting up UFW..." 
 pacman -S --noconfirm ufw 
 ufw default deny incoming
 ufw allow out 443/tcp  # https
-ufw allow 22/tcp	   # sftp/ssh
+ufw allow 22/tcp           # sftp/ssh
 ufw enable
 ########################################## KDE Config files
-echo "Setting up KDE Files..." 
-# Run KDE configuration commands as the target user
+info "Setting up KDE files..." 
+
 ## Commented out because it's for LAPTOPS
 #pacman -S --noconfirm power-profiles-daemon 
 #systemctl enable power-profiles-daemon.service
@@ -88,25 +94,23 @@ echo "Setting up KDE Files..."
 #[AC][Performance]
 #PowerProfile=performance
 #EOF
+
 ## For DESKTOPS
 #pacman -S --noconfirm cpupower
 #cpupower frequency-set -g performance
 #systemctl enable cpupower.service
 
-## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
-CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
-TMP_FILE="$(mktemp)"
-echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
-cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
-mv "$TMP_FILE" "$CONFIG_FILE2"
-CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
-cat <<EOF > $CONFIG_FILE3
+cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
+[General]
+loginMode=emptySession
+EOF
+cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << 'EOF'
 [Daemon]
 LockGrace=300
 Timeout=30
 EOF
 ########################################## CREATE THE KONSOLE PROFILES
-echo "Setting up Konsoles..." 
+info "Setting up Konsole..." 
 # Install ZSH + plugins
 pacman -S --noconfirm zsh \
                       zsh-autosuggestions \
@@ -184,7 +188,7 @@ chmod +x /usr/share/kio/servicemenus/createdesktopshortcut.desktop
 ## Modify the existing "Run in Konsole" to a better command:
 sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
 ########################################## Custom Localbin
-echo "Setting up Localbin..." 
+info "Setting up local bin..." 
 ## Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
 if [ -d "$HOME/.local/bin" ]; then
@@ -203,7 +207,7 @@ pacman -Qs "$1"
 EOF
 chmod +x "$HOME/.local/bin/iapps"
 ########################################## SHARED (BASH & ZSH) ALIASES
-echo "Setting up aliases..." 
+info "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
@@ -238,7 +242,7 @@ alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 EOF
 ########################################## BASH CONFIGURATION
-echo "Setting up Bash..." 
+info "Setting up Bash..." 
 cat > "$HOME/.config/bash/bashrc" << 'EOF'
 # === Custom Bash Prompt Blue ===
 export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\A\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
@@ -305,7 +309,7 @@ EOF
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 ########################################## USER SHELL SETUP
-echo "Setting up user shell configurations..."
+info "Setting up user shell configurations..."
 
 # Copy shell configs to user
 cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
@@ -323,7 +327,7 @@ echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
 touch "/home/$TARGET_USER/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## PacToPac
-echo "Setting up Github/K2..." 
+info "Setting up Github/K2..." 
 pacman -S --noconfirm python-gobject gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
@@ -331,7 +335,7 @@ rm -rf /tmp/PacToPac
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## SYSTEM HARDENING
-echo "Setting up Security fixes..." 
+info "Setting up security fixes..." 
 ## Not a router stuff / Others
 cat > /etc/sysctl.d/99-custom-harden.conf << 'EOF'
 # Network performance and security
@@ -379,8 +383,8 @@ EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
 
-########################################## User settings
-echo "Setting up KDE theme and desktop..."
+########################################## User visual settings
+info "Setting up KDE theme and desktop..."
 # Run as target user, not root
 sudo -u $TARGET_USER bash << 'EOF'
 # Dark theme  
@@ -397,7 +401,7 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --key "Image" "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png" >/dev/null 2>&1
 EOF
 
-echo "ALL DONE! Welcome."
-echo "Restarting SDDM..."
+info "ALL DONE! Welcome."
+info "Restarting SDDM..."
 sleep 1
 systemctl restart sddm 
