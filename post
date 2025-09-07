@@ -428,6 +428,9 @@ Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 MaximumUid=60513
 MinimumUid=1000
 EOF
+mkdir -p /var/lib/sddm/.config
+cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
+chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
 
 info "ALL DONE! Welcome."
 info "Rebooting..."
