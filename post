@@ -407,6 +407,7 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 EOF
 
 ########################################## User SDDM visual settings
+info "Setting up SDDM visual..."
 mkdir -p /etc/sddm.conf.d
 cat > /etc/sddm.conf.d/kde_settings.conf << 'EOF'
 [Autologin]
