@@ -383,16 +383,14 @@ echo "Setting up KDE theme and desktop..."
 # Run as target user, not root
 sudo -u $TARGET_USER bash << 'EOF'
 # Wallpaper
-plasma-apply-wallpaperimage
-"/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png" >/dev/null 2>&1
+plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png" >/dev/null 2>&1
 # Dark theme  
 plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
 # Only Konsole in taskbar clean look
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-  --group "Containments" --group "2" --group "Applets" --group "5" --group
-"Configuration" --group "General" \
+  --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
   --key "launchers" "applications:org.kde.konsole.desktop" >/dev/null 2>&1
 EOF
 
