@@ -94,9 +94,6 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
 ## Further config
 
-#### Ugly Log-in screen
-`System Settings` > `SDDM Login-Screen` > `Apply Plasma Setings` 
-
 #### Tiling 
 `System Settings` > `Window Management` > `Kwin` > `Get New` > `Krohnkite`
 
