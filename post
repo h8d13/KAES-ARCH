@@ -403,6 +403,6 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 EOF
 
 info "ALL DONE! Welcome."
-info "Restarting SDDM..."
-sleep 1
-systemctl restart sddm 
+info "Rebooting..."
+sleep 3
+reboot
