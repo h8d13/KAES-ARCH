@@ -83,6 +83,7 @@ killall plasmashell; plasmashell & disown
 - KDE Default values I didn't like: Empty sessions, Lock-out grace, Powerprofiles
 - KDE Dolphin interaction menus
 - Keymaps SDDM & KDE
+- SDDM Auto-change theme
 - Sysctl & UFW
 - Bash/Zsh: Aliases & look-feel
 - Pacman GUI
