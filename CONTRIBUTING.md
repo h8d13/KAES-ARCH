@@ -92,3 +92,7 @@ killall plasmashell; plasmashell & disown
 ### Why?
 
 I've been called lasy. But my idea was more that, I'd like to be able to get a new mini-pc under the TV and not have to do 100 things manually, instead be able to install from my couch over a bluetooth keyboard and that in less than 15 minutes. A lot of dev work is hidden under toggles, settings files, etc... Here I can gather best practices as one unified script.
+
+### Downsides
+
+Being downstream from most things and interaction with system files as so can be a bit tricky. Has to be correct and accurate with some edge cases handled. Also thouroughly test from scratch, no cutting corners.  
