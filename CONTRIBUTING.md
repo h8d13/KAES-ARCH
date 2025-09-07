@@ -2,7 +2,7 @@
 
 ## Get started helping out !
 
-Create a testing user on your existing KDE install. Make sure you have logged-in once at least normally (this first loading screen is slightly longer because it creates all the files for the user).
+Create a testing user on your existing KDE install. Make sure you have logged-in once at least normally (this first loading screen is slightly longer because it creates all the files for the user). From this we can learn anything on a system is CRUD. So we can reverse engineer it quite easily if we understand it's origin, and how interaction update these values.
 
 `$ sudo pacman -S inotify-tools`
 
