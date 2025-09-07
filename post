@@ -408,6 +408,28 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --key "Image" "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png" >/dev/null 2>&1
 EOF
 
+########################################## User SDDM visual settings
+mkdir -p /etc/sddm.conf.d
+cat > /etc/sddm.conf.d/kde_settings.conf << 'EOF'
+[Autologin]
+Relogin=false
+Session=
+User=
+
+[General]
+HaltCommand=/usr/bin/systemctl poweroff
+RebootCommand=/usr/bin/systemctl reboot
+
+[Theme]
+Current=breeze
+CursorTheme=breeze_cursors
+Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+
+[Users]
+MaximumUid=60513
+MinimumUid=1000
+EOF
+
 info "ALL DONE! Welcome."
 info "Rebooting..."
 sleep 3
