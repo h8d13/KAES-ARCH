@@ -10,6 +10,7 @@ Common locations of important things:
 
 ```
 /usr/share
+/var/lib
 /.local
 /.config
 ```
