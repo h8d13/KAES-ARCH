@@ -1,10 +1,10 @@
 #!/bin/bash
-set -e ## Exit on error
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 TARGET_USER=hadean
 KB_LAYOUT=us
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 VARIANT=""
+#set -e ## Exit on error debug
 echo "Checking user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
