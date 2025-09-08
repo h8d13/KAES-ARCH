@@ -14,6 +14,8 @@ VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
+SCRIPT_DIR="$(pwd)"
+# For assets
 
 # Print configuration variables
 echo "Configuration:"
@@ -22,6 +24,7 @@ info "DTHEME=$DTHEME"
 info "KB_LAYOUT=$KB_LAYOUT"
 info "VARIANT=$VARIANT"
 info "CREATE_GUEST=$CREATE_GUEST"
+info "SCRIPT_DIR=$SCRIPT_DIR"
 echo ""
 
 # Confirmation prompt
@@ -53,16 +56,14 @@ fi
 ########################################## Extras: Please configure me
 info "Setting up extras..." 
 # Update and check
-
 #pacman -S --noconfirm intel-ucode #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
 pacman -S --noconfirm tree less zip unzip rsync alsa-utils 
 #pacman -S --noconfirm helix micro fastfetch kdeconnect firefox
-
 ## For you to rem stuff if needed
 #pacman -R --noconfirm  kate kate-common
 ########################################## DIRS
-info "Setting up directories..." 
+info "Setting up Dirs..." 
 ## Admin/User
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/zsh"
@@ -432,7 +433,6 @@ EOF
 sysctl --system >/dev/null 2>&1
 ########################################## User visual settings
 info "Setting up KDE theme..."
-SCRIPT_DIR="$(pwd)"
 # Run as target user, not root
 sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
