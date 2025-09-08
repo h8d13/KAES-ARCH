@@ -94,7 +94,9 @@ And a lot of KDE stuff.
 
 ## Pacman GUI 
 
-PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
+Pac2Pac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
+
+The idea was having a settings section > common operations you do on an arch system to do anything... Flatpak, multi-lib, etc 
 
 ## Further config
 
@@ -111,4 +113,6 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 ### More info:
 - Arch ISO size: 1,4 GB
 - Total download size avg: 5-6GB Space on disk: ~10GB with Steam downloaded. 
-- With decent internet total install time should be around 20-30 minutes. 
+- With decent internet total install time should be around 20-30 minutes.
+
+
