@@ -110,9 +110,9 @@ ufw enable
 ########################################## Power profiles
 info "Setting up Power..." 
 pacman -S --noconfirm power-profiles-daemon 
+systemctl enable power-profiles-daemon.service
 if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
     info "Detected laptop - configuring power management..."
-    systemctl enable power-profiles-daemon.service
     CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
     cat <<EOF > $CONFIG_FILE
 [AC][Performance]
@@ -120,8 +120,7 @@ PowerProfile=performance
 EOF
 else 
     info "Detected desktop/server - configuring power management..."
-    powerprofilesctl set performance
-    systemctl enable power-profiles-daemon.service
+    sudo -u $TARGET_USER powerprofilesctl set performance
 fi
 ########################################## KDE Config files
 info "Setting up Sessions..." 
