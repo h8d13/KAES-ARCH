@@ -6,7 +6,6 @@ info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
 die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 
 ## Config
-TARGET_USER=hadean
 DTHEME=dark
 ## dark/light
 KB_LAYOUT=us
@@ -14,8 +13,9 @@ VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
+# Auto-generated, don't touch bellow
 SCRIPT_DIR="$(pwd)"
-# For assets
+TARGET_USER="$SUDO_USER
 
 # Print configuration variables
 echo "Configuration:"
