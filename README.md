@@ -110,5 +110,5 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
 ### More info:
 - ISO size: 1,4 GB
-- Total download size avg: 5GB Space on disk: ~8,5GB
+- Total download size avg: 5-6GB Space on disk: ~10GB with Steam downloaded. 
 - With decent internet total install time should be around 20-30 minutes. 
