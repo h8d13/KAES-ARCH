@@ -460,8 +460,8 @@ EOF
 sysctl --system >/dev/null 2>&1
 ########################################## User visual settings
 info "Setting up KDE theme..."
-# Run as target user, not root
-sudo -u $TARGET_USER bash << EOF
+# Run as target user, not root # Script dir is passed as env variable to user session
+sudo -u $TARGET_USER SCRIPT_DIR="$SCRIPT_DIR" bash << EOF
 # Apply theme based on DTHEME setting
 if [ "$DTHEME" = "light" ]; then
     plasma-apply-desktoptheme breeze >/dev/null 2>&1
