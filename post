@@ -513,5 +513,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     reboot
 else
     info "Reboot skipped. Please reboot manually to apply all changes."
-    info "cat install-$(date +%Y%m%d).log to see full install output."
 fi
