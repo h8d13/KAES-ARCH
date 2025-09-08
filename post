@@ -29,12 +29,13 @@ echo ""
 
 # Confirmation prompt
 read -p "Continue with these settings? (y/N): " -n 1 -r
-  echo
+echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  die "Aborted."
-  exit 1
+    die "Aborted."
+    exit 1
 fi
 echo ""
+
 
 info "Checking target user..." 
 ## Check the target user is correct
