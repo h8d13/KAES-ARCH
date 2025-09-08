@@ -109,6 +109,6 @@ PacToPac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
 
 ### More info:
-- ISO size: 1,4 GB
+- Arch ISO size: 1,4 GB
 - Total download size avg: 5-6GB Space on disk: ~10GB with Steam downloaded. 
 - With decent internet total install time should be around 20-30 minutes. 
