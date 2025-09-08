@@ -2,8 +2,6 @@
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 #set -e ## Exit on error debug
 # Colored echo functions
-info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
-die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 
 ## Config
 DTHEME=dark
@@ -16,8 +14,11 @@ MANUAL_USER=""
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated, don't touch bellow
+
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
+info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
+die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
@@ -460,8 +461,8 @@ EOF
 sysctl --system >/dev/null 2>&1
 ########################################## User visual settings
 info "Setting up KDE theme..."
-# Run as target user, not root # Script dir is passed as env variable to user session
-sudo -u $TARGET_USER SCRIPT_DIR="$SCRIPT_DIR" bash << EOF
+# Run as target user, not root 
+sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
 if [ "$DTHEME" = "light" ]; then
     plasma-apply-desktoptheme breeze >/dev/null 2>&1
@@ -476,16 +477,6 @@ else
     kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
     WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 fi
-# Only Konsole in taskbar clean look
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-  --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
-  --key "launchers" "applications:org.kde.konsole.desktop" >/dev/null 2>&1
-# Set wallpaper via config
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-  --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
-  --key "Image" "\$WALLPAPER" >/dev/null 2>&1
-# Taskbar icon
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" --group "3" --group "Configuration" --group "General" --key "icon"  "$SCRIPT_DIR/assets/logo.png"
 EOF
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
