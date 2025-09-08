@@ -371,7 +371,7 @@ git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac $SCRIPT_DIR/k2_os/
 rm -rf /tmp/PacToPac
 
-cat > "/home/$TARGET_USER/Desktop" << EOF
+cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
 Comment=Suckless Arch Linux package manager
@@ -384,7 +384,7 @@ Terminal=true
 Type=Application
 EOF
 
-# Fix ownership after copying
+# Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## GUEST USER SETUP
 if [ "$CREATE_GUEST" = "true" ]; then
