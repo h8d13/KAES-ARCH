@@ -15,8 +15,6 @@ MANUAL_USER=""
 # Optional can be left empty too, uses sudo user by default
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
-
-#
 # Auto-generated, don't touch bellow
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d-%H%M%S).log"
