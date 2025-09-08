@@ -495,7 +495,7 @@ chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
 
   ########################################## Exit reboot
 info "ALL DONE! Welcome."
-echo "Install completed successfully at $(date)" >> "$LOG_FILE"
+info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
 
 echo ""
@@ -507,5 +507,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     reboot
 else
     info "Reboot skipped. Please reboot manually to apply all changes."
-    info "cat $LOG_FILE to see install outputs."
+    info "cat install-$(date +%Y%m%d-%H%M%S).log to see install outputs."
 fi
