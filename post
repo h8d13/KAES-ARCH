@@ -352,7 +352,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "User $USERNAME already exists. Skipping creation."
     else
         # Create user with home directory
-        useradd -m -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME"
+        useradd -m -c "$DISPLAY_NAME" -s /bin/rbash "$USERNAME"
         
         # Add to necessary groups for KDE functionality
         usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
