@@ -15,6 +15,9 @@ CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated, don't touch bellow
 SCRIPT_DIR="$(pwd)"
+LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d-%H%M%S).log"
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
 
 if [ -n "$SUDO_USER" ]; then
     TARGET_USER="$SUDO_USER"
@@ -169,8 +172,8 @@ Command=su -l -c 'zsh'
 Name=root
 Parent=FALLBACK/
 EOF
-########################################## Dolpin context menus
-info "Setting up Dolpin..." 
+########################################## Dolphin context menus
+info "Setting up Dolphin..." 
 cat > "/usr/share/kio/servicemenus/konsolerunsudo.desktop" << EOF
 [Desktop Entry]
 Type=Service
@@ -489,8 +492,20 @@ EOF
 mkdir -p /var/lib/sddm/.config
 cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
 chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
-########################################## Exit reboot
+
+  ########################################## Exit reboot
 info "ALL DONE! Welcome."
-info "Rebooting..."
-sleep 3
-reboot
+echo "Install completed successfully at $(date)" >> "$LOG_FILE"
+info "Log saved to: $LOG_FILE"
+
+echo ""
+read -p "Installation complete! Reboot now? (y/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    info "Rebooting in 3 seconds..."
+    sleep 3
+    reboot
+else
+    info "Reboot skipped. Please reboot manually to apply all changes."
+    info "cat $LOG_FILE to see install outputs."
+fi
