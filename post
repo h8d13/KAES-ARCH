@@ -369,7 +369,7 @@ info "Setting up Github/K2..."
 pacman -S --noconfirm gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac $SCRIPT_DIR/k2_os/
-cp $SCRIPT_DIR/k2_os/PACTOPAC.desktop $HOME/Desktop/PACTOPAC.desktop
+cp $SCRIPT_DIR/k2_os/PACTOPAC.desktop /home/$TARGET_USER/Desktop/PACTOPAC.desktop
 rm -rf /tmp/PacToPac
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
