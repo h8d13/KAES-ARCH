@@ -415,6 +415,7 @@ EOF
 sysctl --system >/dev/null 2>&1
 ########################################## User visual settings
 info "Setting up KDE theme..."
+SCRIPT_DIR="$(pwd)"
 # Run as target user, not root
 sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
@@ -439,6 +440,8 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
   --key "Image" "\$WALLPAPER" >/dev/null 2>&1
+# Taskbar icon
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" --group "3" --group "Configuration" --group "General" --key "icon"  "$SCRIPT_DIR/assets/logo.png"
 EOF
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
