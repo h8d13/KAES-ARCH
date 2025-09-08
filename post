@@ -1,8 +1,6 @@
 #!/bin/bash
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
 #set -e ## Exit on error debug
-# Colored echo functions
-
 ## Config
 DTHEME=dark
 ## dark/light
