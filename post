@@ -369,8 +369,21 @@ info "Setting up Github/K2..."
 pacman -S --noconfirm gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac $SCRIPT_DIR/k2_os/
-cp $SCRIPT_DIR/k2_os/PACTOPAC.desktop /home/$TARGET_USER/Desktop/PACTOPAC.desktop
 rm -rf /tmp/PacToPac
+
+cat > "/home/$TARGET_USER/Desktop" << EOF
+[Desktop Entry]
+Categories=System;PackageManager;
+Comment=Suckless Arch Linux package manager
+Exec=sudo python3 /home/$TARGET_USER/KAES-ARCH/k2-os/main.py
+Icon=package-x-generic
+Name[en_US]=PAC2PAC
+Name=PAC2PAC
+StartupNotify=true
+Terminal=true
+Type=Application
+EOF
+
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## GUEST USER SETUP
