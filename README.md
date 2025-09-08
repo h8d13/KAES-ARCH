@@ -49,13 +49,15 @@ Edit the targets: `user` and `kb` using editor of your choice.
 `sudo vim post` or `sudo nano post`
 
 ```
-TARGET_USER=johndoe
 # Theme: light or dark
 DTHEME=dark
 KB_LAYOUT=us
 VARIANT=""
+MANUAL_USER=""
 ```
-> Variant is optional, can be left empty.
+> Variant is optional, can be left empty. And so is manual_user (if you wish to use it on another profile?)
+> Applies for the current sudo user by default.
+
 > Using vim you can use insert to edit, ESC to enter command mode and :wq to write changes.
 > You can also go through some of the rest of the code as there might be some programs you want to add/remove.
 
