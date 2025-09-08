@@ -112,7 +112,8 @@ The idea was having a settings section > common operations you do on an arch sys
 
 ### More info:
 - Arch ISO size: 1,4 GB
-- Total download size avg: 5-6GB Space on disk: ~10GB with Steam downloaded. 
-- With decent internet total install time should be around 20-30 minutes.
+- Total download size avg: 5-6GB Space used on disk: 8,4GB
+- With Steam/Firefox:(700mb download) Space used on disk: 9,6 GB
 
+- With decent internet total install time should be around 20-30 minutes.
 
