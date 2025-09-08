@@ -17,7 +17,7 @@ CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated, don't touch bellow
 SCRIPT_DIR="$(pwd)"
-LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d-%H%M%S).log"
+LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
@@ -513,5 +513,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     reboot
 else
     info "Reboot skipped. Please reboot manually to apply all changes."
-    info "cat install-$(date +%Y%m%d-%H%M%S).log to see install outputs."
+    info "cat install-$(date +%Y%m%d).log to see full install output."
 fi
