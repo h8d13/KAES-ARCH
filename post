@@ -1,6 +1,11 @@
 #!/bin/bash
 ## Pacman and Arch derivatives , mean to be run with elevated priv.
+#set -e ## Exit on error debug
+# Colored echo functions
+info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
+die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 
+## Config
 TARGET_USER=hadean
 DTHEME=dark
 ## dark/light
@@ -10,10 +15,23 @@ VARIANT=""
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 
-#set -e ## Exit on error debug
-# Colored echo functions
-info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
-die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
+# Print configuration variables
+echo "Configuration:"
+info "TARGET_USER=$TARGET_USER"
+info "DTHEME=$DTHEME"
+info "KB_LAYOUT=$KB_LAYOUT"
+info "VARIANT=$VARIANT"
+info "CREATE_GUEST=$CREATE_GUEST"
+echo ""
+
+# Confirmation prompt
+read -p "Continue with these settings? (y/N): " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  die "Aborted."
+  exit 1
+fi
+echo ""
 
 info "Checking target user..." 
 ## Check the target user is correct
@@ -32,7 +50,7 @@ if ! pacman -Sy; then
     die "Failed to sync package databases"
     exit 1
 fi
-########################################## Extras
+########################################## Extras: Please configure me
 info "Setting up extras..." 
 # Update and check
 
