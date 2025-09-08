@@ -138,7 +138,7 @@ else
     info "Detected desktop/server - skipping..."
 fi
 ########################################## KDE Config files
-info "Setting up Sessions..." 
+info "Setting up Sessions/Krunner/Lockout..." 
 cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
@@ -147,6 +147,14 @@ cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << 'EOF'
 [Daemon]
 LockGrace=300
 Timeout=30
+EOF
+cat > "/home/$TARGET_USER/.config/krunnerrc" << EOF
+[Plugins]
+krunner_appstreamEnabled=false
+krunner_webshortcutsEnabled=false
+
+[Plugins][Favorites]
+plugins=krunner_services,krunner_systemsettings
 EOF
 ########################################## CREATE THE KONSOLE PROFILES
 info "Setting up Konsoles..." 
