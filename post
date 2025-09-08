@@ -36,7 +36,6 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 fi
 echo ""
 
-
 info "Checking target user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
