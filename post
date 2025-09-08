@@ -368,7 +368,7 @@ echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 info "Setting up Github/K2..." 
 pacman -S --noconfirm gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
-mv /tmp/PacToPac /home/$TARGET_USER/Desktop/k2-os/
+mv /tmp/PacToPac $SCRIPT_DIR/k2_os/
 rm -rf /tmp/PacToPac
 # Fix ownership after copying
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
