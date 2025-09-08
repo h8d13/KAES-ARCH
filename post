@@ -368,7 +368,7 @@ echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 info "Setting up Github/K2..." 
 pacman -S --noconfirm gtk4 libadwaita
 git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
-mv /tmp/PacToPac $SCRIPT_DIR/k2_os/
+mv /tmp/PacToPac $SCRIPT_DIR/k2-os/
 rm -rf /tmp/PacToPac
 
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
