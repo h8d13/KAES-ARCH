@@ -70,14 +70,15 @@ KDE has neat built-in stuff for programmers: `kbuildsycoca6` rebuild system cach
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
     --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
     --key "launchers" "applications:org.kde.konsole.desktop"
-
-killall plasmashell; plasmashell & disown
 ``` 
+They can be a bit inconsistent sometimes. Perhaps of my wrong usage.
 
 ## Special thanks
 
-[This Github Repo](https://github.com/shalva97/kde-configuration-files) 
+[ArchInstallDevs](https://github.com/archlinux/archinstall/) 
+> They are especially responsive even even with the most random of small bugs in their install menu which basically creates a system of thin air. Big props to them!
 
+[This Github Repo](https://github.com/shalva97/kde-configuration-files) 
 
 ## Current Scope
 
@@ -95,4 +96,4 @@ I've been called lasy. But my idea was more that, I'd like to be able to get a n
 
 ### Downsides
 
-Being downstream from most things and interaction with system files as so can be a bit tricky. Has to be correct and accurate with some edge cases handled. Also thouroughly test from scratch, no cutting corners.  
+Being downstream from most things and interaction with system files as so can be a bit tricky. Has to be correct and accurate with some edge cases handled. Also thoroughly test from scratch, no cutting corners.  
