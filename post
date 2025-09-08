@@ -375,7 +375,7 @@ cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
 Comment=Suckless Arch Linux package manager
-Exec=sudo python3 $SCRIPT_DIR/k2-os/main.py
+Exec=sudo -b python3 $SCRIPT_DIR/k2-os/main.py; exit
 Icon=package-x-generic
 Name[en_US]=PAC2PAC
 Name=PAC2PAC
