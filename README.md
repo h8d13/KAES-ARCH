@@ -10,13 +10,12 @@ Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 Boot off the USB with DEL or f10 or f12 to get to BIOS.
 
 ### Setup network 
-> (Ethernet works out of the box)
-> For wifi: `nmcli device wifi connect "SSID" password "password"`
+Ethernet works out of the box. Plug a cable and go. 
 
-> `ping google.com` for test 
+> For wifi: `iwctl station wlan0 connect "SSID"` SSID being the name of your WiFi (case sensitive) and it should prompt you for password.
+> `ping google.com` for test, you should see `64 bytes from xx.xxx.xxx.xxx (xx.xxx.xxx.xxxx): icmp_seq=1 ttl=109 time=13.9 ms` then it means you are all good to go!
 
 Run `pacman-key --init && pacman -Sy archinstall` then `y`.
-
 Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
