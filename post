@@ -483,6 +483,13 @@ else
     kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
     WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 fi
+
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+  --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
+  --key "launchers" "applications:org.kde.konsole.desktop"
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+  --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
+  --key "Image" "\$WALLPAPER"
 EOF
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
