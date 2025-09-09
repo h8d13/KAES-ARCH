@@ -408,13 +408,6 @@ EOF
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## User visual settings
 info "Setting up KDE theme..."
-## Set wallpaper variable
-if [ "$DTHEME" = "light" ]; then
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
-else
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-fi
-
 # Run as target user, not root 
 sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
@@ -423,11 +416,13 @@ if [ "$DTHEME" = "light" ]; then
     plasma-apply-colorscheme BreezeLight >/dev/null 2>&1
     kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeLight"
     kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breeze.desktop"
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
 else
     plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
     plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
     kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeDark"
     kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 fi
 
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
@@ -477,7 +472,12 @@ fi
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
 mkdir -p /etc/sddm.conf.d
-
+## Set wallpaper variable
+if [ "$DTHEME" = "light" ]; then
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
+else
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+fi
 cat > /etc/sddm.conf.d/kde_settings.conf << EOF
 [Autologin]
 Relogin=false
