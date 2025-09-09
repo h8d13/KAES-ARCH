@@ -27,12 +27,27 @@ exec 2>&1
 
 # Print configuration variables
 echo "Configuration:"
+info "SCRIPT_DIR=$SCRIPT_DIR"
 info "SUDO_USER: $TARGET_USER"
 info "DTHEME=$DTHEME"
 info "KB_LAYOUT=$KB_LAYOUT"
 info "VARIANT=$VARIANT"
+echo ""
+echo "Guest User Configuration:"
 info "CREATE_GUEST=$CREATE_GUEST"
-info "SCRIPT_DIR=$SCRIPT_DIR"
+if [ "$CREATE_GUEST" = "true" ]; then
+    info "GUEST_USERNAME=$USERNAME"
+    info "GUEST_DISPLAY_NAME=$DISPLAY_NAME"
+    if [ -z "$GUEST_PASSWORD" ]; then
+        info "GUEST_PASSWORD=<empty - no password required>"
+    else
+        info "GUEST_PASSWORD=<custom password set>"
+    fi
+    info "Guest will have: Audio, Video, Games, Power, Optical, Storage, Scanner access"
+    info "Guest will NOT have: Sudo privileges or access to $TARGET_USER files"
+else
+    info "No guest user will be created"
+fi
 echo ""
 
 # Confirmation prompt
@@ -43,7 +58,7 @@ if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
   exit 1
 fi
 echo ""
-
+########################################## Edge cases
 info "Checking target user..." 
 ## Check the target user is correct
 if [ ! -d "/home/$TARGET_USER" ]; then
