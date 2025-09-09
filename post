@@ -533,5 +533,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     sleep 3
     reboot
 else
-    info "Reboot skipped. Please reboot manually to apply all changes."
+    info "Reboot skipped. Please reboot manually or 'systemctl restart sddm'."
 fi
