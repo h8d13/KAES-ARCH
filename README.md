@@ -56,7 +56,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 !IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! Please check you didn't miss any.
 
-ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
+ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIOS, or you install again?)
 
 > Login normally using the user you created. This will let KDE create all the files it needs (or I need).
 
