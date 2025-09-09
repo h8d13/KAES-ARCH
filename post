@@ -141,7 +141,7 @@ cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << 'EOF'
 LockGrace=300
 Timeout=30
 EOF
-cat > "/home/$TARGET_USER/.config/krunnerrc" << EOF
+cat > "/home/$TARGET_USER/.config/krunnerrc" << 'EOF'
 [Plugins]
 krunner_appstreamEnabled=false
 krunner_webshortcutsEnabled=false
