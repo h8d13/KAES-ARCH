@@ -7,8 +7,7 @@ DTHEME=dark
 KB_LAYOUT=us
 VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
-MANUAL_USER=""
-# Optional can be left empty too, uses sudo user by default
+TARGET_USER="$SUDO_USER"
 CREATE_GUEST=false
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated, don't touch bellow
@@ -20,19 +19,9 @@ die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
-# Target user detection logic
-if [ -n "$MANUAL_USER" ]; then
-  TARGET_USER="$MANUAL_USER"
-  info "Using manually specified user: $TARGET_USER"
-elif [ -n "$SUDO_USER" ]; then
-  TARGET_USER="$SUDO_USER"
-  info "Using sudo user: $TARGET_USER"
-else
-  die "Could not determine target user. Please run with sudo or set MANUAL_USER variable."
-fi
-
 # Print configuration variables
 echo "Configuration:"
+info "SUDO_USER: $TARGET_USER"
 info "DTHEME=$DTHEME"
 info "KB_LAYOUT=$KB_LAYOUT"
 info "VARIANT=$VARIANT"
