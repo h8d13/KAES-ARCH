@@ -23,7 +23,6 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
 
 ### Archinstall walkthrough
-!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
 
 - Keymap select your own.
 - Locales: Use `en_GB.UTF-8` for European format, `en_US.UTF-8` for PM/AM.
@@ -55,9 +54,11 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 > Personal preferences for reference. Use your prefered set-ups. Only real dependancy is Sddm and KDE-Plasma. 
 
-Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
+!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! Please check you didn't miss any.
 
-> Login normally using the user you created. This will let KDE create all the files it needs.
+ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
+
+> Login normally using the user you created. This will let KDE create all the files it needs (or I need).
 
 ---
 
