@@ -42,7 +42,8 @@ You should see this neat menu ^^
 > Make the password strong and different from root ideally.
 
 - Profile: Type Desktop/Plasma
-- For gaphics drivers select appropriate to your hardware.
+  - Graphics drivers: select appropriate to your hardware.
+  - Greeter: sddm
 
 - Applications: Pipewire for audio as it's dep of KDE + Bluetooth set-up if needed. 
 - Kernels: try linux-zen for gaming ! You can even install mutiple and they should show up in your Grub entries.
@@ -51,7 +52,7 @@ You should see this neat menu ^^
 - Timezone: Select your region in list.
 - NTP: Enabled
 
-> Personal preferences for reference. Use your prefered set-ups.
+> Personal preferences for reference. Use your prefered set-ups. Only real dependancy is Sddm and KDE-Plasma. 
 
 Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
@@ -62,7 +63,7 @@ Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 Open Konsole.
 
 ```
-sudo pacman -S git 
+sudo pacman -S git
 git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
@@ -71,13 +72,11 @@ Edit the targets: `user` and `kb` using editor of your choice.
 `sudo vim post` or `sudo nano post`
 
 ```
-# Theme: light or dark
 DTHEME=dark
 KB_LAYOUT=us
 VARIANT=""
-MANUAL_USER=""
 ```
-> Variant is optional, can be left empty. And so is manual_user (if you wish to use it on another profile?)
+> Variant is optional, can be left empty.
 > Applies for the current sudo user by default.
 
 > Using vim you can use insert to edit, ESC to enter command mode and :wq to write changes.
@@ -137,5 +136,5 @@ The idea was having a settings section > common operations you do on an arch sys
 - Total download size avg: 5-6GB Space used on disk: 8,4GB
 - With Steam/Firefox:(700mb download) Space used on disk: 9,6 GB
 
-- With decent internet total install time should be around 20-30 minutes.
+- With decent internet total install time should be around 20-30 minutes. With good internet less then 15 minutes. 
 
