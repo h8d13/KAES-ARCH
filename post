@@ -8,7 +8,13 @@ KB_LAYOUT=us
 VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 TARGET_USER="$SUDO_USER"
+# Guest section
 CREATE_GUEST=false
+GUEST_PASSWORD=""
+# Optional guest password (leave empty for no password) 
+USERNAME="guest"
+DISPLAY_NAME="Guest"
+
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated, don't touch bellow
 
@@ -384,26 +390,36 @@ EOF
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## GUEST USER SETUP
 if [ "$CREATE_GUEST" = "true" ]; then
-    info "Setting up guest User..."
-    USERNAME="guest"
-    DISPLAY_NAME="Guest"
-    
+    info "Setting up guest User..." 
     # Check if user already exists
     if id "$USERNAME" &>/dev/null; then
         info "User $USERNAME already exists. Skipping creation."
     else
-        # Create user with home directory
-        useradd -m -c "$DISPLAY_NAME" -s /bin/rbash "$USERNAME"
+        # Create user without home directory first
+        useradd -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME" 
+        # Can use rbash for more restrictive setup
         
         # Add to necessary groups for KDE functionality
         usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
         
-        # Empty password
-        passwd -d "$USERNAME"
+        # Set password (empty or custom)
+        if [ -z "$GUEST_PASSWORD" ]; then
+            passwd -d "$USERNAME"
+            info "Guest user created with no password"
+        else
+            echo "$USERNAME:$GUEST_PASSWORD" | chpasswd
+            info "Guest user created with custom password"
+        fi
         
-        # Set up basic permissions
+        # Clone entire home directory
+        info "Cloning $TARGET_USER home directory to guest..."
+        cp -r "/home/$TARGET_USER" "/home/$USERNAME"
+        
+        # Fix ownership
         chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
         chmod 755 "/home/$USERNAME"
+        
+        info "Guest user setup complete with cloned home directory"
     fi
 fi
 ########################################## SYSTEM HARDENING
