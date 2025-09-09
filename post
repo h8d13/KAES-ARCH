@@ -388,6 +388,9 @@ git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
 mv /tmp/PacToPac $SCRIPT_DIR/k2-os/
 rm -rf /tmp/PacToPac
 
+# Copy KAES logo to system directory for shared access
+cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
+
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
@@ -435,7 +438,7 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --key "Image" "\$WALLPAPER"
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" \
   --group "3" --group "Configuration" --group "General" \
-  --key "icon"  "$SCRIPT_DIR/assets/logo.png"
+  --key "icon"  "/usr/share/pixmaps/kaes-logo.png"
 EOF
 ########################################## GUEST USER SETUP
 if [ "$CREATE_GUEST" = "true" ]; then
