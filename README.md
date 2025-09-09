@@ -18,18 +18,39 @@ Boot off the USB with DEL or f10 or f12 to get to BIOS.
 Run `pacman-key --init && pacman -Sy archinstall` then `y`.
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps:
+<img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
+
+You should see this neat menu ^^ 
 
 > ! IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
+- Keymap select your own.
+- Locales: Use `en_GB.UTF-8` for European format, `en_US.UTF-8` for PM/AM.
+- Locale encoding can be left as `UTF-8` if not using some special alphabets.
 
-- Create a user with sudo (required for KDE/SDDM)
-- For formatting I usually use Ext4. (Or btrfs with snapper) 
-- I also like Grub instead of systemd boot.
-- Pipewire for audio as it's dep of KDE.
-- Also use NetworkManager in network section.
-- Kernels: try linux-zen for gaming !
+- Mirrors: Select a region where download speed will be fast.
+  
+- For formatting: Use-best effort (This WILL wipe data on this disk)
+> I usually use Ext4. (With seperate home partition)
+
+- Swap zram: Enabled (Creates a 4GB in case of memory need)
+- Bootloader: Grub
+
+- Hostname: lowercase and descriptive
+- Authentification: Strong root password 
+> Create a user with sudo (required for KDE/SDDM)
+> Make the password strong and different from root ideally.
+
+- Profile: Type Desktop/Plasma
 - For gaphics drivers select appropriate to your hardware.
-- Type Desktop/Plasma
-- Personal preferences for reference. Use your prefered set-up.
+
+- Applications: Pipewire for audio as it's dep of KDE + Bluetooth set-up if needed. 
+- Kernels: try linux-zen for gaming ! You can even install mutiple and they should show up in your Grub entries.
+- Network Configuration: NetworkManager for GUI access.
+
+- Timezone: Select your region in list.
+- NTP: Enabled
+
+> Personal preferences for reference. Use your prefered set-ups.
 
 Reboot **to hard disk.** (Make sure to switch in BIOS, or you install again?)
 
