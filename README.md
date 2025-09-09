@@ -21,20 +21,20 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
 
-You should see this neat menu ^^ 
+### Archinstall walkthrough
+!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
 
-> ! IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc!
 - Keymap select your own.
 - Locales: Use `en_GB.UTF-8` for European format, `en_US.UTF-8` for PM/AM.
-- Locale encoding can be left as `UTF-8` if not using some special alphabets.
+> Locale encoding can be left as `UTF-8` if not using some special alphabets.
 
 - Mirrors: Select a region where download speed will be fast.
-  
+
 - For formatting: Use-best effort (This WILL wipe data on this disk)
 > I usually use Ext4. (With seperate home partition)
 
 - Swap zram: Enabled (Creates a 4GB in case of memory need)
-- Bootloader: Grub
+- Bootloader: Grub 
 
 - Hostname: lowercase and descriptive
 - Authentification: Strong root password 
