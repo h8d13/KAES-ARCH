@@ -502,7 +502,14 @@ EOF
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
 mkdir -p /etc/sddm.conf.d
-cat > /etc/sddm.conf.d/kde_settings.conf << 'EOF'
+# Set wallpaper based on theme
+if [ "$DTHEME" = "light" ]; then
+    SDDM_WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
+else
+    SDDM_WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+fi
+
+cat > /etc/sddm.conf.d/kde_settings.conf << EOF
 [Autologin]
 Relogin=false
 Session=
@@ -516,6 +523,7 @@ RebootCommand=/usr/bin/systemctl reboot
 Current=breeze
 CursorTheme=breeze_cursors
 Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+Background=$SDDM_WALLPAPER
 
 [Users]
 MaximumUid=60513
