@@ -464,7 +464,9 @@ if [ "$CREATE_GUEST" = "true" ]; then
         # Clone entire home directory
         info "Cloning $TARGET_USER home directory to guest..."
         cp -r "/home/$TARGET_USER" "/home/$USERNAME"
-        
+        # Remove desktop shortcut
+        rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
+
         # Fix ownership
         chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
         chmod 755 "/home/$USERNAME"
@@ -475,12 +477,6 @@ fi
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
 mkdir -p /etc/sddm.conf.d
-## Set wallpaper variable
-if [ "$DTHEME" = "light" ]; then
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
-else
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-fi
 cat > /etc/sddm.conf.d/kde_settings.conf << EOF
 [Autologin]
 Relogin=false
@@ -495,12 +491,25 @@ RebootCommand=/usr/bin/systemctl reboot
 Current=breeze
 CursorTheme=breeze_cursors
 Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
-Background=$WALLPAPER
 
 [Users]
 MaximumUid=60513
 MinimumUid=1000
 EOF
+
+## Set wallpaper variable
+if [ "$DTHEME" = "light" ]; then
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
+else
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+fi
+cat > /usr/share/sddm/themes/breeze/theme.conf.user << EOF
+[General]
+background=$WALLPAPER
+showClock=true
+type=image
+EOF
+
 mkdir -p /var/lib/sddm/.config
 cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
 chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
@@ -557,12 +566,14 @@ info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
 echo ""
-read -p "Installation complete! Reboot now? (y/N): " -n 1 -r
+read -p "Installation complete! Reboot now? (y/N) or restart SDDM: " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     info "Rebooting in 3 seconds..."
     sleep 3
     reboot
 else
-    info "Reboot skipped. Please reboot manually or 'systemctl restart sddm'."
+    info "Reboot skipped. Please reboot manually."
+    sleep 3
+    systemctl restart sddm
 fi
