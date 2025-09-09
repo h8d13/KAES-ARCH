@@ -388,6 +388,35 @@ EOF
 
 # Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
+########################################## User visual settings
+info "Setting up KDE theme..."
+# Run as target user, not root 
+sudo -u $TARGET_USER bash << EOF
+# Apply theme based on DTHEME setting
+if [ "$DTHEME" = "light" ]; then
+    plasma-apply-desktoptheme breeze >/dev/null 2>&1
+    plasma-apply-colorscheme BreezeLight >/dev/null 2>&1
+    kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeLight"
+    kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breeze.desktop"
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
+else
+    plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
+    plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
+    kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeDark"
+    kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
+    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+fi
+
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+  --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
+  --key "launchers" "applications:org.kde.konsole.desktop"
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+  --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
+  --key "Image" "\$WALLPAPER"
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" \ 
+  --group "3" --group "Configuration" --group "General" \
+  --key "icon"  "$SCRIPT_DIR/assets/logo.png"
+EOF
 ########################################## GUEST USER SETUP
 if [ "$CREATE_GUEST" = "true" ]; then
     info "Setting up guest User..." 
@@ -422,6 +451,33 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "Guest user setup complete with cloned home directory"
     fi
 fi
+########################################## User SDDM visual settings
+info "Setting up login SDDM..."
+mkdir -p /etc/sddm.conf.d
+
+cat > /etc/sddm.conf.d/kde_settings.conf << EOF
+[Autologin]
+Relogin=false
+Session=
+User=
+
+[General]
+HaltCommand=/usr/bin/systemctl poweroff
+RebootCommand=/usr/bin/systemctl reboot
+
+[Theme]
+Current=breeze
+CursorTheme=breeze_cursors
+Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+Background=$WALLPAPER
+
+[Users]
+MaximumUid=60513
+MinimumUid=1000
+EOF
+mkdir -p /var/lib/sddm/.config
+cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
+chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
 ########################################## SYSTEM HARDENING
 info "Setting up Security..." 
 ## Not a router stuff / Others
@@ -470,74 +526,10 @@ EOF
 
 ## Apply settings
 sysctl --system >/dev/null 2>&1
-########################################## User visual settings
-info "Setting up KDE theme..."
-# Run as target user, not root 
-sudo -u $TARGET_USER bash << EOF
-# Apply theme based on DTHEME setting
-if [ "$DTHEME" = "light" ]; then
-    plasma-apply-desktoptheme breeze >/dev/null 2>&1
-    plasma-apply-colorscheme BreezeLight >/dev/null 2>&1
-    kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeLight"
-    kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breeze.desktop"
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
-else
-    plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
-    plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
-    kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeDark"
-    kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
-    WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-fi
-
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-  --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" \
-  --key "launchers" "applications:org.kde.konsole.desktop"
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
-  --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
-  --key "Image" "\$WALLPAPER"
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" \ 
-  --group "3" --group "Configuration" --group "General" \
-  --key "icon"  "$SCRIPT_DIR/assets/logo.png"
-EOF
-########################################## User SDDM visual settings
-info "Setting up login SDDM..."
-mkdir -p /etc/sddm.conf.d
-# Set wallpaper based on theme
-if [ "$DTHEME" = "light" ]; then
-    SDDM_WALLPAPER="/usr/share/wallpapers/Mountain/contents/images/5120x2880.png"
-else
-    SDDM_WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-fi
-
-cat > /etc/sddm.conf.d/kde_settings.conf << EOF
-[Autologin]
-Relogin=false
-Session=
-User=
-
-[General]
-HaltCommand=/usr/bin/systemctl poweroff
-RebootCommand=/usr/bin/systemctl reboot
-
-[Theme]
-Current=breeze
-CursorTheme=breeze_cursors
-Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
-Background=$SDDM_WALLPAPER
-
-[Users]
-MaximumUid=60513
-MinimumUid=1000
-EOF
-mkdir -p /var/lib/sddm/.config
-cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
-chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
-
-  ########################################## Exit reboot
+########################################## Exit reboot
 info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
-
 echo ""
 read -p "Installation complete! Reboot now? (y/N): " -n 1 -r
 echo
