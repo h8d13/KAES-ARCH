@@ -490,6 +490,9 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
   --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
   --key "Image" "\$WALLPAPER"
+kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "2" --group "Applets" \ 
+  --group "3" --group "Configuration" --group "General" \
+  --key "icon"  "$SCRIPT_DIR/assets/logo.png"
 EOF
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
