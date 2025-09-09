@@ -18,6 +18,7 @@ Boot off the USB with DEL or f10 or f12 to get to BIOS.
 Run `pacman-key --init && pacman -Sy archinstall` then `y`.
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps:
+
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
 
 You should see this neat menu ^^ 
