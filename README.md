@@ -171,3 +171,4 @@ The idea was having a settings section > common operations you do on an arch sys
 
 - With decent internet total install time should be around 20-30 minutes. With good internet less then 15 minutes. 
 
+> Cool rolling release fact: With Arch in a single command `pacman -Syu` you get system upgrades right at next reboot, but also sometimes even get net negative of update weight meaning your system is now **updated and lighter.**
