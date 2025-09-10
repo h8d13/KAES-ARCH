@@ -68,6 +68,7 @@ ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIO
 ### After first reboot 
 
 > Login normally using the user you created. This will let KDE create all the files it needs (or I need).
+> Also if you are using several screens, make sure to only plug-in the main one at first, you can then plug others ones in after.
 
 Open Konsole.
 
