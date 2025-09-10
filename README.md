@@ -3,6 +3,9 @@ Post Install for Arch KDE.
 A single setup script from a default install.
 
 --- 
+
+### Get the installation medium 
+
 Can download the iso here: [ArchDownload](https://archlinux.org/download/)
 
 > Use [rufus](https://rufus.ie/en/) or dd to flash USB. Use GPT/MBR appropriate to hardware. 
@@ -23,6 +26,8 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
 
 ### Archinstall walkthrough
+
+> You can skip this section if you are familiar with arch installations. 
 
 - Keymap select your own.
 - Locales: Use `en_GB.UTF-8` for European format, `en_US.UTF-8` for PM/AM.
