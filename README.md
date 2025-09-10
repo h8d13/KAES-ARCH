@@ -62,6 +62,8 @@ ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIO
 
 ---
 
+### After first reboot 
+
 Open Konsole.
 
 ```
