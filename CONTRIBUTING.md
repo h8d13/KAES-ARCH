@@ -78,6 +78,8 @@ They can be a bit inconsistent sometimes. Perhaps of my wrong usage.
 [ArchInstallDevs](https://github.com/archlinux/archinstall/) 
 > They are especially responsive even even with the most random of small bugs in their install menu which basically creates a system of thin air. Big props to them!
 
+[KDE-plasmaDevs](https://kde.org/)
+
 [This Github Repo](https://github.com/shalva97/kde-configuration-files) 
 
 
