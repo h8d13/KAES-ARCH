@@ -80,15 +80,6 @@ They can be a bit inconsistent sometimes. Perhaps of my wrong usage.
 
 [This Github Repo](https://github.com/shalva97/kde-configuration-files) 
 
-## Current Scope
-
-- KDE Default values I didn't like: Empty sessions, Lock-out grace, Powerprofiles
-- KDE Dolphin interaction menus
-- Keymaps SDDM & KDE
-- SDDM Auto-change theme
-- Sysctl & UFW
-- Bash/Zsh: Aliases & look-feel
-- Pacman GUI
 
 ### Why?
 
