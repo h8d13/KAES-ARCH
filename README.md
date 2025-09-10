@@ -102,9 +102,9 @@ You are done !
 
 Full source code is available [here](https://github.com/h8d13/KAES-ARCH/blob/master/post) 
 
-It basically takes files of KDE config and modifies them to my desired values + some initial steps you don't need to care about. 
+All I wanted to be able to do is to install my preferred OS with my prefered DE, but not have to do too many things (I'm lazy and impatient). 
 A good example is fresh sessions, when I boot up I wanted a clean Desktop, not to re-open old stuff. 
-But over the months it became a lot more tweaks both for KDE, Arch and some QOL... Until I arrived at a point where I think it's ready. 
+But over the months it became a lot more tweaks, so I documented them one by one and tested. Until I arrived at a point where I think it's ready. 
 
 ### Current Scope
 
