@@ -17,7 +17,7 @@ Ethernet works out of the box. Plug a cable and go.
 
 > For wifi: `iwctl station wlan0 connect "SSID"` SSID being the name of your WiFi (case sensitive) and it should prompt you for password.
 
-> `ping google.com` for test, you should see `64 bytes from xx.xxx.xxx.xxx (xx.xxx.xxx.xxxx): icmp_seq=1 ttl=109 time=13.9 ms` then it means you are all good to go!
+Test: `ping google.com`, you should see `64 bytes from xx.xxx.xxx.xxx (xx.xxx.xxx.xxxx): icmp_seq=1 ttl=109 time=13.9 ms` then it means you are all good to go!
 
 Run `pacman-key --init && pacman -Sy archinstall` then `y`.
 
