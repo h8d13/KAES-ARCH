@@ -146,7 +146,7 @@ And a lot of KDE stuff.
 
 Pac2Pac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
-The idea was having a settings section > common operations you do on an arch system to do anything... Flatpak, multi-lib, etc 
+The idea was having a settings section > common operations you do on an arch system to do anything... Flatpak, multi-lib, etc + For people who don't like the terminal, could do common system operations.
 
 ## Further config
 
