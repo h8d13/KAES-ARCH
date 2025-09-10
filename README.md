@@ -59,7 +59,7 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 > Personal preferences for reference. Use your prefered set-ups. Only real dependancy is Sddm and KDE-Plasma. 
 
-!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! **Please check you didn't miss any.**
+IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! **Please check you didn't miss any.**
 
 ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIOS, or you install again?)
 
@@ -105,6 +105,17 @@ Full source code is available [here](https://github.com/h8d13/KAES-ARCH/blob/mas
 It basically takes files of KDE config and modifies them to my desired values + some initial steps you don't need to care about. 
 A good example is fresh sessions, when I boot up I wanted a clean Desktop, not to re-open old stuff. 
 But over the months it became a lot more tweaks both for KDE, Arch and some QOL... Until I arrived at a point where I think it's ready. 
+
+### Current Scope
+
+- Keymaps SDDM & KDE
+- KDE Default values I didn't like: Empty sessions, Lock-out grace, Powerprofiles, KRunner search
+- KDE Dolphin interaction menus
+- KDE Look & feel
+- SDDM Auto-change theme
+- Sysctl & UFW
+- Bash/Zsh: Aliases & look-feel
+- Pacman GUI
 
 ## More useful stuff...
 
