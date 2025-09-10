@@ -148,6 +148,8 @@ Pac2Pac can be found here: [PacToPac](https://github.com/h8d13/PacToPac)
 
 The idea was having a settings section > common operations you do on an arch system to do anything... Flatpak, multi-lib, etc + For people who don't like the terminal, could do common system operations.
 
+<img width="835" height="627" alt="image" src="https://github.com/user-attachments/assets/cecdabbe-04d8-46bd-b9d5-416888157cb3" />
+
 ## Further config
 
 #### Tiling 
