@@ -161,6 +161,8 @@ The idea was having a settings section > common operations you do on an arch sys
 ![Screenshot_20250525_141656](https://github.com/user-attachments/assets/9dd36e50-1085-4369-bae8-22270fecfab7)
 
 ### More info:
+> Project code name: Winblows
+
 - Arch ISO size: 1,4 GB
 - Total download size avg: 5-6GB Space used on disk: 8,4GB
 - With Steam/Firefox:(700mb download) Space used on disk: 9,6 GB
