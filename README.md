@@ -37,9 +37,9 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 - Bootloader: Grub 
 
 - Hostname: lowercase and descriptive
-- Authentification: Strong root password 
-> Create a user with sudo (required for KDE/SDDM)
-> Make the password strong and different from root ideally.
+- Authentification: Also lowercase. Strong root password.
+> Create a user with sudo (required for KDE/SDDM) lowercase.
+> Make the password different from root ideally.
 
 - Profile: Type Desktop/Plasma
   - Graphics drivers: select appropriate to your hardware.
@@ -54,15 +54,15 @@ Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
 > Personal preferences for reference. Use your prefered set-ups. Only real dependancy is Sddm and KDE-Plasma. 
 
-!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! Please check you didn't miss any.
+!IMPORTANT DO NOT SKIP ANY STEPS: Make sure to select mirrors, time zone, etc... etc! **Please check you didn't miss any.**
 
 ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIOS, or you install again?)
-
-> Login normally using the user you created. This will let KDE create all the files it needs (or I need).
 
 ---
 
 ### After first reboot 
+
+> Login normally using the user you created. This will let KDE create all the files it needs (or I need).
 
 Open Konsole.
 
