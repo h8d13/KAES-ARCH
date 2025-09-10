@@ -10,14 +10,13 @@ VARIANT=""
 TARGET_USER="$SUDO_USER"
 # Guest section
 CREATE_GUEST=false
-GUEST_PASSWORD=""
-# Optional guest password (leave empty for no password) 
+GUEST_USE_PASSWORD=true
+# Set GUEST_USE_PASSWORD=true to prompt for password, false for no password 
 USERNAME="guest"
 DISPLAY_NAME="Guest"
 
 # Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
-# Auto-generated, don't touch bellow
-
+# Auto-generated + Colored output
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
@@ -38,11 +37,7 @@ info "CREATE_GUEST=$CREATE_GUEST"
 if [ "$CREATE_GUEST" = "true" ]; then
     info "GUEST_USERNAME=$USERNAME"
     info "GUEST_DISPLAY_NAME=$DISPLAY_NAME"
-    if [ -z "$GUEST_PASSWORD" ]; then
-        info "GUEST_PASSWORD=<empty - no password required>"
-    else
-        info "GUEST_PASSWORD=<custom password set>"
-    fi
+    info "GUEST_USE_PASSWORD=$GUEST_USE_PASSWORD"
     info "Guest will have: Audio, Video, Games, Power, Optical, Storage, Scanner access"
     info "Guest will NOT have: Sudo privileges or access to $TARGET_USER files"
 else
@@ -146,7 +141,7 @@ else
     info "Detected desktop/server - skipping..."
 fi
 ########################################## KDE Config files
-info "Setting up Sessions/Krunner/Lockout..." 
+info "Setting up kde Files..." 
 cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
@@ -163,37 +158,6 @@ krunner_webshortcutsEnabled=false
 
 [Plugins][Favorites]
 plugins=krunner_services,krunner_systemsettings
-EOF
-########################################## CREATE THE KONSOLE PROFILES
-info "Setting up Konsoles..." 
-# Install ZSH + plugins
-pacman -S --noconfirm zsh \
-                      zsh-autosuggestions \
-                      zsh-syntax-highlighting \
-                      bash-completion
-
-#chsh -s /usr/bin/zsh $TARGET_USER
-## Uncomment above if you want built-in to be zsh
-## Add to shells
-grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
-
-cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
-[Desktop Entry]
-DefaultProfile=$TARGET_USER.profile
-EOF
-## Set default Konsole : Can use bash if prefered. Change command=
-cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
-[General]
-Command=zsh
-Name=$TARGET_USER
-Parent=FALLBACK/
-EOF
-## Root login shell
-cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
-[General]
-Command=su -l -c 'zsh'  
-Name=root
-Parent=FALLBACK/
 EOF
 ########################################## Dolphin context menus
 info "Setting up Dolphin..." 
@@ -243,6 +207,37 @@ chmod +x /usr/share/kio/servicemenus/createdesktopshortcut.desktop
 
 ## Modify the existing "Run in Konsole" to a better command:
 sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
+########################################## CREATE THE KONSOLE PROFILES
+info "Setting up Konsoles..." 
+# Install ZSH + plugins
+pacman -S --noconfirm zsh \
+                      zsh-autosuggestions \
+                      zsh-syntax-highlighting \
+                      bash-completion
+
+#chsh -s /usr/bin/zsh $TARGET_USER
+## Uncomment above if you want built-in to be zsh
+## Add to shells
+grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
+
+cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
+[Desktop Entry]
+DefaultProfile=$TARGET_USER.profile
+EOF
+## Set default Konsole : Can use bash if prefered. Change command=
+cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
+[General]
+Command=zsh
+Name=$TARGET_USER
+Parent=FALLBACK/
+EOF
+## Root login shell
+cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
+[General]
+Command=su -l -c 'zsh'  
+Name=root
+Parent=FALLBACK/
+EOF
 ########################################## Custom Localbin
 info "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
@@ -364,6 +359,13 @@ EOF
 ## Add source line
 touch "$HOME/.zshrc"
 echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
+
+# Create user's shell rc files
+touch "/home/$TARGET_USER/.zshrc"
+echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
+
+touch "/home/$TARGET_USER/.bashrc"
+echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## USER SHELL SETUP
 info "Setting up Root..."
 # Copy shell configs to user
@@ -372,15 +374,8 @@ cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
 cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
 cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 
-# Create local bin for usr
+# Copy local bin for usr
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
-
-# Create user's shell rc files
-touch "/home/$TARGET_USER/.zshrc"
-echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
-
-touch "/home/$TARGET_USER/.bashrc"
-echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
 ########################################## PacToPac
 info "Setting up Github/K2..." 
 pacman -S --noconfirm gtk4 libadwaita
@@ -395,7 +390,7 @@ cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
 Comment=Suckless Arch Linux package manager
-Exec=sudo -b python3 $SCRIPT_DIR/k2-os/main.py; exit
+Exec=sudo python3 $SCRIPT_DIR/k2-os/main.py; exit
 Icon=package-x-generic
 Name[en_US]=PAC2PAC
 Name=PAC2PAC
@@ -404,6 +399,7 @@ Terminal=true
 Type=Application
 EOF
 
+info "Changing ownerships..." 
 # Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## User visual settings
@@ -438,9 +434,29 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containmen
   --group "3" --group "Configuration" --group "General" \
   --key "icon"  "/usr/share/pixmaps/kaes-logo.png"
 EOF
-########################################## GUEST USER SETUP
 if [ "$CREATE_GUEST" = "true" ]; then
-    info "Setting up guest User..." 
+    info "Setting up guest User..."
+    
+    # Prompt for guest password with confirmation if enabled
+    if [ "$GUEST_USE_PASSWORD" = "true" ]; then
+        while true; do
+            echo ""
+            read -s -p "Enter password for guest user: " GUEST_PASSWORD
+            echo ""
+            if [ -z "$GUEST_PASSWORD" ]; then
+                echo "Password cannot be empty when GUEST_USE_PASSWORD=true. Set GUEST_USE_PASSWORD=false for no password."
+                continue
+            fi
+            read -s -p "Confirm password: " GUEST_PASSWORD_CONFIRM
+            echo ""
+            if [ "$GUEST_PASSWORD" = "$GUEST_PASSWORD_CONFIRM" ]; then
+                break
+            else
+                echo "Passwords do not match. Please try again."
+            fi
+        done
+    fi
+    
     # Check if user already exists
     if id "$USERNAME" &>/dev/null; then
         info "User $USERNAME already exists. Skipping creation."
@@ -452,13 +468,13 @@ if [ "$CREATE_GUEST" = "true" ]; then
         # Add to necessary groups for KDE functionality
         usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
         
-        # Set password (empty or custom)
-        if [ -z "$GUEST_PASSWORD" ]; then
+        # Set password based on configuration
+        if [ "$GUEST_USE_PASSWORD" = "true" ] && [ -n "$GUEST_PASSWORD" ]; then
+            echo "$USERNAME:$GUEST_PASSWORD" | chpasswd
+            info "Guest user created with password"
+        else
             passwd -d "$USERNAME"
             info "Guest user created with no password"
-        else
-            echo "$USERNAME:$GUEST_PASSWORD" | chpasswd
-            info "Guest user created with custom password"
         fi
         
         # Clone entire home directory
