@@ -76,7 +76,7 @@ info "Setting up extras..."
 # Update and check
 #pacman -S --noconfirm intel-ucode #amd-ucode
 ## For you to add more stuff if needed. Uncomment and add packages seperated by " "
-pacman -S --noconfirm tree less zip unzip rsync alsa-utils python-gobject
+pacman -S --noconfirm tree less zip unzip rsync alsa-utils python-gobject flatpak
 #pacman -S --noconfirm helix micro fastfetch kdeconnect firefox gnome-disk-utility gnome-2048 
 ## For you to rem stuff if needed
 #pacman -R --noconfirm  kate kate-common
