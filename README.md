@@ -1,14 +1,14 @@
 # KAES-ARCH
-Post Install for Arch KDE.
+Post Install for vanilla Arch KDE.
 A single setup script from a default install.
 
 --- 
 
 ### Get the installation medium 
 
-Can download the iso here: [ArchDownload](https://archlinux.org/download/)
+Can download the x86_64 ISO here: [ArchDownload](https://archlinux.org/download/)
 
-> Use [rufus](https://rufus.ie/en/) or dd to flash USB. Use GPT/MBR appropriate to hardware. 
+> Use [rufus](https://rufus.ie/en/) or dd to flash USB. Use GPT/MBR appropriate to hardware (usually GPT for most UEFI newer devices). 
 
 Boot off the USB with DEL or f10 or f12 to get to BIOS.
 
@@ -97,6 +97,13 @@ Make exec `sudo chmod +x post` Then run: `sudo ./post`
 You are done !
 
 ---
+
+## What the dog doing?
+
+Full source code is available [here](https://github.com/h8d13/KAES-ARCH/blob/master/post) 
+It basically takes files of KDE config and modifies them to my desired values. 
+A good example is fresh sessions, when I boot up I wanted a clean Desktop, not to re-open old stuff. 
+But over the months it became a lot more tweaks...
 
 ## More useful stuff...
 
