@@ -154,6 +154,12 @@ The idea was having a settings section > common operations you do on an arch sys
 
 ## Further config
 
+#### Effects & Multiple Virtual Desktops
+`System Settings` > `Window Management` > `Desktop Effects/Virtual Desktops`
+
+#### Accent color
+`System Settings` > `Colours & Themes` > `Colors` > `Select` 
+
 #### Tiling 
 `System Settings` > `Window Management` > `Kwin` > `Get New` > `Krohnkite`
 
