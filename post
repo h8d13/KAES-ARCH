@@ -27,7 +27,8 @@ exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
 # Print configuration variables
-echo "Configuration:"
+info "KAES-ARCH: V: 0.1.3"
+echo "General Configuration:"
 info "SCRIPT_DIR=$SCRIPT_DIR"
 info "SUDO_USER: $TARGET_USER"
 info "DTHEME=$DTHEME"
@@ -48,7 +49,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
     else
         info "Guest will NOT have: Sudo privileges"
     fi
-    info "Guest will NOT have: Direct access to $TARGET_USER files"
+    info "Guest will NOT have: Direct access to $TARGET_USER files unless given sudo rights."
 else
     info "No guest user will be created"
 fi
