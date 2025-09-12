@@ -19,7 +19,7 @@ tar -xzf VSCodium-linux-x64-*.tar.gz -C ~/opt/vscodium/ --strip-components=1
 
 # if added to /opt/codium or somewhere you wanted it you can set an alias in /.config/aliases
 # ex: alias codium='/home/hadean/Downloads/VSCodium-linux-x64-1.103.25610/codium $PWD'
-
+# then source your new alias: '. ./aliases'
 # this opens the binary with the current path as an argument
 # this is cleaner than extracting all to local bin (i'd rather have small utility scripts in bin) 
 # also say you wanted to modify behavior you could get the build version from the releases and modify what you need. 
