@@ -404,7 +404,7 @@ cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 ########################################## PacToPac
 info "Setting up Github/K2..." 
 pacman -S --noconfirm gtk4 libadwaita
-git clone https://github.com/h8d13/PacToPac $SCRIPT_DIR/PACTOPAC/
+git clone https://github.com/h8d13/PACTOPAC $SCRIPT_DIR/PACTOPAC/
 
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
