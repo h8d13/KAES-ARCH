@@ -9,7 +9,7 @@ VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
-ADDITIONAL_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
+ADD_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps which is already pretty debloated on arch 
 # Guest section
@@ -602,7 +602,7 @@ EOF
 sysctl --system >/dev/null 2>&1
 ########################################## Finish installing needed stuff
 info "Setting up extras/Base..." 
-pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADDITIONAL_PKGS
+pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADD_PKGS
 ## For you to rem stuff if needed
 if [ -n "$REM_PKGS" ]; then
     pacman -R --noconfirm $REM_PKGS
