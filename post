@@ -17,7 +17,7 @@ GUEST_SHELL="/bin/bash"
 GUEST_SUDO=false
 # Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
 USERNAME="guest"
-DISPLAY_NAME="Guest"
+DISPLAY_NAME="guest"
 # Auto-generated + Colored output
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
@@ -30,7 +30,7 @@ exec 2>&1
 info "KAES-ARCH: V: 0.1.3"
 echo "General Configuration:"
 info "SCRIPT_DIR=$SCRIPT_DIR"
-info "SUDO_USER: $TARGET_USER"
+info "SUDO_USER=$TARGET_USER"
 info "DTHEME=$DTHEME"
 info "KB_LAYOUT=$KB_LAYOUT"
 info "VARIANT=$VARIANT"
