@@ -11,7 +11,7 @@ TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
 ADDITIONAL_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
-
+# Can be empty if you like kate editor, also cannot break plasma-meta deps which is already pretty debloated on arch 
 # Guest section
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
@@ -85,11 +85,6 @@ if ! pacman -Sy; then
     die "Failed to sync package databases"
     exit 1
 fi
-########################################## Extras: Please configure me
-info "Setting up extras/Base..." 
-pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADDITIONAL_PKGS
-## For you to rem stuff if needed
-pacman -R --noconfirm $REM_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -605,6 +600,13 @@ EOF
 
 ## Apply settings
 sysctl --system >/dev/null 2>&1
+########################################## Finish installing needed stuff
+info "Setting up extras/Base..." 
+pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADDITIONAL_PKGS
+## For you to rem stuff if needed
+if [ -n "$REM_PKGS" ]; then
+    pacman -R --noconfirm $REM_PKGS
+fi
 ########################################## Exit reboot
 info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
