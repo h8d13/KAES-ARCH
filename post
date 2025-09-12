@@ -85,6 +85,9 @@ if ! pacman -Sy; then
     die "Failed to sync package databases"
     exit 1
 fi
+########################################## Essentials + specified
+info "Setting up Base..." 
+pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADD_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -601,8 +604,7 @@ EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
 ########################################## Finish installing needed stuff
-info "Setting up extras/Base..." 
-pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADD_PKGS
+info "Removing optionals..." 
 ## For you to rem stuff if needed
 if [ -n "$REM_PKGS" ]; then
     pacman -R --noconfirm $REM_PKGS
