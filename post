@@ -22,7 +22,7 @@ GUEST_SUDO=false
 # Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
 USERNAME="guest"
 DISPLAY_NAME="guest"
-# Auto-generated + Colored output
+# Auto-generated + Colored output + Log + Info prints
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
@@ -30,8 +30,8 @@ die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
-# Print configuration variables
 info "KAES-ARCH: V: 0.1.3"
+echo ""
 echo "General Configuration:"
 info "SCRIPT_DIR=$SCRIPT_DIR"
 info "SUDO_USER=$TARGET_USER"
