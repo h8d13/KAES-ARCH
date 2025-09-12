@@ -404,18 +404,13 @@ cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 ########################################## PacToPac
 info "Setting up Github/K2..." 
 pacman -S --noconfirm gtk4 libadwaita
-git clone https://github.com/h8d13/PacToPac /tmp/PacToPac
-mv /tmp/PacToPac $SCRIPT_DIR/k2-os/
-rm -rf /tmp/PacToPac
-
-# Copy KAES logo to system directory for shared access
-cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
+git clone https://github.com/h8d13/PacToPac $SCRIPT_DIR/PACTOPAC/
 
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
 Comment=Suckless Arch Linux package manager
-Exec=sudo -b python3 $SCRIPT_DIR/k2-os/main.py; exit
+Exec=sudo -b python3 $SCRIPT_DIR/PACTOPAC/main.py; exit
 Icon=package-x-generic
 Name[en_US]=PAC2PAC
 Name=PAC2PAC
@@ -430,6 +425,9 @@ chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## User visual settings
 info "Setting up KDE theme..."
 # Run as target user, not root 
+# Copy KAES logo to system directory for shared access
+cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
+
 sudo -u $TARGET_USER bash << EOF
 # Apply theme based on DTHEME setting
 if [ "$DTHEME" = "light" ]; then
