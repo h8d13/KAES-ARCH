@@ -12,8 +12,8 @@ TARGET_USER="$SUDO_USER"
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
 # Set GUEST_USE_PASSWORD=true to prompt for password, false for no password 
-GUEST_SHELL="bash"
-# Guest shell: "bash" for full bash, "rbash" for restricted bash
+GUEST_SHELL="/bin/bash"
+# Guest shell: "/bin/bash", "/bin/rbash", "/bin/zsh", etc.
 GUEST_SUDO=false
 # Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
 USERNAME="guest"
@@ -488,13 +488,8 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "User $USERNAME already exists. Skipping creation."
     else
         # Create user with selected shell
-        if [ "$GUEST_SHELL" = "rbash" ]; then
-            useradd -c "$DISPLAY_NAME" -s /bin/rbash "$USERNAME"
-            info "Guest user created with restricted bash shell"
-        else
-            useradd -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME"
-            info "Guest user created with full bash shell"
-        fi
+        useradd -c "$DISPLAY_NAME" -s "$GUEST_SHELL" "$USERNAME"
+        info "Guest user created with shell: $GUEST_SHELL"
         
         # Add to necessary groups for KDE functionality
         if [ "$GUEST_SUDO" = "true" ] && [ "$GUEST_USE_PASSWORD" = "true" ]; then
