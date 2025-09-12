@@ -12,6 +12,10 @@ TARGET_USER="$SUDO_USER"
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
 # Set GUEST_USE_PASSWORD=true to prompt for password, false for no password 
+GUEST_SHELL="bash"
+# Guest shell: "bash" for full bash, "rbash" for restricted bash
+GUEST_SUDO=false
+# Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
 USERNAME="guest"
 DISPLAY_NAME="Guest"
 
@@ -38,8 +42,15 @@ if [ "$CREATE_GUEST" = "true" ]; then
     info "GUEST_USERNAME=$USERNAME"
     info "GUEST_DISPLAY_NAME=$DISPLAY_NAME"
     info "GUEST_USE_PASSWORD=$GUEST_USE_PASSWORD"
+    info "GUEST_SHELL=$GUEST_SHELL"
+    info "GUEST_SUDO=$GUEST_SUDO"
     info "Guest will have: Audio, Video, Games, Power, Optical, Storage, Scanner access"
-    info "Guest will NOT have: Sudo privileges or access to $TARGET_USER files"
+    if [ "$GUEST_SUDO" = "true" ] && [ "$GUEST_USE_PASSWORD" = "true" ]; then
+        info "Guest will have: Sudo privileges (password required)"
+    else
+        info "Guest will NOT have: Sudo privileges"
+    fi
+    info "Guest will NOT have: Direct access to $TARGET_USER files"
 else
     info "No guest user will be created"
 fi
@@ -476,12 +487,22 @@ if [ "$CREATE_GUEST" = "true" ]; then
     if id "$USERNAME" &>/dev/null; then
         info "User $USERNAME already exists. Skipping creation."
     else
-        # Create user without home directory first
-        useradd -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME" 
-        # Can use rbash for more restrictive setup
+        # Create user with selected shell
+        if [ "$GUEST_SHELL" = "rbash" ]; then
+            useradd -c "$DISPLAY_NAME" -s /bin/rbash "$USERNAME"
+            info "Guest user created with restricted bash shell"
+        else
+            useradd -c "$DISPLAY_NAME" -s /bin/bash "$USERNAME"
+            info "Guest user created with full bash shell"
+        fi
         
         # Add to necessary groups for KDE functionality
-        usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
+        if [ "$GUEST_SUDO" = "true" ] && [ "$GUEST_USE_PASSWORD" = "true" ]; then
+            usermod -aG audio,video,games,power,optical,storage,scanner,lp,network,wheel "$USERNAME"
+            info "Guest user added to wheel group for sudo access"
+        else
+            usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
+        fi
         
         # Set password based on configuration
         if [ "$GUEST_USE_PASSWORD" = "true" ] && [ -n "$GUEST_PASSWORD" ]; then
