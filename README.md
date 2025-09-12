@@ -72,6 +72,8 @@ ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIO
 > Login normally using the user you created. This will let KDE create all the files it needs (or I need).
 > Also if you are using several screens, make sure to only plug-in the main one at first, you can then plug others ones in after.
 
+#### Get the source code 
+
 Open Konsole.
 
 ```
@@ -80,6 +82,8 @@ git clone https://github.com/h8d13/KAES-ARCH
 cd KAES-ARCH/
 ```
 Edit the targets: `user` and `kb` using editor of your choice.
+
+#### Edit the source code
 
 `sudo vim post` or `sudo nano post`
 
@@ -93,6 +97,8 @@ VARIANT=""
 
 > Using vim you can use insert to edit, ESC to enter command mode and :wq to write changes.
 > You can also go through some of the rest of the code as there might be some programs you want to add/remove.
+
+#### Run the code
 
 Make exec `sudo chmod +x post` Then run: `sudo ./post`
 
