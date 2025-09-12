@@ -18,8 +18,6 @@ GUEST_SUDO=false
 # Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
 USERNAME="guest"
 DISPLAY_NAME="Guest"
-
-# Create guest user (set to true/false) No access to your files or sudo. But has access to same apps. Empty password. 
 # Auto-generated + Colored output
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
