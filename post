@@ -8,7 +8,10 @@ KB_LAYOUT=us
 VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 TARGET_USER="$SUDO_USER"
-ADDITIONAL_PKGS="zip unzip rsync micro" ##some of my favos #micro kdeconnect firefox gnome-disk-utility gnome-2048 
+# For you to add/rem stuff
+ADDITIONAL_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
+REM_PKGS="kate"
+
 # Guest section
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
@@ -86,7 +89,7 @@ fi
 info "Setting up extras/Base..." 
 pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADDITIONAL_PKGS
 ## For you to rem stuff if needed
-#pacman -R --noconfirm  kate kate-common
+pacman -R --noconfirm $REM_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
