@@ -517,7 +517,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
         cp -r "/home/$TARGET_USER" "/home/$USERNAME"
 
         # Remove desktop shortcut if user is not sudo
-        if [ "$GUEST_SUDO" = "false" ];
+        if [ "$GUEST_SUDO" = "false" ]; then
             rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
         fi
         # Fix ownership
