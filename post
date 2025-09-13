@@ -11,7 +11,8 @@ TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
 ADD_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
-# Can be empty if you like kate editor, also cannot break plasma-meta deps which is already pretty debloated on arch 
+# Can be empty if you like kate editor, also cannot break plasma-meta deps
+# Examples you can remove too: 'nano, vim, htop'
 # Guest section
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
