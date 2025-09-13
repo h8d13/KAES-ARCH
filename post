@@ -607,7 +607,7 @@ EOF
 
 ## Apply settings
 sysctl --system >/dev/null 2>&1
-########################################## Finish installing needed stuff
+########################################## Rem
 info "Removing optionals..." 
 ## For you to rem stuff if needed
 if [ -n "$REM_PKGS" ]; then
