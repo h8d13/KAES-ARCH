@@ -16,13 +16,13 @@ REM_PKGS="kate"
 CREATE_GUEST=false
 GUEST_USE_PASSWORD=true
 # Set GUEST_USE_PASSWORD=true to prompt for password, false for no password 
-GUEST_SHELL="/bin/bash"
-# Guest shell: "/bin/bash", "/bin/rbash", "/bin/zsh", etc.
-GUEST_SUDO=false
+GUEST_SUDO=true
 # Set GUEST_SUDO=true to allow sudo access (only works when GUEST_USE_PASSWORD=true)
+GUEST_SHELL="/bin/bash"
+# Guest shell: "/bin/bash", "/bin/rbash", "/bin/zsh", etc. rbash is heavily restricted
 USERNAME="guest"
-DISPLAY_NAME="guest"
-# Auto-generated + Colored output + Log + Info prints
+
+### Auto-generated + Colored output + Log + Info prints
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
@@ -30,7 +30,7 @@ die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
 
-info "KAES-ARCH: V: 0.1.3"
+info "KAES-ARCH: V: 0.1.31"
 echo ""
 echo "General Configuration:"
 info "SCRIPT_DIR=$SCRIPT_DIR"
@@ -43,7 +43,6 @@ echo "Guest User Configuration:"
 info "CREATE_GUEST=$CREATE_GUEST"
 if [ "$CREATE_GUEST" = "true" ]; then
     info "GUEST_USERNAME=$USERNAME"
-    info "GUEST_DISPLAY_NAME=$DISPLAY_NAME"
     info "GUEST_USE_PASSWORD=$GUEST_USE_PASSWORD"
     info "GUEST_SHELL=$GUEST_SHELL"
     info "GUEST_SUDO=$GUEST_SUDO"
@@ -59,7 +58,7 @@ else
 fi
 echo ""
 
-# Confirmation prompt
+### Confirmation prompt
 read -p "Continue with these settings? (y/N): " -n 1 -r
 echo
 if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
@@ -87,7 +86,7 @@ if ! pacman -Sy; then
 fi
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm tree less alsa-utils python-gobject flatpak $ADD_PKGS
+pacman -S --noconfirm tree less alsa-utils python-gobject $ADD_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -132,7 +131,7 @@ info "Setting up UFW..."
 pacman -S --noconfirm ufw 
 ufw default deny incoming
 ufw allow out 443/tcp  # https
-ufw allow 22/tcp           # sftp/ssh
+ufw allow 22/tcp       # sftp/ssh
 ufw enable
 ########################################## Power profiles
 info "Setting up Power..." 
@@ -150,10 +149,12 @@ else
 fi
 ########################################## KDE Config files
 info "Setting up kde Files..." 
+# empty sessions
 cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
 EOF
+## think this one respects dark/light auto also set to better defaults
 cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << 'EOF'
 [Daemon]
 LockGrace=300
@@ -163,6 +164,7 @@ Timeout=30
 Image=/usr/share/wallpapers/Mountain/
 PreviewImage=/usr/share/wallpapers/Mountain/
 EOF
+# annoying web search and apps search in launcher menu
 cat > "/home/$TARGET_USER/.config/krunnerrc" << 'EOF'
 [Plugins]
 krunner_appstreamEnabled=false
@@ -227,23 +229,27 @@ pacman -S --noconfirm zsh \
                       zsh-syntax-highlighting \
                       bash-completion
 
-#chsh -s /usr/bin/zsh $TARGET_USER
-## Uncomment above if you want built-in to be zsh
+
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
+#chsh -s /usr/bin/zsh $TARGET_USER
+## Uncomment above if you want built-in to be zsh, i prefer keeping bash built-in
+
+# Set the default but keep built-in
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
 EOF
-## Set default Konsole : Can use bash if prefered. Change command=
+
+## Create default user Konsole : Can use bash if prefered. Change command=
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
 Command=zsh
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-## Root login shell
+## Root login shell 
 cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
 [General]
 Command=su -l -c 'zsh'  
@@ -426,12 +432,11 @@ info "Changing ownerships..."
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## User visual settings
 info "Setting up KDE theme..."
-# Run as target user, not root 
 # Copy KAES logo to system directory for shared access
 cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
 
+# Apply theme based on DTHEME setting # Run as target user, not root 
 sudo -u $TARGET_USER bash << EOF
-# Apply theme based on DTHEME setting
 if [ "$DTHEME" = "light" ]; then
     plasma-apply-desktoptheme breeze >/dev/null 2>&1
     plasma-apply-colorscheme BreezeLight >/dev/null 2>&1
@@ -487,7 +492,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "User $USERNAME already exists. Skipping creation."
     else
         # Create user with selected shell
-        useradd -c "$DISPLAY_NAME" -s "$GUEST_SHELL" "$USERNAME"
+        useradd -s "$GUEST_SHELL" "$USERNAME"
         info "Guest user created with shell: $GUEST_SHELL"
         
         # Add to necessary groups for KDE functionality
@@ -510,9 +515,11 @@ if [ "$CREATE_GUEST" = "true" ]; then
         # Clone entire home directory
         info "Cloning $TARGET_USER home directory to guest..."
         cp -r "/home/$TARGET_USER" "/home/$USERNAME"
-        # Remove desktop shortcut
-        rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
 
+        # Remove desktop shortcut if user is not sudo
+        if [ "$GUEST_SUDO" = "false" ];
+            rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
+        fi
         # Fix ownership
         chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
         chmod 755 "/home/$USERNAME"
@@ -522,6 +529,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
 fi
 ########################################## User SDDM visual settings
 info "Setting up login SDDM..."
+# Create the default sddm conf 
 mkdir -p /etc/sddm.conf.d
 cat > /etc/sddm.conf.d/kde_settings.conf << EOF
 [Autologin]
@@ -549,6 +557,7 @@ if [ "$DTHEME" = "light" ]; then
 else
     WALLPAPER="/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 fi
+## Set the user settings
 cat > /usr/share/sddm/themes/breeze/theme.conf.user << EOF
 [General]
 background=$WALLPAPER
@@ -557,7 +566,9 @@ type=image
 EOF
 
 mkdir -p /var/lib/sddm/.config
+# Copy globals to take effect to SDDM
 cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
+# Fix ownership
 chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
 ########################################## SYSTEM HARDENING
 info "Setting up Security..." 
@@ -608,11 +619,13 @@ EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
 ########################################## Rem
-info "Removing optionals..." 
 ## For you to rem stuff if needed
 if [ -n "$REM_PKGS" ]; then
+    info "Removing Optionals..." 
     pacman -R --noconfirm $REM_PKGS
 fi
+info "Setting up Flatpak..." 
+pacman -S --noconfirm flatpak
 ########################################## Exit reboot
 info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
