@@ -158,6 +158,10 @@ cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << 'EOF'
 [Daemon]
 LockGrace=300
 Timeout=30
+
+[Greeter][Wallpaper][org.kde.image][General]
+Image=/usr/share/wallpapers/Mountain/
+PreviewImage=/usr/share/wallpapers/Mountain/
 EOF
 cat > "/home/$TARGET_USER/.config/krunnerrc" << 'EOF'
 [Plugins]
