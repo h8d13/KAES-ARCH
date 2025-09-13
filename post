@@ -498,11 +498,15 @@ if [ "$CREATE_GUEST" = "true" ]; then
         # Add to necessary groups for KDE functionality
         if [ "$GUEST_SUDO" = "true" ] && [ "$GUEST_USE_PASSWORD" = "true" ]; then
             usermod -aG audio,video,games,power,optical,storage,scanner,lp,network,wheel "$USERNAME"
+            # Ensure wheel group has sudo access
+            if ! grep -q "^%wheel.*ALL=(ALL:ALL) ALL" /etc/sudoers; then
+                echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
+            fi
             info "Guest user added to wheel group for sudo access"
         else
             usermod -aG audio,video,games,power,optical,storage,scanner,lp,network "$USERNAME"
         fi
-        
+
         # Set password based on configuration
         if [ "$GUEST_USE_PASSWORD" = "true" ] && [ -n "$GUEST_PASSWORD" ]; then
             echo "$USERNAME:$GUEST_PASSWORD" | chpasswd
@@ -516,7 +520,7 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "Cloning $TARGET_USER home directory to guest..."
         cp -r "/home/$TARGET_USER" "/home/$USERNAME"
 
-        # Remove desktop shortcut if user is not sudo
+        # Remove desktop shortcu/System files if user is not sudo
         if [ "$GUEST_SUDO" = "false" ]; then
             rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
             rm -rf /home/$USERNAME/KAES-ARCH/
