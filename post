@@ -275,8 +275,8 @@ EOF
 info "Setting up Localbin..." 
 ## Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
-if [ -d "$HOME/.local/bin" ]; then
-    export PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ] && [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
 ########################################## Example script iapps search in installed packages. 
