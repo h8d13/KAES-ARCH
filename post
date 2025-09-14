@@ -27,6 +27,7 @@ D_WPP="Mountain/"
 
 # Guest section
 CREATE_GUEST=false
+#### Not used if false above
 GUEST_USE_PASSWORD=true
 # Set GUEST_USE_PASSWORD=true to prompt for password, false for no password 
 GUEST_SUDO=true
