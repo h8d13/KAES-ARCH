@@ -453,10 +453,6 @@ cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
 # Apply theme based on DTHEME setting # Run as target user, not root
 sudo -u $TARGET_USER bash << EOF
 if [ "$DTHEME" = "light" ]; then
-    plasma-apply-desktoptheme breeze >/dev/null 2>&1
-    plasma-apply-colorscheme BreezeLight >/dev/null 2>&1
-    kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeLight"
-    kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breeze.desktop"
     WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images/5120x2880.png"
 else
     plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
