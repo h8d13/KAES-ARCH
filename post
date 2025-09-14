@@ -14,7 +14,7 @@ REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps
 # Examples you can remove too: 'nano, vim, htop'
 
-# Don't want to have to change 3x for a simple image
+# Don't want to have to change 3x for a simple image (lockscreen, login screen and wpp)
 D_WPP="Mountain/"
 # Dark/Light compatible images view them in /usr/share/wallpapers/ if needed
 #Flow/
