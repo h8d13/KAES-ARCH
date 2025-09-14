@@ -24,7 +24,7 @@ D_WPP="Mountain/"
 #Nexus/
 #Nuvole/
 #Patak/
-#ScareltTree/
+#ScarletTree/
 
 # Guest section
 CREATE_GUEST=false
