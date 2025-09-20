@@ -9,10 +9,10 @@ VARIANT=""
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
-ADD_PKGS="micro firefox" ##kdeconnect gnome-disk-utility gnome-2048 
+ADD_PKGS="micro firefox" ##kdeconnect xclip gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps
-# Examples you can remove too: 'nano, vim, htop'
+# Examples you can remove too: 'nano, vim, htop, git'
 
 # Don't want to have to change 3x for a simple image (lockscreen, login screen and wpp)
 D_WPP="Mountain/"
