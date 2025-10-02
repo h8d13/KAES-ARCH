@@ -163,7 +163,8 @@ else
     info "Detected desktop/server."
     pacman -S --noconfirm cpupower
     systemctl enable cpupower.service
-    cpupower frequency-set -g performance
+    # Set performance governor if available
+    cpupower frequency-set -g performance || info "Could not set performance governor (may not be supported)"
 fi
 ########################################## KDE Config files
 info "Setting up kde Files..." 
