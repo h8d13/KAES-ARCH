@@ -158,6 +158,15 @@ if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
     cat <<EOF > $CONFIG_FILE
 [AC][Performance]
 PowerProfile=performance
+
+[Battery][BatteryCritical]
+PowerProfile=power-saver
+
+[Battery][BatteryLow]
+PowerProfile=power-saver
+
+[Battery][BatteryNormal]
+PowerProfile=balanced
 EOF
 else 
     info "Detected desktop/server."
