@@ -160,7 +160,10 @@ if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
 PowerProfile=performance
 EOF
 else 
-    info "Detected desktop/server - skipping..."
+    info "Detected desktop/server."
+    pacman -S --noconfirm cpupower
+    systemctl enable cpupower.service
+    cpupower frequency-set -g performance
 fi
 ########################################## KDE Config files
 info "Setting up kde Files..." 
