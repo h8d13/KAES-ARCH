@@ -180,9 +180,6 @@ The idea was having a settings section > common operations you do on an arch sys
 > Project code name: Winblows
 
 - Arch ISO size: 1,4 GB
-- Total download size avg: 5-6GB Space used on disk: 8,4GB
-- With Steam/Firefox:(700mb download) Space used on disk: 9,6 GB
-
 - With decent internet total install time should be around 20-30 minutes. With good internet less then 15 minutes. 
 
 > Cool rolling release fact: With Arch in a single command `pacman -Syu` you get system upgrades right at next reboot, but also sometimes even get net negative of update weight meaning your system is now **updated and lighter.**
