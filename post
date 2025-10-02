@@ -647,14 +647,6 @@ info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
 echo ""
-read -p "Installation complete! Reboot now? (y/N) or restart SDDM: " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    info "Rebooting in 3 seconds..."
-    sleep 3
-    reboot
-else
-    info "Reboot skipped. Please reboot manually."
-    sleep 3
-    systemctl restart sddm
-fi
+echo "Installation complete! Please reboot when ready for all changes to take effect.
+echo "Restarting SDDM..."
+systemctl restart sddm
