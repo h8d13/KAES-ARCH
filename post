@@ -651,7 +651,7 @@ info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
 echo ""
-echo "Installation complete! Please reboot when ready for all changes to take effect.
+echo "Installation complete! Please REBOOT when ready for all changes to take effect."
 echo "Restarting SDDM in 5 seconds..."
 sleep 5
 systemctl restart sddm
