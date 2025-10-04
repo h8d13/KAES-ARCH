@@ -27,6 +27,7 @@ fi
 
 # Apply theme based on DTHEME setting
 sudo -u "$TARGET_USER" \
+  HOME="/home/$TARGET_USER" \
   XDG_RUNTIME_DIR="$RUNTIME_DIR" \
   DBUS_SESSION_BUS_ADDRESS="unix:path=$RUNTIME_DIR/bus" \
   bash << EOF
