@@ -33,8 +33,8 @@ sudo -u "$TARGET_USER" \
 if [ "$DTHEME" = "light" ]; then
     WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images/5120x2880.png"
 else
-    plasma-apply-desktoptheme breeze-dark >/dev/null 2>&1
-    plasma-apply-colorscheme BreezeDark >/dev/null 2>&1
+    plasma-apply-desktoptheme breeze-dark
+    plasma-apply-colorscheme BreezeDark
     kwriteconfig6 --file kdeglobals --group "General" --key "ColorScheme" "BreezeDark"
     kwriteconfig6 --file kdeglobals --group "KDE" --key "LookAndFeelPackage" "org.kde.breezedark.desktop"
     WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images_dark/5120x2880.png"
