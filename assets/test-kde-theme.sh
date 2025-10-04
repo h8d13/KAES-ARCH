@@ -31,6 +31,10 @@ sudo -u "$TARGET_USER" \
   XDG_RUNTIME_DIR="$RUNTIME_DIR" \
   DBUS_SESSION_BUS_ADDRESS="unix:path=$RUNTIME_DIR/bus" \
   bash << EOF
+export HOME="/home/$TARGET_USER"
+export XDG_RUNTIME_DIR="$RUNTIME_DIR"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$RUNTIME_DIR/bus"
+
 if [ "$DTHEME" = "light" ]; then
     WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images/5120x2880.png"
 else
