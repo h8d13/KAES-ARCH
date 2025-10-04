@@ -659,6 +659,7 @@ info "Setting up Flatpak..."
 pacman -S --noconfirm --needed flatpak
 ########################################## Exit reboot
 cat cli_art
+echo ""
 info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
