@@ -71,8 +71,10 @@ if [ "$CREATE_GUEST" = "true" ]; then
 else
     info "No guest user will be created"
 fi
-echo ""
-
+if ls "$SCRIPT_DIR"/install-*.log 1> /dev/null 2>&1; then
+    info "KAES-ARCH appears to be already installed (found existing install log)"
+    die "Aborted. Remove install logs to force reinstall."
+fi
 ### Confirmation prompt
 read -p "Continue with these settings? (y/N): " -n 1 -r
 echo
@@ -101,7 +103,7 @@ if ! pacman -Sy; then
 fi
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm tree less alsa-utils python-gobject $ADD_PKGS
+pacman -S --noconfirm --needed tree less alsa-utils python-gobject $ADD_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -143,7 +145,7 @@ EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## UFW
 info "Setting up UFW..." 
-pacman -S --noconfirm ufw 
+pacman -S --noconfirm --needed ufw 
 ufw default deny incoming
 ufw allow out 443/tcp  # https
 ufw allow 22/tcp       # sftp/ssh
@@ -252,7 +254,7 @@ sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\
 ########################################## CREATE THE KONSOLE PROFILES
 info "Setting up Konsoles..." 
 # Install ZSH + plugins
-pacman -S --noconfirm zsh \
+pacman -S --noconfirm --needed zsh \
                       zsh-autosuggestions \
                       zsh-syntax-highlighting \
                       bash-completion
@@ -654,7 +656,7 @@ if [ -n "$REM_PKGS" ]; then
     pacman -R --noconfirm $REM_PKGS
 fi
 info "Setting up Flatpak..." 
-pacman -S --noconfirm flatpak
+pacman -S --noconfirm --needed flatpak
 ########################################## Exit reboot
 cat cli_art
 info "ALL DONE! Welcome."
