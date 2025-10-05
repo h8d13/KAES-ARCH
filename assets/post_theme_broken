@@ -32,5 +32,4 @@ kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 --group "3" --group "Configuration" --group "General" \
 --key "icon" "/usr/share/pixmaps/kaes-logo.png"
 
-kquitapp6 plasmashell && kstart plasmashell
 EOF

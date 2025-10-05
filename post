@@ -480,20 +480,6 @@ fi
 kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
 --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" \
 --key "Image" "\$WALLPAPER"
-
-kwriteconfig6 --file plasmashellrc --group "PlasmaViews" --group "Panel 2" --group "Defaults" --key "thickness" 40
-
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
---group "Containments" --group "2" --group "Applets" --group "5" \
---group "Configuration" --group "General" \
---key "launchers" "applications:org.kde.konsole.desktop"
-
-kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
---group "Containments" --group "2" --group "Applets" \
---group "3" --group "Configuration" --group "General" \
---key "icon" "/usr/share/pixmaps/kaes-logo.png"
-
-kquitapp6 plasmashell && kstart plasmashell
 EOF
 ########################################## Guest
 if [ "$CREATE_GUEST" = "true" ]; then
