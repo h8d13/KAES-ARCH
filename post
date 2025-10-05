@@ -98,8 +98,10 @@ if [ "$EUID" -ne 0 ]; then
 fi
 info "Checking pacman access..." 
 if ! pacman -Sy; then
-    die "Failed to sync package databases"
+    die "Failed to sync package databases are you connected to internet?"
     exit 1
+else
+    pacman -Syu --noconfirm ## Make sure we updated any packages that were out of sync
 fi
 ########################################## Essentials + specified
 info "Setting up Base..." 
