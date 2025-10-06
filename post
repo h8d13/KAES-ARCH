@@ -14,6 +14,9 @@ REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps
 # Examples you can remove too: 'nano, vim, htop, git'
 
+# Can visit flathub to check names
+ADD_FP="" # ex : com.spotify.Client io.missioncenter.MissionCenter app.zen_browser.zen
+
 # Don't want to have to change 3x for a simple image (lockscreen, login screen and wpp)
 D_WPP="Mountain/"
 # Dark/Light compatible images view them in /usr/share/wallpapers/ if needed
@@ -647,8 +650,15 @@ if [ -n "$REM_PKGS" ]; then
     info "Removing Optionals..." 
     pacman -R --noconfirm $REM_PKGS
 fi
-info "Setting up Flatpak..." 
+info "Setting up Flatpak..."
 pacman -S --noconfirm --needed flatpak
+
+if [ -n "$ADD_FP" ]; then
+    info "Installing desired Flatpaks..."
+    for pkg in $ADD_FP; do
+        sudo -u $TARGET_USER flatpak install -y flathub "$pkg" || info "Failed to install $pkg"
+    done
+fi
 ########################################## Exit reboot
 echo ""
 cat cli_art
