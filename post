@@ -43,8 +43,6 @@ SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
 die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
-exec > >(tee -a "$LOG_FILE")
-exec 2>&1
 
 info "KAES-ARCH: V: 0.1.31"
 echo ""
@@ -105,6 +103,9 @@ if ! pacman -Sy; then
 else
     pacman -Syu --noconfirm ## Make sure we updated any packages that were out of sync
 fi
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
+# Start logging later (after pre-checks)
 ########################################## Essentials + specified
 info "Setting up Base..." 
 pacman -S --noconfirm --needed tree less alsa-utils python-gobject $ADD_PKGS
