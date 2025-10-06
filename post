@@ -13,9 +13,8 @@ ADD_PKGS="micro firefox" ##kdeconnect xclip gnome-disk-utility gnome-2048
 REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps
 # Examples you can remove too: 'nano, vim, htop, git'
-
+ADD_FP="" # io.missioncenter.MissionCenter app.zen_browser.zen com.spotify.Client
 # Can visit flathub to check names
-ADD_FP="" # ex : com.spotify.Client io.missioncenter.MissionCenter app.zen_browser.zen
 
 # Don't want to have to change 3x for a simple image (lockscreen, login screen and wpp)
 D_WPP="Mountain/"
@@ -652,7 +651,6 @@ if [ -n "$REM_PKGS" ]; then
 fi
 info "Setting up Flatpak..."
 pacman -S --noconfirm --needed flatpak
-
 if [ -n "$ADD_FP" ]; then
     info "Installing desired Flatpaks..."
     for pkg in $ADD_FP; do
