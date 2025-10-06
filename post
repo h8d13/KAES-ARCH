@@ -336,6 +336,7 @@ alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
 # Practical alias
+alias sudoops='sudo -- !!'
 alias sudo='sudo '
 alias clr="clear"
 alias cls="clr"
