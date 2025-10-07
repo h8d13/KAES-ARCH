@@ -395,6 +395,9 @@ if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 else
     echo "Warning: zsh-syntax-highlighting plugin not found"
 fi
+# === Correction ===
+setopt CORRECT CORRECT_ALL
+# Can be set to just correct if don't want arg correction
 
 # === VCS Info Configuration ===
 autoload -Uz vcs_info
