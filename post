@@ -44,7 +44,93 @@ LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
 die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
 
+### Detect distro and init system
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        echo "$ID"
+    else
+        echo "unknown"
+    fi
+}
+
+detect_init() {
+    if [ -d /run/systemd/system ]; then
+        echo "systemd"
+    elif [ -f /sbin/openrc ] || [ -f /usr/bin/openrc ]; then
+        echo "openrc"
+    elif [ -f /sbin/runit-init ] || [ -d /run/runit ]; then
+        echo "runit"
+    elif [ -f /sbin/dinit ] || [ -f /usr/bin/dinitctl ]; then
+        echo "dinit"
+    elif [ -f /sbin/s6-svscan ] || [ -d /run/s6 ]; then
+        echo "s6"
+    elif readlink /proc/1/exe 2>/dev/null | grep -q systemd; then
+        echo "systemd"
+    elif readlink /proc/1/exe 2>/dev/null | grep -q openrc; then
+        echo "openrc"
+    else
+        echo "unknown"
+    fi
+}
+
+# Service management wrapper
+enable_service() {
+    local service=$1
+    case "$INIT_SYSTEM" in
+        systemd)
+            systemctl enable "$service"
+            ;;
+        openrc)
+            rc-update add "$service" default
+            ;;
+        runit)
+            ln -s "/etc/runit/sv/$service" /run/runit/service/
+            ;;
+        s6)
+            s6-rc-bundle-update add default "$service"
+            ;;
+        dinit)
+            dinitctl enable "$service"
+            ;;
+        *)
+            info "Unknown init system, skipping enable for $service"
+            ;;
+    esac
+}
+
+restart_service() {
+    local service=$1
+    case "$INIT_SYSTEM" in
+        systemd)
+            systemctl restart "$service"
+            ;;
+        openrc)
+            rc-service "$service" restart
+            ;;
+        runit)
+            sv restart "$service"
+            ;;
+        s6)
+            s6-rc -d change "$service" && s6-rc -u change "$service"
+            ;;
+        dinit)
+            dinitctl restart "$service"
+            ;;
+        *)
+            info "Unknown init system, skipping restart for $service"
+            ;;
+    esac
+}
+
+DISTRO=$(detect_distro)
+INIT_SYSTEM=$(detect_init)
+
 info "KAES-ARCH: V: 0.1.31"
+echo ""
+echo "System Information:"
+info "DISTRO=$DISTRO"
+info "INIT_SYSTEM=$INIT_SYSTEM"
 echo ""
 echo "General Configuration:"
 info "SCRIPT_DIR=$SCRIPT_DIR"
@@ -149,20 +235,24 @@ setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## UFW
-info "Setting up UFW..." 
-pacman -S --noconfirm --needed ufw 
+info "Setting up UFW..."
+pacman -S --noconfirm --needed ufw
 ufw default deny incoming
 ufw allow out 443/tcp  # https
 ufw allow 22/tcp       # sftp/ssh
 ufw enable
+enable_service ufw
 ########################################## Power profiles
-info "Setting up Power..." 
+info "Setting up Power..."
 if cat /sys/class/power_supply/BAT*/present 2>/dev/null | grep -q 1; then
     info "Detected laptop - configuring power management..."
-    pacman -S --noconfirm power-profiles-daemon 
-    systemctl enable power-profiles-daemon.service
-    CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
-    cat <<EOF > $CONFIG_FILE
+
+    # power-profiles-daemon is systemd-only
+    if [ "$INIT_SYSTEM" = "systemd" ]; then
+        pacman -S --noconfirm power-profiles-daemon
+        enable_service power-profiles-daemon.service
+        CONFIG_FILE="/home/$TARGET_USER/.config/powerdevilrc"
+        cat <<EOF > $CONFIG_FILE
 [AC][Performance]
 PowerProfile=performance
 
@@ -175,10 +265,16 @@ PowerProfile=power-saver
 [Battery][BatteryNormal]
 PowerProfile=balanced
 EOF
-else 
+    else
+        # For non-systemd, use cpupower with laptop-mode-tools
+        pacman -S --noconfirm cpupower laptop-mode-tools
+        enable_service cpupower
+        enable_service laptop-mode
+    fi
+else
     info "Detected desktop/server."
     pacman -S --noconfirm cpupower
-    systemctl enable cpupower.service
+    enable_service cpupower
     # Set performance governor if available
     cpupower frequency-set -g performance || info "Could not set performance governor (may not be supported)"
 fi
@@ -560,8 +656,37 @@ if [ "$CREATE_GUEST" = "true" ]; then
     fi
 fi
 ########################################## User SDDM visual settings
-info "Setting up login SDDM..."
-# Create the default sddm conf 
+info "Setting up display manager..."
+
+# Determine power/reboot commands based on init system
+case "$INIT_SYSTEM" in
+    systemd)
+        HALT_CMD="/usr/bin/systemctl poweroff"
+        REBOOT_CMD="/usr/bin/systemctl reboot"
+        ;;
+    openrc)
+        HALT_CMD="/sbin/poweroff"
+        REBOOT_CMD="/sbin/reboot"
+        ;;
+    runit)
+        HALT_CMD="/usr/bin/loginctl poweroff"
+        REBOOT_CMD="/usr/bin/loginctl reboot"
+        ;;
+    s6)
+        HALT_CMD="/usr/bin/s6-halt"
+        REBOOT_CMD="/usr/bin/s6-reboot"
+        ;;
+    dinit)
+        HALT_CMD="/usr/bin/dinitctl poweroff"
+        REBOOT_CMD="/usr/bin/dinitctl reboot"
+        ;;
+    *)
+        HALT_CMD="/sbin/poweroff"
+        REBOOT_CMD="/sbin/reboot"
+        ;;
+esac
+
+# Create the default sddm conf
 mkdir -p /etc/sddm.conf.d
 cat > /etc/sddm.conf.d/kde_settings.conf << EOF
 [Autologin]
@@ -570,8 +695,8 @@ Session=
 User=
 
 [General]
-HaltCommand=/usr/bin/systemctl poweroff
-RebootCommand=/usr/bin/systemctl reboot
+HaltCommand=$HALT_CMD
+RebootCommand=$REBOOT_CMD
 
 [Theme]
 Current=breeze
@@ -673,6 +798,6 @@ info "Install completed successfully at $(date)" >> "$LOG_FILE"
 info "Log saved to: $LOG_FILE"
 echo ""
 echo "Installation complete! Please REBOOT when ready for all changes to take effect."
-echo "Restarting SDDM in 5 seconds..."
+echo "Restarting display manager in 5 seconds..."
 sleep 5
-systemctl restart sddm
+restart_service sddm
