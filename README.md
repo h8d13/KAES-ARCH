@@ -23,7 +23,7 @@ Run `pacman-key --init && pacman -Sy archinstall` then `y`.
 
 Then `archinstall` (for noobs, btw) make sure to go through all the steps:
 
-> Forked our own simplified installer here which you can do to skip most of the steps bellow. [KADEBOOT](https://github.com/h8d13/KADEBOOT) 
+> Forked our own simplified installer here which you can do to skip most of the steps bellow. [Vase](https://github.com/h8d13/Vase) 
 
 <img width="669" height="682" alt="Screenshot_20250909_135016" src="https://github.com/user-attachments/assets/807f9d22-1490-40d3-a366-f69bda5d7081" />
 
