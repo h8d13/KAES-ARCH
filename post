@@ -6,15 +6,13 @@ DTHEME=dark
 ## dark/light
 KB_LAYOUT=us
 VARIANT=""
+# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 LG_PACKS=""
-# Uncomment language packs as needed (adds to installation):
-
+# Uncomment language packs as needed (adds to installation about):
 #LG_PACKS+=" noto-fonts-cjk"         # Chinese, Japanese, Korean
 #LG_PACKS+=" noto-fonts-extra"       # Arabic, Cyrillic, extended symbols  
 #LG_PACKS+=" noto-fonts-devanagari"  # Hindi/Devanagari
 
-# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
-TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
 ADD_PKGS="micro firefox" ## kdeconnect xclip gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
@@ -45,7 +43,8 @@ GUEST_SHELL="/bin/bash"
 # Guest shell: "/bin/bash", "/bin/rbash", "/bin/zsh", etc. rbash is heavily restricted
 USERNAME="guest"
 
-### Auto-generated + Colored output + Log + Info prints
+### Auto-generated + Colored output + Log + Info prints DONT EDIT HERE UNLESS YOU KNOW WHAT DOINK
+TARGET_USER="$SUDO_USER"
 SCRIPT_DIR="$(pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
