@@ -6,10 +6,17 @@ DTHEME=dark
 ## dark/light
 KB_LAYOUT=us
 VARIANT=""
+LG_PACKS=""
+# Uncomment language packs as needed (adds to installation):
+
+#LG_PACKS+=" noto-fonts-cjk"         # Chinese, Japanese, Korean
+#LG_PACKS+=" noto-fonts-extra"       # Arabic, Cyrillic, extended symbols  
+#LG_PACKS+=" noto-fonts-devanagari"  # Hindi/Devanagari
+
 # Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 TARGET_USER="$SUDO_USER"
 # For you to add/rem stuff
-ADD_PKGS="micro firefox" ## noto-fonts-cjk kdeconnect xclip gnome-disk-utility gnome-2048 
+ADD_PKGS="micro firefox" ## kdeconnect xclip gnome-disk-utility gnome-2048 
 REM_PKGS="kate"
 # Can be empty if you like kate editor, also cannot break plasma-meta deps
 # Examples you can remove too: 'nano, vim, htop, git'
@@ -194,7 +201,7 @@ exec 2>&1
 # Start logging later (after pre-checks)
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib $ADD_PKGS
+pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib $ADD_PKGS $LG_PACKS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
