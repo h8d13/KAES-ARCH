@@ -194,7 +194,7 @@ exec 2>&1
 # Start logging later (after pre-checks)
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject $ADD_PKGS
+pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib $ADD_PKGS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -409,9 +409,6 @@ chmod +x "$HOME/.local/bin/iapps"
 ########################################## SHARED (BASH & ZSH) ALIASES
 info "Setting up Aliases..." 
 cat > "$HOME/.config/aliases" << EOF
-
-poops() { sudo $(fc -ln -1); }
-
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
 alias srcall=". ~/.config/aliases"
@@ -428,10 +425,8 @@ alias logds="dmesg -r"
 alias birth="stat /"
 # Pac alias
 alias updapc="pacman -Syu"
-alias apklean="pacman -Sc"
 alias apkorph="pacman -Rns $(pacman -Qdtq)"
 alias manypk="pacman -Q | wc -l"
-alias apklast="ls -lt --time=mtime /var/lib/pacman/local/ | grep '^d' | awk '{for (i=6; i<=NF; i++) printf \$i\" \"; print \"\"}' | sed 's/ \$//' | head -n 10"
 alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
