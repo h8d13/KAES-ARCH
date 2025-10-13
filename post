@@ -272,10 +272,11 @@ PowerProfile=power-saver
 PowerProfile=balanced
 EOF
     else
-        # For non-systemd, use cpupower with laptop-mode-tools
-        pacman -S --noconfirm cpupower laptop-mode-tools
-        enable_service cpupower
-        enable_service laptop-mode
+        # For non-systemd, install tools but user must configure manually
+        # power-profiles-daemon requires some setyp
+        pacman -S --noconfirm power-profiles-daemon
+        info "Note: power-profiles-daemon requires manual service setup for $INIT_SYSTEM"
+        info "See: https://wiki.archlinux.org/title/Power_management for init-specific configuration"
     fi
 else
     info "Detected desktop/server."
