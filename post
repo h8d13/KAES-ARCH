@@ -10,7 +10,7 @@ VARIANT=""
 LG_PACKS=""
 # Uncomment language packs as needed (adds to installation about):
 #LG_PACKS+=" noto-fonts-cjk"         # Chinese, Japanese, Korean
-#LG_PACKS+=" noto-fonts-extra"       # Arabic, Cyrillic, extended symbols  
+#LG_PACKS+=" noto-fonts-extra"       # Arabic, Hebrew, Greek, Cyrillic, Thai extended symbols
 #LG_PACKS+=" noto-fonts-devanagari"  # Hindi/Devanagari
 
 # For you to add/rem stuff
