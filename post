@@ -244,8 +244,8 @@ chmod +x /usr/share/sddm/scripts/Xsetup
 info "Setting up UFW..."
 pacman -S --noconfirm --needed ufw
 ufw default deny incoming
-ufw allow out 443/tcp  # https
-ufw allow 22/tcp       # sftp/ssh
+ufw allow out 443            # https
+ufw allow 22                 # sftp/ssh
 ufw enable
 enable_service ufw
 ########################################## Power profiles
