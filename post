@@ -200,7 +200,7 @@ exec 2>&1
 # Start logging later (after pre-checks)
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib $ADD_PKGS $LG_PACKS
+pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib vte4 $ADD_PKGS $LG_PACKS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
