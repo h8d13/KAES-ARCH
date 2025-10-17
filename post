@@ -10,8 +10,9 @@ VARIANT=""
 LG_PACKS=""
 # Uncomment language packs as needed (adds to installation about):
 #LG_PACKS+=" noto-fonts-cjk"         # Chinese, Japanese, Korean
-#LG_PACKS+=" noto-fonts-extra"       # Arabic, Hebrew, Greek, Cyrillic, Thai extended symbols
-#LG_PACKS+=" noto-fonts-devanagari"  # Hindi/Devanagari
+#LG_PACKS+=" noto-fonts-extra"       # Arabic, Hebrew, Greek, Cyrillic, Thai, certain LaTex/Music + bold, light, etc... extended symbols
+
+# -emoji and noto-fonts standard already included in plasma
 
 # For you to add/rem stuff
 ADD_PKGS="micro firefox" ## kdeconnect xclip gnome-disk-utility gnome-2048 
