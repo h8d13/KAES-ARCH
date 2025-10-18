@@ -133,7 +133,7 @@ restart_service() {
 DISTRO=$(detect_distro)
 INIT_SYSTEM=$(detect_init)
 
-info "KAES-ARCH: V: 0.1.31"
+info "Vase Post-Install: V: 0.1.32"
 echo ""
 echo "System Information:"
 info "DISTRO=$DISTRO"
@@ -165,7 +165,7 @@ else
     info "No guest user will be created"
 fi
 if ls "$SCRIPT_DIR"/install-*.log 1> /dev/null 2>&1; then
-    info "KAES-ARCH appears to be already installed (found existing install log)"
+    info "Vase post-install appears to be already run (found existing install log)"
     die "Aborted. Remove install logs to force reinstall."
 fi
 ### Confirmation prompt
@@ -201,7 +201,7 @@ exec 2>&1
 # Start logging later (after pre-checks)
 ########################################## Essentials + specified
 info "Setting up Base..." 
-pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib vte4 $ADD_PKGS $LG_PACKS
+pacman -S --noconfirm --needed tree jq less alsa-utils python-gobject pacman-contrib vte4 gtk4 libadwaita $ADD_PKGS $LG_PACKS
 ########################################## DIRS
 info "Setting up Dirs..." 
 ## Admin/User
@@ -550,15 +550,20 @@ cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 # Copy local bin for usr
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 ########################################## PacToPac
-info "Setting up Github/K2..." 
-pacman -S --noconfirm gtk4 libadwaita
-git clone https://github.com/h8d13/PACTOPAC $SCRIPT_DIR/PACTOPAC/
+info "Setting up PACTOPAC from Vase..."
+VASE_DIR="/home/$TARGET_USER/Vase"
+PACTOPAC_PATH="$VASE_DIR/vase_os/pacto_pac"
+
+if [ ! -d "$PACTOPAC_PATH" ]; then
+    info "PACTOPAC not found in Vase, initializing submodules..."
+    cd "$VASE_DIR" && git submodule update --init --recursive
+fi
 
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
 Comment=Suckless Arch Linux package manager
-Exec=sudo -b python3 $SCRIPT_DIR/PACTOPAC/main.py; exit
+Exec=sudo -b python3 $PACTOPAC_PATH/main.py; exit
 Icon=package-x-generic
 Name[en_US]=PAC2PAC
 Name=PAC2PAC
@@ -646,10 +651,10 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "Cloning $TARGET_USER home directory to guest..."
         cp -r "/home/$TARGET_USER" "/home/$USERNAME"
 
-        # Remove desktop shortcu/System files if user is not sudo
+        # Remove desktop shortcut/System files if user is not sudo
         if [ "$GUEST_SUDO" = "false" ]; then
             rm -f /home/$USERNAME/Desktop/PACTOPAC.desktop
-            rm -rf /home/$USERNAME/KAES-ARCH/
+            rm -rf /home/$USERNAME/Vase/
         fi
         # Fix ownership
         chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
