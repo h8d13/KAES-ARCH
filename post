@@ -46,7 +46,7 @@ USERNAME="guest"
 
 ### Auto-generated + Colored output + Log + Info prints DONT EDIT HERE UNLESS YOU KNOW WHAT DOINK
 TARGET_USER="$SUDO_USER"
-SCRIPT_DIR="$(pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_FILE="$SCRIPT_DIR/install-$(date +%Y%m%d).log"
 info() { printf "\033[32m[INFO]\033[0m %s\n" "$*"; }
 die() { printf "\033[31m[ERROR]\033[0m %s\n" "$*"; exit 1; }
@@ -572,8 +572,6 @@ info "Changing ownerships..."
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## User visual settings
 info "Setting up KDE theme..."
-# Copy KAES logo to system directory for shared access
-cp "$SCRIPT_DIR/assets/kaes-logo.png" /usr/share/pixmaps/
 
 sudo -u $TARGET_USER bash << EOF
 if [ "$DTHEME" = "light" ]; then
