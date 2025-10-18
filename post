@@ -554,11 +554,6 @@ info "Setting up PACTOPAC from Vase..."
 VASE_DIR="/home/$TARGET_USER/Vase"
 PACTOPAC_PATH="$VASE_DIR/vase_os/pacto_pac"
 
-if [ ! -d "$PACTOPAC_PATH" ]; then
-    info "PACTOPAC not found in Vase, initializing submodules..."
-    cd "$VASE_DIR" && git submodule update --init --recursive
-fi
-
 cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
 [Desktop Entry]
 Categories=System;PackageManager;
@@ -799,7 +794,9 @@ if [ -n "$ADD_FP" ]; then
 fi
 ########################################## Exit reboot
 echo ""
-cat cli_art
+
+cat ./cli_art
+
 echo ""
 info "ALL DONE! Welcome."
 info "Install completed successfully at $(date)" >> "$LOG_FILE"
