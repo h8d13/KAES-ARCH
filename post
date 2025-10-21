@@ -446,6 +446,7 @@ alias ls='ls --color=auto'
 alias ll='ls --color=auto -la'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
+alias grep='grep --color=auto'
 EOF
 ########################################## BASH CONFIGURATION
 info "Setting up Bash..." 
