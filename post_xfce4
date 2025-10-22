@@ -229,10 +229,6 @@ else
     # Set performance governor if available
     cpupower frequency-set -g performance || info "Could not set performance governor (may not be supported)"
 fi
-########################################## KDE Config files
-
-## Modify the existing "Run in Konsole" to a better command:
-sed -i 's|^Exec=konsole.*|Exec=konsole --hold -e bash -c '\''"%f"; exec $SHELL'\''|' /usr/share/kio/servicemenus/konsolerun.desktop
 ########################################## CREATE THE KONSOLE PROFILES
 info "Setting up Konsoles..." 
 # Install ZSH + plugins
