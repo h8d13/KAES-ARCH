@@ -12,8 +12,8 @@ LG_PACKS=""
 
 # For you to add/rem stuff
 ADD_PKGS="micro firefox" ## kdeconnect xclip gnome-disk-utility gnome-2048 
-REM_PKGS="kate"
-# Can be empty if you like kate editor, also cannot break gnome deps
+REM_PKGS=""
+# Can be empty, also cannot break gnome deps
 # Examples you can remove too: 'nano, vim, htop, git'
 ADD_FP="" # io.missioncenter.MissionCenter app.zen_browser.zen com.spotify.Client
 # Can visit flathub to check names
