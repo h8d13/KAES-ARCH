@@ -293,7 +293,7 @@ cat > "/home/$TARGET_USER/.config/ksmserverrc" << 'EOF'
 [General]
 loginMode=emptySession
 EOF
-
+# lockout grace + lockout wpp
 cat > "/home/$TARGET_USER/.config/kscreenlockerrc" << EOF
 [Daemon]
 LockGrace=300
@@ -367,7 +367,6 @@ pacman -S --noconfirm --needed zsh \
                       zsh-autosuggestions \
                       zsh-syntax-highlighting \
                       bash-completion
-
 
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
