@@ -403,6 +403,7 @@ cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 # Copy local bin for usr
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 ########################################## PacToPac
+
 info "Changing ownerships..." 
 # Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
@@ -591,4 +592,4 @@ echo ""
 echo "Installation complete! Please REBOOT when ready for all changes to take effect."
 echo "Restarting display manager in 5 seconds..."
 sleep 5
-restart_service gdm
+restart_service lightdm
