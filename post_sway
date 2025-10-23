@@ -199,9 +199,9 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 #mkdir -p "/home/$TARGET_USER/Work" && echo -e "[Desktop Entry]\nIcon=folder-script" > "/home/$TARGET_USER/Work"
 ##Optional home folders with icons
 
-mkdir -p "/home/$TARGET_USER/sway/config"
+mkdir -p "/home/$TARGET_USER/.config/sway/config"
 
-cp /etc/sway/* "/home/$TARGET_USER/sway/config"
+cp -r /etc/sway/* "/home/$TARGET_USER/.config/sway/config"
 
 ########################################## UFW
 info "Setting up UFW..."
