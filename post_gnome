@@ -398,7 +398,15 @@ cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 
 # Copy local bin for usr
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
-########################################## PacToPac
+########################################## Fp
+info "Setting up Flatpak..."
+pacman -S --noconfirm --needed flatpak
+if [ -n "$ADD_FP" ]; then
+    info "Installing desired Flatpaks..."
+    for pkg in $ADD_FP; do
+        sudo -u $TARGET_USER flatpak install -y flathub "$pkg" || info "Failed to install $pkg"
+    done
+fi
 info "Changing ownerships..." 
 # Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
@@ -523,18 +531,9 @@ EOF
 ## Apply settings
 sysctl --system >/dev/null 2>&1
 ########################################## Rem
-## For you to rem stuff if needed
 if [ -n "$REM_PKGS" ]; then
     info "Removing Optionals..." 
     pacman -R --noconfirm $REM_PKGS
-fi
-info "Setting up Flatpak..."
-pacman -S --noconfirm --needed flatpak
-if [ -n "$ADD_FP" ]; then
-    info "Installing desired Flatpaks..."
-    for pkg in $ADD_FP; do
-        sudo -u $TARGET_USER flatpak install -y flathub "$pkg" || info "Failed to install $pkg"
-    done
 fi
 ########################################## Exit reboot
 echo ""

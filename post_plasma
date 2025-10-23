@@ -567,6 +567,14 @@ Terminal=true
 Type=Application
 EOF
 
+info "Setting up Flatpak..."
+pacman -S --noconfirm --needed flatpak
+if [ -n "$ADD_FP" ]; then
+    info "Installing desired Flatpaks..."
+    for pkg in $ADD_FP; do
+        sudo -u $TARGET_USER flatpak install -y flathub "$pkg" || info "Failed to install $pkg"
+    done
+fi
 info "Changing ownerships..." 
 # Fix ownership all files recursively
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
@@ -781,14 +789,6 @@ sysctl --system >/dev/null 2>&1
 if [ -n "$REM_PKGS" ]; then
     info "Removing Optionals..." 
     pacman -R --noconfirm $REM_PKGS
-fi
-info "Setting up Flatpak..."
-pacman -S --noconfirm --needed flatpak
-if [ -n "$ADD_FP" ]; then
-    info "Installing desired Flatpaks..."
-    for pkg in $ADD_FP; do
-        sudo -u $TARGET_USER flatpak install -y flathub "$pkg" || info "Failed to install $pkg"
-    done
 fi
 ########################################## Exit reboot
 echo ""
