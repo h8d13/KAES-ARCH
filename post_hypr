@@ -202,6 +202,8 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 mkdir -p "/home/$TARGET_USER/.config/sway/"
 
 cp /etc/sway/config "/home/$TARGET_USER/.config/sway/config"
+
+mkdir -p ~/.config/hypr; cp /usr/share/hypr/hyprland.conf /home/$TARGET_USER/.config/hypr/
 cp -R /etc/xdg/waybar /home/$TARGET_USER/waybar/
 
 ########################################## UFW
