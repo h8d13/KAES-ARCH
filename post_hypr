@@ -199,12 +199,18 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 #mkdir -p "/home/$TARGET_USER/Work" && echo -e "[Desktop Entry]\nIcon=folder-script" > "/home/$TARGET_USER/Work"
 ##Optional home folders with icons
 
-mkdir -p "/home/$TARGET_USER/.config/sway/"
+mkdir -p "/home/$TARGET_USER/.config/hypr"
+mkdir -p "/home/$TARGET_USER/.config/waybar"
 
-cp /etc/sway/config "/home/$TARGET_USER/.config/sway/config"
+# Copy default Hyprland configuration
+if [ -f /usr/share/hypr/hyprland.conf ]; then
+    cp /usr/share/hypr/hyprland.conf "/home/$TARGET_USER/.config/hypr/hyprland.conf"
+fi
 
-mkdir -p ~/.config/hypr; cp /usr/share/hypr/hyprland.conf /home/$TARGET_USER/.config/hypr/
-cp -R /etc/xdg/waybar /home/$TARGET_USER/waybar/
+# Copy default Waybar configuration
+if [ -d /etc/xdg/waybar ]; then
+    cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
+fi
 
 ########################################## UFW
 info "Setting up UFW..."
