@@ -202,7 +202,6 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 mkdir -p "/home/$TARGET_USER/.config/hypr"
 mkdir -p "/home/$TARGET_USER/.config/waybar"
 
-
 cp /usr/share/hypr/hyprland.conf "/home/$TARGET_USER/.config/hypr/hyprland.conf"
 cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
 
