@@ -202,15 +202,9 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 mkdir -p "/home/$TARGET_USER/.config/hypr"
 mkdir -p "/home/$TARGET_USER/.config/waybar"
 
-# Copy default Hyprland configuration
-if [ -f /usr/share/hypr/hyprland.conf ]; then
-    cp /usr/share/hypr/hyprland.conf "/home/$TARGET_USER/.config/hypr/hyprland.conf"
-fi
 
-# Copy default Waybar configuration
-if [ -d /etc/xdg/waybar ]; then
-    cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
-fi
+cp /usr/share/hypr/hyprland.conf "/home/$TARGET_USER/.config/hypr/hyprland.conf"
+cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
 
 ########################################## UFW
 info "Setting up UFW..."
