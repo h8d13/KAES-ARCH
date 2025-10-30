@@ -86,6 +86,8 @@ This is where the post-install script lives and more assets.
 
 Edit to desired values using:
 
+DE Choices: `plasma | gnome | xfce4 | sway | hypr`
+
 ```
 sudo ./main -pe <DE>
 ```
