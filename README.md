@@ -84,10 +84,10 @@ This is where the post-install script lives and more assets.
 
 #### Edit the script
 
-Edit to desired values using `./main -pe`:
+Edit to desired values using:
 
 ```
-./main -pe
+sudo ./main -pe <DE>
 ```
 
 This will open the post script in your configured editor (vim by default, configurable in `...` file).
@@ -107,7 +107,7 @@ VARIANT=""
 
 #### Run the post-install
 
-When ready, run: `sudo ./main -p`
+When ready, run: `sudo ./main -p <DE>`
 
 You are done !
 
