@@ -240,6 +240,8 @@ info "Setting up Konsoles..."
 pacman -S --noconfirm --needed zsh \
                       zsh-autosuggestions \
                       zsh-syntax-highlighting \
+                      zsh-history-substring-search \
+                      zsh-completions \
                       bash-completion
 
 ## Add to shells
@@ -326,52 +328,63 @@ echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
 info "Setting up ZSH..." 
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
-# === Load Extra Completions ===
+autoload -Uz compinit && compinit
+# Extra completions
 if [ -d "/usr/share/zsh/site-functions" ]; then
     fpath+=("/usr/share/zsh/site-functions")
+elif [ -d "/usr/local/share/zsh/site-functions" ]; then
+    fpath+=("/usr/local/share/zsh/site-functions")
 fi
 
-# === History Configuration ===
+if [ -d "/usr/share/zsh-completions" ]; then
+    fpath+=("/usr/share/zsh-completions")
+fi
+
+#   History
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 
-# === Source Zsh Plugins (with error checking) ===
-# Load autosuggestions and history-substring-search first
-if [ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
-    . "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-else
-    echo "Warning: zsh-autosuggestions plugin not found"
-fi
+# Grayed out difference when is suggestion
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#777'
 
-# Load syntax-highlighting last as recommended
-if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-    . "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-else
-    echo "Warning: zsh-syntax-highlighting plugin not found"
-fi
-# === Correction ===
+for plugin in zsh-autosuggestions zsh-history-substring-search; do
+  for dir in /usr/share/zsh /usr/share/zsh/plugins /usr/share; do
+    f="$dir/$plugin/$plugin.zsh"
+    [ -f "$f" ] && source "$f" && break
+  done
+done
+
+# Ensure autosuggestions start
+(( $+functions[_zsh_autosuggest_start] )) && _zsh_autosuggest_start
+
+# Search key bindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+#   Correction
 setopt CORRECT CORRECT_ALL
-# Can be set to just correct if don't want arg correction
 
-# === VCS Info Configuration ===
+#   Git VCS info
 autoload -Uz vcs_info
 setopt prompt_subst
-
-# Configure vcs_info formats
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '%F{red}*%f'
 zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
 zstyle ':vcs_info:git:*' formats '%F{red}─[%F{yellow}git:%F{green}%b%c%u%F{red}]'
 zstyle ':vcs_info:git:*' actionformats '%F{red}─[%F{yellow}git:%F{green}%b%F{red}|%a%c%u%F{red}]'
-
-# Update vcs_info before each prompt
 precmd() { vcs_info }
 
-# === Custom Zsh Prompt Red with VCS Info ===
-export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]${vcs_info_msg_0_}
+#   Prompt
+PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]${vcs_info_msg_0_}
 %F{red}└──╼ %F{cyan}$ %f'
+
+#   Syntax highlighting (MUST be at the end)
+for dir in /usr/share/zsh /usr/share/zsh/plugins /usr/share; do
+  f="$dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  [ -f "$f" ] && source "$f" && break
+done
 
 # === Source common aliases ===
 if [ -f "$HOME/.config/aliases" ]; then
