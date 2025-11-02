@@ -24,11 +24,11 @@ ADD_FP="" # io.missioncenter.MissionCenter app.zen_browser.zen com.spotify.Clien
 
 # Don't want to have to change 3x for a simple image (lockscreen, login screen and wpp)
 D_WPP="Next/"
-# Dark/Light compatible images view them in /usr/share/wallpapers/ if needed
-#Mountain/
+# Dark/Light compatible images view them in /usr/share/wallpapers/ if needed provided they are not in minimal plasma-env
 #Flow/
 #Kay/
 #Coast/
+#Moutain/
 #Nexus/
 #Nuvole/
 #Patak/
@@ -678,7 +678,78 @@ if [ "$CREATE_GUEST" = "true" ]; then
         info "Guest user setup complete with cloned home directory"
     fi
 fi
+########################################## User SDDM visual settings
+info "Setting up display manager..."
 
+# Determine power/reboot commands based on init system
+case "$INIT_SYSTEM" in
+    systemd)
+        HALT_CMD="/usr/bin/systemctl poweroff"
+        REBOOT_CMD="/usr/bin/systemctl reboot"
+        ;;
+    openrc)
+        HALT_CMD="/sbin/poweroff"
+        REBOOT_CMD="/sbin/reboot"
+        ;;
+    runit)
+        HALT_CMD="/usr/bin/loginctl poweroff"
+        REBOOT_CMD="/usr/bin/loginctl reboot"
+        ;;
+    s6)
+        HALT_CMD="/usr/bin/s6-halt"
+        REBOOT_CMD="/usr/bin/s6-reboot"
+        ;;
+    dinit)
+        HALT_CMD="/usr/bin/dinitctl poweroff"
+        REBOOT_CMD="/usr/bin/dinitctl reboot"
+        ;;
+    *)
+        HALT_CMD="/sbin/poweroff"
+        REBOOT_CMD="/sbin/reboot"
+        ;;
+esac
+
+# Create the default sddm conf
+mkdir -p /etc/sddm.conf.d
+cat > /etc/sddm.conf.d/kde_settings.conf << EOF
+[Autologin]
+Relogin=false
+Session=
+User=
+
+[General]
+HaltCommand=$HALT_CMD
+RebootCommand=$REBOOT_CMD
+
+[Theme]
+Current=breeze
+CursorTheme=breeze_cursors
+Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+
+[Users]
+MaximumUid=60513
+MinimumUid=1000
+EOF
+
+## Set wallpaper variable
+if [ "$DTHEME" = "light" ]; then
+    WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images/5120x2880.png"
+else
+    WALLPAPER="/usr/share/wallpapers/$D_WPP/contents/images_dark/5120x2880.png"
+fi
+## Set the user settings
+cat > /usr/share/sddm/themes/breeze/theme.conf.user << EOF
+[General]
+background=$WALLPAPER
+showClock=true
+type=image
+EOF
+
+mkdir -p /var/lib/sddm/.config
+# Copy globals to take effect to SDDM
+cp "/home/$TARGET_USER/.config/kdeglobals" /var/lib/sddm/.config/ 2>/dev/null || echo "kdeglobals not found, using defaults"
+# Fix ownership
+chown -R sddm:sddm /var/lib/sddm/.config 2>/dev/null || true
 ########################################## SYSTEM HARDENING
 info "Setting up Security..." 
 ## Not a router stuff / Others
