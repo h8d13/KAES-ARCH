@@ -202,7 +202,7 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 mkdir -p "/home/$TARGET_USER/.config/sway/"
 
 cp /etc/sway/config "/home/$TARGET_USER/.config/sway/config"
-cp -R /etc/xdg/waybar /home/$TARGET_USER/waybar/
+cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
 
 ########################################## UFW
 info "Setting up UFW..."

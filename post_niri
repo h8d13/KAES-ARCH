@@ -201,8 +201,7 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 
 mkdir -p "/home/$TARGET_USER/.config/niri/"
 
-cp /usr/share/doc/niri/default-config.kdl "/home/$TARGET_USER/.config/niri/config.kdl"
-cp -R /etc/xdg/waybar "/home/$TARGET_USER/.config/waybar"
+cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
 
 ########################################## UFW
 info "Setting up UFW..."
