@@ -19,8 +19,10 @@ curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest \
 
 # if added to local bin you can directly use: /vscodium/codium $PWD
 
-# sudo mkdir -p /opt/vscodium
-#sudo tar -xzf VSCodium-linux-x64-*.tar.gz -C /opt/vscodium/ --strip-components=1
+# or /opt more conventional way
+
+mkdir -p /opt/vscodium
+tar -xzf VSCodium-linux-x64-*.tar.gz -C /opt/vscodium/ --strip-components=1
 
 # if added to /opt/codium or somewhere you wanted it you can set an alias in /.config/aliases
 # ex: alias code='/opt/vscodium/codium $PWD'
