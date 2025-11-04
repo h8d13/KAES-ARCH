@@ -200,6 +200,7 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 ##Optional home folders with icons
 
 mkdir -p "/home/$TARGET_USER/.config/niri/"
+mkdir -p /home/$TARGET_USER/.config/waybar/
 
 cp -R /etc/xdg/waybar/* "/home/$TARGET_USER/.config/waybar/"
 
