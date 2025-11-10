@@ -425,9 +425,6 @@ alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
 alias srcall=". ~/.config/aliases"
 alias topac="vim /etc/pacman.conf"
-# Root alias
-alias cdu="cd /home/$TARGET_USER/"
-alias aus="su $TARGET_USER" 
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
