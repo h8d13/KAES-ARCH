@@ -369,7 +369,8 @@ pacman -S --noconfirm --needed zsh \
                       zsh-syntax-highlighting \
                       zsh-history-substring-search \
                       zsh-completions \
-                      bash-completion
+                      bash-completion \
+                      bash-preexec
 
 ## Add to shells
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
@@ -419,19 +420,17 @@ chmod +x "$HOME/.local/bin/iapps"
 ########################################## SHARED (BASH & ZSH) ALIASES
 info "Setting up Aliases..." 
 cat > "$HOME/.config/aliases" << EOF
+alias mkalias='f(){ [ -z "${*:2}" ] && echo "Usage: mkalias <name> <command>" && return 1; echo "alias $1='\''"${*:2}"'\''" >> ~/.config/aliases && alias $1="${*:2}"; }; f'
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias ecomms="vim ~/.config/aliases"
 alias srcall=". ~/.config/aliases"
 alias topac="vim /etc/pacman.conf"
-# Root alias
-alias cdu="cd /home/$TARGET_USER/"
-alias aus="su $TARGET_USER" 
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f" 
-alias logds="dmesg -r"
+alias logds='dmesg --color=auto'
 alias birth="stat /"
 # Pac alias
 alias updapc="pacman -Syu"
@@ -445,10 +444,11 @@ alias sudo='sudo '
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
-alias ll='ls --color=auto -la'
+alias ll='ls --color=auto -la -h'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 alias grep='grep --color=auto'
+alais diff='diff --color=auto'
 EOF
 ########################################## BASH CONFIGURATION
 info "Setting up Bash..." 
@@ -469,20 +469,48 @@ fi
 if [ -f /usr/share/bash-completion/bash_completion ]; then                    
     . /usr/share/bash-completion/bash_completion 
 fi
+[[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && . /usr/share/bash-preexec/bash-preexec.sh
+# Commands to skip timing
+__skip_cmds=(clear)
+
+preexec() {
+  for c in "${__skip_cmds[@]}"; do
+    [[ $1 == "$c"* ]] && { t0=""; return; }
+  done
+  t0=$(date +%s%3N)
+}
+
+precmd() {
+  [[ $t0 ]] || return
+  t1=$(date +%s%3N)
+  dt=$((t1 - t0))
+  if ((dt >= 1000)); then
+    printf '⏱ %.2fs\n' "$((dt / 1000)).$(( (dt % 1000) / 10 ))"
+  else
+    printf '⏱ %dms\n' "$dt"
+  fi
+  unset t0
+}
+__bp_install
 EOF
 touch "$HOME/.bashrc"
 echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
 ########################################## ZSH 
 info "Setting up ZSH..." 
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+venv_prompt() {
+  [[ -n "$VIRTUAL_ENV" ]] || return
+  local name=${VIRTUAL_ENV:t}       # basename
+  echo -n "-%F{red}[%F{green}$name%F{red}]%f"   # wrap color in %{ %}
+}
+
 autoload -Uz compinit && compinit
-# Extra completions
+# === Load Extra Completions ===
 if [ -d "/usr/share/zsh/site-functions" ]; then
     fpath+=("/usr/share/zsh/site-functions")
-elif [ -d "/usr/local/share/zsh/site-functions" ]; then
-    fpath+=("/usr/local/share/zsh/site-functions")
 fi
-
 if [ -d "/usr/share/zsh-completions" ]; then
     fpath+=("/usr/share/zsh-completions")
 fi
@@ -524,7 +552,7 @@ zstyle ':vcs_info:git:*' actionformats '%F{red}─[%F{yellow}git:%F{green}%b%F{r
 precmd() { vcs_info }
 
 #   Prompt
-PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]${vcs_info_msg_0_}
+export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]$(venv_prompt)${vcs_info_msg_0_}
 %F{red}└──╼ %F{cyan}$ %f'
 
 #   Syntax highlighting (MUST be at the end)
