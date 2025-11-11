@@ -142,8 +142,6 @@ info "SCRIPT_DIR=$SCRIPT_DIR"
 info "SUDO_USER=$TARGET_USER"
 info "DTHEME=$DTHEME"
 info "D_WPP=$D_WPP"
-info "KB_LAYOUT=$KB_LAYOUT"
-info "VARIANT=$VARIANT"
 echo ""
 echo "Guest User Configuration:"
 info "CREATE_GUEST=$CREATE_GUEST"
@@ -215,14 +213,6 @@ mkdir -p "/home/$TARGET_USER/.local/bin"
 
 #mkdir -p "/home/$TARGET_USER/Work" && echo -e "[Desktop Entry]\nIcon=folder-script" > "/home/$TARGET_USER/Work"
 ##Optional home folders with icons
-########################################## Check if we have a KB variant
-info "Setting up KBs..." 
-## Check if we need to include variant in the configuration
-if [ -n "$VARIANT" ]; then
-    VARIANT_CONFIG="VariantList=$VARIANT"
-else
-    VARIANT_CONFIG=""
-fi
 ########################################## UFW
 info "Setting up UFW..."
 pacman -S --noconfirm --needed ufw
