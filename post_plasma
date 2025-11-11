@@ -4,9 +4,6 @@
 ## Config
 DTHEME=dark
 ## dark/light
-KB_LAYOUT=us
-VARIANT=""
-# Variant can be left empty if using major keyboard v or for e.g nodeadkeys
 LG_PACKS=""
 # Uncomment language packs as needed (adds to installation about):
 #LG_PACKS+=" noto-fonts-cjk"         # Chinese, Japanese, Korean
@@ -226,22 +223,6 @@ if [ -n "$VARIANT" ]; then
 else
     VARIANT_CONFIG=""
 fi
-########################################## FIX GLOBAL KB
-cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-EOF
-## Only add VariantList if VARIANT is not empty
-if [ -n "$VARIANT" ]; then
-    echo "VariantList=$VARIANT" >> "/home/$TARGET_USER/.config/kxkbrc"
-fi
-########################################## FIX SDDM KB
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
-setxkbmap "$KB_LAYOUT"
-EOF
-chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## UFW
 info "Setting up UFW..."
 pacman -S --noconfirm --needed ufw
