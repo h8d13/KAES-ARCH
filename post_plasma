@@ -393,9 +393,8 @@ info "Setting up Aliases..."
 cat > "$HOME/.config/aliases" << EOF
 alias mkalias='f(){ [ -z "${*:2}" ] && echo "Usage: mkalias <name> <command>" && return 1; echo "alias $1='\''"${*:2}"'\''" >> ~/.config/aliases && alias $1="${*:2}"; }; f'
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-alias ecomms="vim ~/.config/aliases"
+alias ecomms="$EDITOR ~/.config/aliases"
 alias srcall=". ~/.config/aliases"
-alias topac="vim /etc/pacman.conf"
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
@@ -419,7 +418,7 @@ alias ll='ls --color=auto -la -h'
 alias la='ls --color=auto -a'
 alias l='ls --color=auto -CF'
 alias grep='grep --color=auto'
-alais diff='diff --color=auto'
+alias diff='diff --color=auto'
 EOF
 ########################################## BASH CONFIGURATION
 info "Setting up Bash..." 
