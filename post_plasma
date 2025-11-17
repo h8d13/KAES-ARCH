@@ -562,23 +562,6 @@ cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
 # Copy local bin for usr
 cp "$HOME/.local/bin/iapps" "/home/$TARGET_USER/.local/bin/iapps"
 ########################################## PacToPac
-info "Setting up PACTOPAC from Vase..."
-VASE_DIR="/home/$TARGET_USER/Vase"
-PACTOPAC_PATH="$VASE_DIR/vase_os/pacto_pac"
-
-cat > "/home/$TARGET_USER/Desktop/PACTOPAC.desktop" << EOF
-[Desktop Entry]
-Categories=System;PackageManager;
-Comment=Suckless Arch Linux package manager
-Exec=sudo -b python3 $PACTOPAC_PATH/main.py; exit
-Icon=package-x-generic
-Name[en_US]=PAC2PAC
-Name=PAC2PAC
-StartupNotify=true
-Terminal=true
-Type=Application
-EOF
-
 info "Setting up Flatpak..."
 pacman -S --noconfirm --needed flatpak
 if [ -n "$ADD_FP" ]; then
