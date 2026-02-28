@@ -74,23 +74,11 @@ ALSO IMPORTANT! Reboot **to hard disk.** (Make sure to switch boot orders in BIO
 
 #### Access the post-install script
 
-After login with your user, open `Konsole` and navigate to Vase:
-
-```
-cd Vase
-```
-
-This is where the post-install script lives and more assets.
+Clone the repo
 
 #### Edit the script
 
 Edit to desired values using:
-
-DE Choices: `plasma | gnome | xfce4 | sway | hypr`
-
-```
-sudo ./main -pe <DE>
-```
 
 This will open the post script in your configured editor (vim by default, configurable in `...` file).
 
@@ -109,7 +97,7 @@ VARIANT=""
 
 #### Run the post-install
 
-When ready, run: `sudo ./main -p <DE>`
+When ready, run: `sudo ./post_<DE>`
 
 You are done !
 
